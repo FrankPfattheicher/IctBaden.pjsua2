@@ -350,5 +350,10 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-IctBaden.pjsua2.net/pjsua2/
+pjproject/
 
+pjsua2.win/pjsua2_wrap.cpp
+
+pjsua2.win/pjsua2_wrap.h
+
+pjsua2.win/pjsua2.i

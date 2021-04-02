@@ -14,6 +14,24 @@ Write-Host "Build pjsua2.dll for Windows x64" -ForegroundColor Yellow
 
 $path = $PSScriptRoot
 Write-Host "Script path: $path"
+Write-Host ""
+
+
+######################################################################
+Write-Host "Detect SWIG installation" -ForegroundColor Yellow
+
+$swig = (Get-ChildItem -Path "$ENV:ProgramFiles" -Filter "swigwin*").FullName
+If($swig -eq $null) {
+    Write-Host "FAIL: Could not find SWIG installation" -fore magenta
+    Write-Host "      Should be placed in an folder under $ENV:ProgramFiles" -fore magenta
+    return
+}
+
+$swig = [System.IO.Path]::Combine($swig, "swig.exe")
+
+Write-Host "SWIG found in $swig"
+Write-Host ""
+
 
 ######################################################################
 Write-Host "Get Target Package Version" -ForegroundColor Yellow
@@ -38,7 +56,7 @@ Write-Host ""
 ######################################################################
 Write-Host "Cleanup existing PJSIP sources" -ForegroundColor Yellow
 
-$pjsipPath =  [System.IO.Path]::Combine($path, $pjproject)
+$pjsipPath = [System.IO.Path]::Combine($path, $pjproject)
 
 If(Test-Path -Path $pjsipPath) {
     Remove-Item $pjsipPath -Force -Recurse
@@ -80,10 +98,55 @@ $new2 = "<PlatformToolset>v142</PlatformToolset>"
 foreach($project in $projects) {
     (Get-Content $project).replace($old1, $new1).replace($old2, $new2) | Set-Content $project
 }
+Write-Host ""
+
 
 ######################################################################
-Write-Host "Build " -ForegroundColor Yellow
+Write-Host "Fix code issues" -ForegroundColor Yellow
 
-$solution = [System.IO.Path]::Combine($pjsipPath, "pjproject-vs14.sln")
+$source = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\pjsua\pjsua_app_cli.c")
+$old1 = "PJ_DEF(void) cli_get_info"
+$new1 = "void cli_get_info"
+(Get-Content $source).replace($old1, $new1) | Set-Content $source
+Write-Host ""
+
+
+######################################################################
+Write-Host "Use SWIG to generate a wrapper for the PJSUA2 library" -ForegroundColor Yellow
+
+$include1 = [System.IO.Path]::Combine($pjsipPath, "pjlib\include")
+$include2 = [System.IO.Path]::Combine($pjsipPath, "pjlib-util\include")
+$include3 = [System.IO.Path]::Combine($pjsipPath, "pjmedia\include")
+$include4 = [System.IO.Path]::Combine($pjsipPath, "pjsip\include")
+$include5 = [System.IO.Path]::Combine($pjsipPath, "pjnath\include")
+$swig_i = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2.i")
+
+$swig_results = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig")
+
+CD $swig_results
+. $swig -I"$include1" -I"$include2" -I"$include3" -I"$include4" -I"$include5" -w312 -c++ -csharp -o pjsua2_wrap.cpp $swig_i
+CD $path
+Write-Host ""
+
+
+######################################################################
+Write-Host "Copy generated c++ wrappers to pjsua2.win" -ForegroundColor Yellow
+
+$src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2_wrap.*")
+$dst = [System.IO.Path]::Combine($path, "pjsua2.win")
+Copy-Item $src $dst
+
+$src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2.i")
+Copy-Item $src $dst
+
+Write-Host ""
+
+
+######################################################################
+Write-Host "Build pjsua2.dll" -ForegroundColor Yellow
+
+$solution = [System.IO.Path]::Combine($path, "pjsua2.win\pjsua2.win.sln")
 
 #msbuild $solution /p:Configuration=Release /p:Platform="x64"
+Write-Host ""
+
