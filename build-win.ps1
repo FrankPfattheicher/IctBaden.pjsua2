@@ -8,6 +8,7 @@
 
 $pjproject = "pjproject"
 $pjsipRepo = "https://github.com/pjsip/pjproject.git"
+$toolset = "v140"
 
 ######################################################################
 Write-Host ""
@@ -95,9 +96,9 @@ Write-Host "Retarget Project Platform Toolset" -ForegroundColor Yellow
 $projects = (Get-ChildItem -Path $pjsipPath -Filter *.vcxproj -Recurse -ErrorAction SilentlyContinue -Force).FullName
 
 $old1 = "<PlatformToolset>v140</PlatformToolset>"
-$new1 = "<PlatformToolset>v142</PlatformToolset>"
+$new1 = "<PlatformToolset>$toolset</PlatformToolset>"
 $old2 = "<PlatformToolset>`$(BuildToolset)</PlatformToolset>"
-$new2 = "<PlatformToolset>v142</PlatformToolset>"
+$new2 = "<PlatformToolset>$toolset</PlatformToolset>"
 
 foreach($project in $projects) {
     (Get-Content $project).replace($old1, $new1).replace($old2, $new2) | Set-Content $project
@@ -151,6 +152,10 @@ Write-Host "Build pjsua2.dll" -ForegroundColor Yellow
 
 $solution = [System.IO.Path]::Combine($path, "pjsua2.win\pjsua2.win.sln")
 
-#msbuild $solution /p:Configuration=Release /p:Platform="x64"
+Write-Host "Using toolset $toolset"
+Write-Host ""
+
+#msbuild $solution /p:Configuration=Debug-Dynamic /p:Platform="x64"
+#msbuild $solution /p:Configuration=Release-Dynamic /p:Platform="x64"
 Write-Host ""
 
