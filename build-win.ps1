@@ -10,7 +10,11 @@ $pjproject = "pjproject"
 $pjsipRepo = "https://github.com/pjsip/pjproject.git"
 
 ######################################################################
-Write-Host "Build pjsua2.dll for Windows x64" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "**********************************" -ForegroundColor Yellow
+Write-Host " Build pjsua2.dll for Windows x64" -ForegroundColor Yellow
+Write-Host "**********************************" -ForegroundColor Yellow
+Write-Host ""
 
 $path = $PSScriptRoot
 Write-Host "Script path: $path"
