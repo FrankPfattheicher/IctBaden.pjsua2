@@ -26,8 +26,16 @@
     <ClInclude Include="pjsua2_wrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="pjsua2.i" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pjsua2.win.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

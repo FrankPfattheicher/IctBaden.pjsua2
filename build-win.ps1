@@ -8,7 +8,7 @@
 
 $pjproject = "pjproject"
 $pjsipRepo = "https://github.com/pjsip/pjproject.git"
-$toolset = "v140"
+$toolset = "v142"
 
 ######################################################################
 Write-Host ""
@@ -76,6 +76,29 @@ git clone $pjsipRepo $pjproject 2>$null
 Write-Host ""
 
 ######################################################################
+Write-Host "Get PJSIP Version" -ForegroundColor Yellow
+Write-Host ""
+$VersionMakeFileName = [System.IO.Path]::Combine($pjsipPath, "version.mak")
+
+$VersionMajor = "0"
+$VersionMinor = "0"
+$VersionRev   = ""
+$VersionSuffix = ""
+foreach($line in Get-Content $VersionMakeFileName) {
+    if($line -match "PJ_VERSION_MAJOR  := ") {$VersionMajor = ($line -split " ")[-1] }
+    if($line -match "PJ_VERSION_MINOR  := ") {$VersionMinor = ($line -split " ")[-1] }
+    if($line -match "PJ_VERSION_REV    := ") {$VersionRev   = ($line -split " ")[-1] }
+    if($line -match "PJ_VERSION_SUFFIX := ") {$VersionSuffix = ($line -split " ")[-1] }
+}
+
+$pjsipVersion = "$VersionMajor.$VersionMinor"
+if($VersionRev -ne "") { $pjsipVersion = $pjsipVersion + ".$VersionRev" } 
+if($VersionSuffix -ne "") { $pjsipVersion = $pjsipVersion + $VersionSuffix } 
+
+Write-Host "The current PJSIP version is: $pjsipVersion"
+Write-Host ""
+
+######################################################################
 Write-Host "Set config_site.h" -ForegroundColor Yellow
 
 $src = [System.IO.Path]::Combine($path, "config_site.h")
@@ -137,12 +160,28 @@ Write-Host ""
 ######################################################################
 Write-Host "Copy generated c++ wrappers to pjsua2.win" -ForegroundColor Yellow
 
+$pjsua2winPath = [System.IO.Path]::Combine($path, "pjsua2.win")
+
 $src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2_wrap.*")
-$dst = [System.IO.Path]::Combine($path, "pjsua2.win")
-Copy-Item $src $dst
+Copy-Item $src $pjsua2winPath
 
 $src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2.i")
-Copy-Item $src $dst
+Copy-Item $src $pjsua2winPath
+
+Write-Host ""
+
+
+######################################################################
+Write-Host "Set pjsua2.dll Version Info" -ForegroundColor Yellow
+
+$resourceFileName = [System.IO.Path]::Combine($pjsua2winPath, "pjsua2.win.rc")
+
+$packageVersionEntry = "            VALUE ""FileVersion"", ""$packageVersion"""
+$pjsipVersionEntry = "            VALUE ""ProductVersion"", ""PJSIP $pjsipVersion"""
+(Get-Content $resourceFileName) `
+    -replace '(.*)VALUE "FileVersion(.*)', $packageVersionEntry `
+    -replace '(.*)VALUE "ProductVersion(.*)', $pjsipVersionEntry `
+    | Set-Content $resourceFileName
 
 Write-Host ""
 
@@ -150,12 +189,11 @@ Write-Host ""
 ######################################################################
 Write-Host "Build pjsua2.dll" -ForegroundColor Yellow
 
-$solution = [System.IO.Path]::Combine($path, "pjsua2.win\pjsua2.win.sln")
+$solution = [System.IO.Path]::Combine($pjsua2winPath, "pjsua2.win.sln")
 
 Write-Host "Using toolset $toolset"
 Write-Host ""
 
-#msbuild $solution /p:Configuration=Debug-Dynamic /p:Platform="x64"
-#msbuild $solution /p:Configuration=Release-Dynamic /p:Platform="x64"
+msbuild $solution /p:Configuration=Release-Dynamic /p:Platform="x64"
 Write-Host ""
 
