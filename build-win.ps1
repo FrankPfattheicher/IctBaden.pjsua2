@@ -130,7 +130,7 @@ Write-Host ""
 
 
 ######################################################################
-Write-Host "Fix code issues" -ForegroundColor Yellow
+Write-Host "Fix C++ code issues" -ForegroundColor Yellow
 
 $source = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\pjsua\pjsua_app_cli.c")
 $old1 = "PJ_DEF(void) cli_get_info"
@@ -158,7 +158,7 @@ Write-Host ""
 
 
 ######################################################################
-Write-Host "Copy generated c++ wrappers to pjsua2.win" -ForegroundColor Yellow
+Write-Host "Copy generated C++ wrappers to pjsua2.win" -ForegroundColor Yellow
 
 $pjsua2winPath = [System.IO.Path]::Combine($path, "pjsua2.win")
 
@@ -168,6 +168,34 @@ Copy-Item $src $pjsua2winPath
 $src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2.i")
 Copy-Item $src $pjsua2winPath
 
+Write-Host ""
+
+
+######################################################################
+Write-Host "Copy generated C# wrappers to pjsua2.net/pjsua2" -ForegroundColor Yellow
+
+$pjsua2netPath = [System.IO.Path]::Combine($path, "pjsua2.net\pjsua2")
+
+$src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\*.cs")
+
+
+If(Test-Path -Path $pjsua2netPath) {
+    Remove-Item $pjsua2netPath -Force -Recurse
+}
+
+New-Item -ItemType Directory -Path $pjsua2netPath
+Copy-Item $src $pjsua2netPath
+
+Write-Host ""
+
+
+######################################################################
+Write-Host "Fix C# code issues" -ForegroundColor Yellow
+
+$source = [System.IO.Path]::Combine($pjsua2netPath, "pjmedia_format_id.cs")
+$old1 = "enum pjmedia_format_id"
+$new1 = "enum pjmedia_format_id : uint"
+(Get-Content $source).replace($old1, $new1) | Set-Content $source
 Write-Host ""
 
 
@@ -187,7 +215,7 @@ Write-Host ""
 
 
 ######################################################################
-Write-Host "Build pjsua2.dll" -ForegroundColor Yellow
+Write-Host "Build pjsua2.dll Native Windows DLL" -ForegroundColor Yellow
 
 $solution = [System.IO.Path]::Combine($pjsua2winPath, "pjsua2.win.sln")
 
@@ -196,4 +224,14 @@ Write-Host ""
 
 msbuild $solution /p:Configuration=Release-Dynamic /p:Platform="x64"
 Write-Host ""
+
+
+######################################################################
+Write-Host "Build pjsua2.net.dll Managed Windows DLL" -ForegroundColor Yellow
+
+CD $pjsua2netPath
+dotnet build -c Release
+CD $Path
+Write-Host ""
+
 

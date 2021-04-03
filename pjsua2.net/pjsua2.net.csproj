@@ -22,7 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\pjsua2.win\x64\Release\pjsua2.dll" Link="pjsua2.dll" />
+      <Content Include="..\pjsua2.win\x64\Release\pjsua2.dll" Link="pjsua2.dll">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
