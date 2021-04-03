@@ -33,6 +33,8 @@
 // Uncomment to get maximum performance
 #define PJ_CONFIG_MAXIMUM_SPEED 1
 
+#define PJMEDIA_SDP_NEG_ANSWER_MULTIPLE_CODECS	1
+#define PJMEDIA_SDP_NEG_COMPARE_BEFORE_INC_VERSION 1
 
 /*
  * Typical configuration for WinCE target.

@@ -13,7 +13,7 @@ $toolset = "v142"
 ######################################################################
 Write-Host ""
 Write-Host "**********************************" -ForegroundColor Yellow
-Write-Host " Build pjsua2.dll for Windows x64" -ForegroundColor Yellow
+Write-Host " Build pjsua2.dll for Windows x64 " -ForegroundColor Yellow
 Write-Host "**********************************" -ForegroundColor Yellow
 Write-Host ""
 
