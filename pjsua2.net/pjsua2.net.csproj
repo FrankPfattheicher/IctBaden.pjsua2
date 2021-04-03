@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -22,7 +22,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="runtimes\win-x64" />
+      <Content Include="..\pjsua2.win\x64\Release\pjsua2.dll" Link="pjsua2.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="PjsipInfo.cs">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Compile>
     </ItemGroup>
 
 </Project>

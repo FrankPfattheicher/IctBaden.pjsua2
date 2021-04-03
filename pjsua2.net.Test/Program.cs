@@ -6,12 +6,14 @@ namespace pjsua2.net.Test
     {
         private static void Main()
         {
+            Console.WriteLine();
             Console.WriteLine("IctBaden.pjsua2.net");
+            Console.WriteLine();
 
             try
             {
                 var pjsipVersion = pjsip.PjsipInfo.GetVersionInfo();
-                Console.WriteLine(pjsipVersion);
+                Console.WriteLine("INFO: " + pjsipVersion);
 
                 var ep = new Endpoint();
                 ep.libCreate();
@@ -22,7 +24,7 @@ namespace pjsua2.net.Test
 
                 var ver = ep.libVersion();
                 var epVersion = $"PJSIP V{ver.full}";
-                Console.WriteLine(epVersion);
+                Console.WriteLine("INFO: " + epVersion);
                 if (pjsipVersion != epVersion)
                 {
                     Console.WriteLine("FAILED: Versions should be equal.");
@@ -35,6 +37,8 @@ namespace pjsua2.net.Test
                 Console.WriteLine(ex.StackTrace);
                 Environment.Exit(99);
             }
+
+            Console.WriteLine("SUCEEDED: Test ok.");
             Environment.Exit(0);
         }
     }

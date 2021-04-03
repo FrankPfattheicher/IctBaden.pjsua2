@@ -353,7 +353,8 @@ MigrationBackup/
 pjproject/
 
 pjsua2.win/pjsua2_wrap.cpp
-
 pjsua2.win/pjsua2_wrap.h
-
 pjsua2.win/pjsua2.i
+
+pjsua2.net/pjsua2
+
