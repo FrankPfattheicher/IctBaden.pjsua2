@@ -9,7 +9,7 @@ If ($vsWhere = Get-Command "vswhere.exe" -ErrorAction SilentlyContinue) {
  Else {
   Write-Error "vswhere not found. Aborting." -ErrorAction Stop
 }
-Write-Host "vswhere found at: $vsWhere" -ForegroundColor Yellow
+Write-Host "vswhere found at: $vsWhere"
 
 
 #
@@ -21,14 +21,14 @@ $vsPath = &$vsWhere -latest -products * -version "[15.0,17.0)" `
 If ([string]::IsNullOrEmpty("$vsPath")) {
   Write-Error "Failed to find Visual Studio installation. Aborting." -ErrorAction Stop
 }
-Write-Host "Using Visual Studio installation at: ${vsPath}" -ForegroundColor Yellow
+Write-Host "Using Visual Studio installation at: ${vsPath}"
 
 
 #
 # Make sure the Visual Studio Command Prompt variables are set.
 #
 If (Test-Path env:LIBPATH) {
-  Write-Host "Visual Studio Command Prompt variables already set." -ForegroundColor Yellow
+  Write-Host "Visual Studio Command Prompt variables already set."
 } Else {
   # Load VC vars
   Push-Location "${vsPath}\VC\Auxiliary\Build"
@@ -39,5 +39,5 @@ If (Test-Path env:LIBPATH) {
       }
     }
   Pop-Location
-  Write-Host "Visual Studio Command Prompt variables set." -ForegroundColor Yellow
+  Write-Host "Visual Studio Command Prompt variables set."
 }

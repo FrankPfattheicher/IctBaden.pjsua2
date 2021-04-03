@@ -104,6 +104,7 @@ Write-Host "Set config_site.h" -ForegroundColor Yellow
 $src = [System.IO.Path]::Combine($path, "config_site.h")
 $dst = [System.IO.Path]::Combine($pjsipPath, "pjlib\include\pj")
 Copy-Item $src $dst
+Write-Host ""
 
 
 ######################################################################
@@ -229,9 +230,36 @@ Write-Host ""
 ######################################################################
 Write-Host "Build pjsua2.net.dll Managed Windows DLL" -ForegroundColor Yellow
 
+$pjsua2netPath = [System.IO.Path]::Combine($path, "pjsua2.net")
+
 CD $pjsua2netPath
 dotnet build -c Release
 CD $Path
 Write-Host ""
 
+
+######################################################################
+Write-Host "Copy Assets to Packets Folder" -ForegroundColor Yellow
+
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\x64\Release\netcoreapp3.1")
+$packetsPath = [System.IO.Path]::Combine($path, "packets")
+
+$src = [System.IO.Path]::Combine($assetsPath, "*.dll")
+
+If(Test-Path -Path $packetsPath) {
+    Remove-Item $packetsPath -Force -Recurse
+}
+
+New-Item -ItemType Directory -Path $packetsPath
+Copy-Item $src $packetsPath
+
+Write-Host ""
+
+
+######################################################################
+Write-Host ""
+Write-Host "*********" -ForegroundColor Green
+Write-Host " SUCCESS " -ForegroundColor Green
+Write-Host "*********" -ForegroundColor Green
+Write-Host ""
 
