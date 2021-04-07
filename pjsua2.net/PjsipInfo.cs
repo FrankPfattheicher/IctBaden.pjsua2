@@ -1,13 +1,17 @@
+using System.Runtime.InteropServices;
+
 namespace pjsip
 {
     public static class PjsipInfo
     {
-        [System.Runtime.InteropServices.DllImport("pjsua2", EntryPoint="pj_get_version")]
-        private static extern string pj_get_version();
+        [DllImport("pjsua2", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall, EntryPoint="PjGetVersion")]
+        [return: MarshalAs(UnmanagedType.LPStr)]        
+        private static extern string PjGetVersion();
 
         public static string GetVersionInfo()
         {
-            return pj_get_version();
+            var version = PjGetVersion();
+            return $"PJSIP V{version}";
         }
     }
     

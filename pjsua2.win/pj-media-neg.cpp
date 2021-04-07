@@ -212,8 +212,12 @@ static pjsip_module media_neg_module = {
 	NULL,                           /* on_tsx_state()   */
 };
 
+extern "C"
+{
+
 PJ_EXPORT_DECL_SPECIFIER pj_status_t pj_enable_media_negotiation_module()
 {
 	return pjsip_endpt_register_module(pjsua_get_pjsip_endpt(), &media_neg_module);
 }
 
+}
