@@ -47,7 +47,7 @@ $lines = Get-Content $ReleaseNotesFileName
 $version = $lines | Select-String -Pattern $semVer | Select-Object -First 1
 $ok = $version -match $semVer
 If($ok -ne $true) {
-    Write-Host "FAIL: Could not find release notes with current version" -fore magenta
+    Write-Host "FAIL: Could not find release notes with current version" -ForegroundColor Magenta
     return
 }
 
@@ -63,9 +63,18 @@ Write-Host "Cleanup existing PJSIP sources" -ForegroundColor Yellow
 
 $pjsipPath = [System.IO.Path]::Combine($path, $pjproject)
 
-If(Test-Path -Path $pjsipPath) {
-    Remove-Item $pjsipPath -Force -Recurse
+try {
+
+    If(Test-Path -Path $pjsipPath) {
+        Remove-Item $pjsipPath -Force -Recurse
+    }
+
+} catch {
+
+    Write-Host "FAIL: Could not remove PJSIP folder" -ForegroundColor Magenta
+    return
 }
+
 Write-Host ""
 
 ######################################################################

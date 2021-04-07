@@ -21,12 +21,18 @@
     <ClCompile Include="pjsua2_wrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pj-media-neg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pjsua2_wrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pj-media-neg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

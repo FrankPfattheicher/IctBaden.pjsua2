@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <None Remove="Ijwhost.dll" />
+      <None Remove="pjproject\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,6 +32,11 @@
       <Compile Update="PjsipInfo.cs">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Compile>
+      <Compile Remove="pjproject\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="pjproject\**" />
     </ItemGroup>
 
 </Project>

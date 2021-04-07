@@ -168,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="pjsua2_wrap.cpp" />
+    <ClCompile Include="pj-media-neg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\pjproject\pjlib-util\build\pjlib_util.vcxproj">
@@ -190,6 +191,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="pj-media-neg.h" />
     <ClInclude Include="pjsua2_wrap.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

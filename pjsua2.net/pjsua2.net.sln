@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pjsua2.net", "pjsua2.net.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pjsua2.net.Test", "..\pjsua2.net.Test\pjsua2.net.Test.csproj", "{C341D750-4E8A-4BFB-B049-6D46FCB565A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{52E220FF-DD04-4A4E-AA02-A825DF41C98E}"
+ProjectSection(SolutionItems) = preProject
+	..\ReleaseNotes.md = ..\ReleaseNotes.md
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
