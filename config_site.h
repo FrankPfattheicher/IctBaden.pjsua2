@@ -462,7 +462,7 @@
 
 #   undef PJ_OS_HAS_CHECK_STACK
 #   define PJ_OS_HAS_CHECK_STACK	0
-#   define PJ_LOG_MAX_LEVEL		0
+#   define PJ_LOG_MAX_LEVEL			0
 #   define PJ_ENABLE_EXTRA_CHECK	0
 #   define PJ_HAS_ERROR_STRING		0
 #   undef PJ_IOQUEUE_MAX_HANDLES
@@ -481,7 +481,7 @@
 #   define PJ_SCANNER_USE_BITWISE	0
 #   undef PJ_OS_HAS_CHECK_STACK
 #   define PJ_OS_HAS_CHECK_STACK	0
-#   define PJ_LOG_MAX_LEVEL		3
+#   define PJ_LOG_MAX_LEVEL			3
 #   define PJ_ENABLE_EXTRA_CHECK	0
 #   define PJ_IOQUEUE_MAX_HANDLES	5000
 #   define PJSIP_MAX_TSX_COUNT		((640*1024)-1)

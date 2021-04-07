@@ -1,4 +1,6 @@
 using System.Runtime.InteropServices;
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
 
 namespace pjsip
 {
@@ -17,12 +19,12 @@ namespace pjsip
     
     public static class PjsipExt
     {
-        [System.Runtime.InteropServices.DllImport("pjsua2", EntryPoint="pj_enable_media_negotiation_module")]
+        [DllImport("pjsua2", EntryPoint="pj_enable_media_negotiation_module")]
         private static extern int pj_enable_media_negotiation_module();
 
-        public static void EnableTelephoneEventNegotiationExtension()
+        public static int EnableTelephoneEventNegotiationExtension()
         {
-            pj_enable_media_negotiation_module();
+            return pj_enable_media_negotiation_module();
         }
     }
     

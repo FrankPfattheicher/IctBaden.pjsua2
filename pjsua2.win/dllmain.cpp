@@ -23,7 +23,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     return TRUE;
 }
-
+    
 
 extern "C"
 {
@@ -36,7 +36,7 @@ extern "C"
         if (pjVersion == NULL)
         {
             auto version = pj_get_version();
-            long ulSize = (long)(strlen(version) + sizeof(char));
+            long ulSize = (long)(strlen(version) + sizeof(  char));
             pjVersion = (char*)CoTaskMemAlloc(ulSize);
             strcpy(pjVersion, version);
         }

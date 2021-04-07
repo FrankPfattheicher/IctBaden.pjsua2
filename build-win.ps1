@@ -214,9 +214,15 @@ Write-Host "Set pjsua2.dll Version Info" -ForegroundColor Yellow
 
 $resourceFileName = [System.IO.Path]::Combine($pjsua2winPath, "pjsua2.win.rc")
 
+$fileVersionEntry    = " FILEVERSION $($packageVersion.Replace(".", ","))"
+$productVersionEntry = " PRODUCTVERSION $VersionMajor,$VersionMinor,0,0"
+
 $packageVersionEntry = "            VALUE ""FileVersion"", ""$packageVersion"""
-$pjsipVersionEntry = "            VALUE ""ProductVersion"", ""PJSIP $pjsipVersion"""
+$pjsipVersionEntry   = "            VALUE ""ProductVersion"", ""PJSIP $pjsipVersion"""
+
 (Get-Content $resourceFileName) `
+    -replace '(.*)FILEVERSION (\d+,).*', $fileVersionEntry `
+    -replace '(.*)PRODUCTVERSION (\d+,).*', $productVersionEntry `
     -replace '(.*)VALUE "FileVersion(.*)', $packageVersionEntry `
     -replace '(.*)VALUE "ProductVersion(.*)', $pjsipVersionEntry `
     | Set-Content $resourceFileName
@@ -242,7 +248,7 @@ Write-Host "Build pjsua2.net.dll Managed Windows DLL" -ForegroundColor Yellow
 $pjsua2netPath = [System.IO.Path]::Combine($path, "pjsua2.net")
 
 CD $pjsua2netPath
-dotnet build -c Release
+dotnet build -c Release -p:AssemblyVersion=$packageVersion -p:Version=$packageVersion
 CD $Path
 Write-Host ""
 

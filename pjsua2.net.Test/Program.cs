@@ -1,4 +1,5 @@
 ﻿using System;
+using pjsip;
 
 namespace pjsua2.net.Test
 {
@@ -12,7 +13,7 @@ namespace pjsua2.net.Test
 
             try
             {
-                var pjsipVersion = pjsip.PjsipInfo.GetVersionInfo();
+                var pjsipVersion = PjsipInfo.GetVersionInfo();
                 Console.WriteLine("INFO: " + pjsipVersion);
 
                 var ep = new Endpoint();
@@ -20,6 +21,10 @@ namespace pjsua2.net.Test
 
                 var cfg = new EpConfig();
                 ep.libInit(cfg);
+
+                var result = PjsipExt.EnableTelephoneEventNegotiationExtension();
+                Console.WriteLine($"EnableNegExt: {result}");
+                
                 ep.libStart();
 
                 var ver = ep.libVersion();

@@ -124,8 +124,8 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	char new_buffer[PJSIP_MAX_PKT_LEN];
 	char* walker_p = new_buffer;
 
-	pj_str_t te8_str = pj_str((char*)"telephone-event/8000");
 	pj_str_t te16_str = pj_str((char*)"telephone-event/16000");
+	pj_str_t te08_str = pj_str((char*)"telephone-event/8000 ");
 
 	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
 
@@ -143,12 +143,9 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 			walker_p = walker_p + result.slen;
 
 			//Replace with telephone-event/8000
-			pj_memcpy(walker_p, te8_str.ptr, te8_str.slen);
-			walker_p = walker_p + te8_str.slen;
-			pj_scan_get_n(&scanner, (int)te8_str.slen, &result);
-
-			//walker_p is now null terminated, reset it to point at the end of the current buffer (without null termination)
-			walker_p = walker_p + strlen(walker_p);
+			pj_memcpy(walker_p, te08_str.ptr, te08_str.slen);
+			walker_p = walker_p + te08_str.slen;
+			pj_scan_get_n(&scanner, (int)te08_str.slen, &result);
 
 			//In case this is the last occurance in the message, lets append the rest but do not advance walker_p in case there is more
 			//The scanner string is always null terminated so include the terminating character as well
@@ -215,9 +212,10 @@ static pjsip_module media_neg_module = {
 extern "C"
 {
 
-PJ_EXPORT_DECL_SPECIFIER pj_status_t pj_enable_media_negotiation_module()
-{
-	return pjsip_endpt_register_module(pjsua_get_pjsip_endpt(), &media_neg_module);
-}
+	PJ_EXPORT_DECL_SPECIFIER pj_status_t pj_enable_media_negotiation_module()
+	{
+		OutputDebugStringA((char*)"pj_enable_media_negotiation_module");
+		return pjsip_endpt_register_module(pjsua_get_pjsip_endpt(), &media_neg_module);
+	}
 
 }
