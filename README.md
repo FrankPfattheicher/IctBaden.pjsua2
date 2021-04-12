@@ -19,8 +19,8 @@ So i decided to do it my own, using the help of **pjsip-pjsua2-csharp's** build-
 
 ### My plans are:
 
-* automate build to support latest PJSIP release <span style="margin-left: 2em; color:green; font-weight: 900;">✓</span>
-
+* automate build to support latest PJSIP release &nbsp; &nbsp; ✓
+* build nuget package &nbsp; &nbsp; ⌛
 
 ### Further plans:
 

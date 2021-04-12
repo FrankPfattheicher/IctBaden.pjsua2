@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>IctBaden.pjsua</id>
+        <version>0.0.0</version>
+        <authors>Frank Pfattheicher</authors>
+        <owners>Frank Pfattheicher</owners>
+        <summary>PJSUA2 - PJSIP C# Wrapper</summary>
+        <license type="expression">MIT</license>
+        <projectUrl>https://github.com/FrankPfattheicher/IctBaden.pjsua2</projectUrl>
+        <icon>images/pjsip.png</icon>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>C# Wrapper for Native PJSIP Implementaion</description>
+        <releaseNotes>Stable</releaseNotes>
+        <copyright>Copyright ICT Baden GmbH 2021</copyright>
+        <tags>.NET Core sip PJSIP PJSUA2 VoIP</tags>
+        <dependencies>
+            <group targetFramework="netcoreapp3.1" />
+        </dependencies>
+        <references>
+            <reference file="pjsua2.net.dll"/>
+        </references>
+    </metadata>
+    <files>
+        <file src="pjsip.png" target="images/" />
+        <file src="packets/pjsua2.net.dll" target="ref" />
+        <file src="packets/pjsua2.net.dll" target="lib/netcoreapp3.1" />
+        <file src="packets/pjsua2.dll" target="lib/netcoreapp3.1" />
+    </files>
+</package>
