@@ -16,14 +16,39 @@ The problem was, only **pjsip-pjsua2-cs** uses PJSIP version 2.10.1, that is als
 
 So i decided to do it my own, using the help of **pjsip-pjsua2-csharp's** build-it-yourself documentation (thanks a lot).
 
+### What is in the Package
 
-### My plans are:
+pjsua2.net.dll - .NET Core (netcoreapp3.1) wrapper library    
+pjsua2.dll - Native Windows x64 PJSUA2 library including SWIG generated C# wrappers    
 
+### Extensions
+The pjsua2.net.dll includes two additional static classes:
+
+``` c#
+    public static class PjsipInfo
+    {
+        // Get included PJSIP version
+        public static string GetVersionInfo();
+    }
+    
+    public static class PjsipExt
+    {
+        // Enable the pj-media-neg extension
+        public static int EnableTelephoneEventNegotiationExtension();
+    }
+```
+
+Mor information for [pj-media-neg...](https://github.com/FrankPfattheicher/pj-media-neg)
+
+## Roadmap
+
+April 2021
 * automate build to support latest PJSIP release &nbsp; &nbsp; ✓
-* build nuget package &nbsp; &nbsp; ⌛
+* build nuget package &nbsp; &nbsp; ✓
+
 
 ### Further plans:
 
-* support Linux (Ubuntu x64)
-* support RaspberryPi (Linux ARM) 
+* support Linux (Ubuntu x64) &nbsp; &nbsp; ⌛
+* support RaspberryPi (Linux ARM) &nbsp; &nbsp; ⌛
 

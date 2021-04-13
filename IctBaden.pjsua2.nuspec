@@ -5,7 +5,7 @@
         <version>0.0.0</version>
         <authors>Frank Pfattheicher</authors>
         <owners>Frank Pfattheicher</owners>
-        <summary>PJSUA2 - PJSIP C# Wrapper</summary>
+        <summary>PJSUA2 $PjsipVersion$ - PJSIP C# Wrapper</summary>
         <license type="expression">MIT</license>
         <projectUrl>https://github.com/FrankPfattheicher/IctBaden.pjsua2</projectUrl>
         <icon>images/pjsip.png</icon>
@@ -18,13 +18,13 @@
             <group targetFramework="netcoreapp3.1" />
         </dependencies>
         <references>
-            <reference file="pjsua2.net.dll"/>
+            <reference file="pjsua2.net.dll" />
         </references>
     </metadata>
     <files>
         <file src="pjsip.png" target="images/" />
         <file src="packets/pjsua2.net.dll" target="ref" />
         <file src="packets/pjsua2.net.dll" target="lib/netcoreapp3.1" />
-        <file src="packets/pjsua2.dll" target="lib/netcoreapp3.1" />
+        <file src="packets/pjsua2.dll" target="runtimes\win-x64\native" />
     </files>
 </package>
