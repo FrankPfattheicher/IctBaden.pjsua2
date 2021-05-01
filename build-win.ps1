@@ -262,7 +262,12 @@ $packetsPath = [System.IO.Path]::Combine($path, "packets")
 $src = [System.IO.Path]::Combine($assetsPath, "*.dll")
 
 If(Test-Path -Path $packetsPath) {
-    Remove-Item $packetsPath -Force -Recurse
+    try {
+        Remove-Item $packetsPath -Force -Recurse
+    } catch {
+
+       Write-Host "WARNING: Could not remove $packetsPath folder" -ForegroundColor DarkYellow
+    }
 }
 
 New-Item -ItemType Directory -Path $packetsPath
