@@ -128,7 +128,7 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	char new_buffer[PJSIP_MAX_PKT_LEN];
 	char* walker_p = new_buffer;
 
-	pj_str_t te16_str = pj_str((char*)"telephone-event/99000");
+	pj_str_t te16_str = pj_str((char*)"telephone-event/16000");
 	pj_str_t te08_str = pj_str((char*)"telephone-event/8000 ");
 
 	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
