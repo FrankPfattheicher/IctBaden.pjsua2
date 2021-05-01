@@ -115,6 +115,10 @@ static int update_content_length(char* buffer, pjsip_msg* msg)
 
 
 //For incoming INVITE and 200 OK
+
+#define MAX_LINE_COUNT  60
+#define MAX_LINE_LENGTH 120
+
 static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 {
 	PJ_USE_EXCEPTION;
@@ -124,7 +128,7 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	char new_buffer[PJSIP_MAX_PKT_LEN];
 	char* walker_p = new_buffer;
 
-	pj_str_t te16_str = pj_str((char*)"telephone-event/16000");
+	pj_str_t te16_str = pj_str((char*)"telephone-event/99000");
 	pj_str_t te08_str = pj_str((char*)"telephone-event/8000 ");
 
 	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
@@ -133,47 +137,72 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	PJ_LOG(4, (THIS_FILE, "%s", org_buffer));
 	PJ_LOG(4, (THIS_FILE, "***************************************************************"));
 
-	pj_scan_init(&scanner, org_buffer, strlen(org_buffer), 0, &on_syntax_error);
+	char line[MAX_LINE_COUNT][MAX_LINE_LENGTH];
+	strcpy(new_buffer, org_buffer);
 
-	PJ_TRY{
-		do {
-			//Find instance of telephone-event/16000
-			scanner_find_string(&scanner, te16_str.ptr, &result);
-			pj_memcpy(walker_p, (result.ptr - result.slen), result.slen);
-			walker_p = walker_p + result.slen;
+	
+	//printf("******************** STARTING fix_telephone_event_negotiation ********************\r\n");
 
-			//Replace with telephone-event/8000
-			pj_memcpy(walker_p, te08_str.ptr, te08_str.slen);
-			walker_p = walker_p + te08_str.slen;
-			pj_scan_get_n(&scanner, (int)te08_str.slen, &result);
+	//printf("==================== org_buffer ====================\r\n");
+	//printf(org_buffer);
 
-			//In case this is the last occurance in the message, lets append the rest but do not advance walker_p in case there is more
-			//The scanner string is always null terminated so include the terminating character as well
-			pj_memcpy(walker_p, scanner.curptr, (scanner.end - scanner.curptr) + 1);
-		} while (!pj_scan_is_eof(&scanner));
-
-
-	} PJ_CATCH_ANY{
-		if (strlen(new_buffer) > 0)
-		{
-			pj_memcpy(org_buffer, new_buffer, strlen(new_buffer));
-			org_buffer[strlen(new_buffer)] = '\0';
-			update_content_length(org_buffer, rdata->msg_info.msg);
-			PJ_LOG(4, (THIS_FILE,
-			"We have successfully parsed the INVITE/200 OK until EOF. Replace rx buffer. pjsip will now print the modified rx packet."));
-			//Update all internal packet sizes (body->len has already been updated by update_content_length)
-			rdata->pkt_info.len = strlen(rdata->pkt_info.packet);
-			rdata->msg_info.len = (int)rdata->pkt_info.len;
-			rdata->tp_info.transport->last_recv_len = rdata->pkt_info.len;
-		}
-		else {
-		  PJ_LOG(1, (THIS_FILE, "Error: Parsing of the incoming INVITE/200 OK failed at %s. Leave incoming buffer as is", scanner.curptr));
-		}
-		pj_scan_fini(&scanner);
-		return;
+	int sx = 0;
+	char* pch = strtok(new_buffer, "\n");
+	while (pch != NULL)
+	{
+		pj_bzero(line[sx], MAX_LINE_LENGTH);
+		strcpy(line[sx], pch);
+		//printf("line[%d]: %s\r\n", sx, line[sx]);
+		sx++;
+		pch = strtok(NULL, "\n");
 	}
-	PJ_END;
-	pj_scan_fini(&scanner);
+	//printf(">>>>>>  sx=%d\r\n", sx);
+
+	int ix16 = -1;
+	int ix08 = -1;
+	for (int dx = 0; dx < sx; dx++)
+	{
+		if (strstr(line[dx], "telephone-event/16000") != NULL)
+		{
+			ix16 = dx;
+		}
+		if (strstr(line[dx], "telephone-event/8000") != NULL)
+		{
+			ix08 = dx;
+		}
+	}
+	if (ix08 == -1 || ix16 == -1 || ix16 > ix08)
+	{
+		ix16 = -1;
+		ix08 = -1;
+	}
+
+
+	//printf(">>>>>>  ix16=%d, ix08=%d\r\n", ix16, ix08);
+
+	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
+	for (int dx = 0; dx < sx; dx++)
+	{
+		if (dx == ix16)
+		{
+			strcat(new_buffer, line[ix08]);
+		}
+		else if (dx == ix08)
+		{
+			strcat(new_buffer, line[ix16]);
+		}
+		else
+		{
+			strcat(new_buffer, line[dx]);
+		}
+		strcat(new_buffer, "\n");
+	}
+
+	//printf("==================== new_buffer ====================\r\n");
+	//printf(new_buffer);
+	//printf("******************** END OF fix_telephone_event_negotiation ********************\r\n");
+
+	strcpy(org_buffer, new_buffer);
 	return;
 }
 

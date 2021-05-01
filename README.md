@@ -52,3 +52,10 @@ April 2021
 * support Linux (Ubuntu x64) &nbsp; &nbsp; ⌛
 * support RaspberryPi (Linux ARM) &nbsp; &nbsp; ⌛
 
+## Enable Logging
+Set PJ_LOG_MAX_LEVEL to desired value in site_config.h
+
+For example:
+
+    #   define PJ_LOG_MAX_LEVEL			5
+
