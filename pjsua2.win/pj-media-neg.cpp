@@ -121,15 +121,8 @@ static int update_content_length(char* buffer, pjsip_msg* msg)
 
 static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 {
-	PJ_USE_EXCEPTION;
-	pj_scanner scanner;
-	pj_str_t result = { NULL, 0 };
 	char* org_buffer = rdata->msg_info.msg_buf;
 	char new_buffer[PJSIP_MAX_PKT_LEN];
-	char* walker_p = new_buffer;
-
-	pj_str_t te16_str = pj_str((char*)"telephone-event/16000");
-	pj_str_t te08_str = pj_str((char*)"telephone-event/8000 ");
 
 	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
 
@@ -140,7 +133,6 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	char line[MAX_LINE_COUNT][MAX_LINE_LENGTH];
 	strcpy(new_buffer, org_buffer);
 
-	
 	//printf("******************** STARTING fix_telephone_event_negotiation ********************\r\n");
 
 	//printf("==================== org_buffer ====================\r\n");
@@ -158,43 +150,53 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	}
 	//printf(">>>>>>  sx=%d\r\n", sx);
 
-	int ix16 = -1;
-	int ix08 = -1;
+	int ix08 = 999;
+	int ix16 = 999;
+	int ix32 = 999;
+	int ix44 = 999;
+	int ix48 = 999;
 	for (int dx = 0; dx < sx; dx++)
 	{
-		if (strstr(line[dx], "telephone-event/16000") != NULL)
-		{
-			ix16 = dx;
-		}
-		if (strstr(line[dx], "telephone-event/8000") != NULL)
-		{
-			ix08 = dx;
-		}
+		if (strstr(line[dx], "telephone-event/8000") != NULL) ix08 = dx;
+		if (strstr(line[dx], "telephone-event/16000") != NULL) ix16 = dx;
+		if (strstr(line[dx], "telephone-event/32000") != NULL) ix32 = dx;
+		if (strstr(line[dx], "telephone-event/44100") != NULL) ix44 = dx;
+		if (strstr(line[dx], "telephone-event/48000") != NULL) ix48 = dx;
 	}
-	if (ix08 == -1 || ix16 == -1 || ix16 > ix08)
-	{
-		ix16 = -1;
-		ix08 = -1;
-	}
+	//printf("\r\n####### original >>>>>>  ix08=%d, ix16=%d, ix32=%d, ix44=%d, ix48=%d\r\n\r\n", ix08, ix16, ix32, ix44, ix48);
+	int sx08 = ix08;
+	int sx16 = ix16;
+	int sx32 = ix32;
+	int sx44 = ix44;
+	int sx48 = ix48;
 
+#define SORT(a,b) if(b < a) { auto i = a; a = b; b = i; }
 
-	//printf(">>>>>>  ix16=%d, ix08=%d\r\n", ix16, ix08);
+	SORT(ix08, ix16)
+	SORT(ix08, ix32)
+	SORT(ix08, ix44)
+	SORT(ix08, ix48)
+
+	SORT(ix16, ix32)
+	SORT(ix16, ix44)
+	SORT(ix16, ix48)
+
+	SORT(ix32, ix44)
+	SORT(ix32, ix48)
+
+	SORT(ix44, ix48)
+
+	//printf("\r\n####### sorted >>>>>>  ix08=%d, ix16=%d, ix32=%d, ix44=%d, ix48=%d\r\n\r\n", ix08, ix16, ix32, ix44, ix48);
 
 	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
 	for (int dx = 0; dx < sx; dx++)
 	{
-		if (dx == ix16)
-		{
-			strcat(new_buffer, line[ix08]);
-		}
-		else if (dx == ix08)
-		{
-			strcat(new_buffer, line[ix16]);
-		}
-		else
-		{
-			strcat(new_buffer, line[dx]);
-		}
+		if (dx == ix08) strcat(new_buffer, line[sx08]);
+		else if (dx == ix16) strcat(new_buffer, line[sx16]);
+		else if (dx == ix32) strcat(new_buffer, line[sx32]);
+		else if (dx == ix44) strcat(new_buffer, line[sx44]);
+		else if (dx == ix48) strcat(new_buffer, line[sx48]);
+		else strcat(new_buffer, line[dx]);
 		strcat(new_buffer, "\n");
 	}
 
