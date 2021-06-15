@@ -25,6 +25,7 @@
         <file src="pjsip.png" target="images/" />
         <file src="packets/pjsua2.net.dll" target="ref" />
         <file src="packets/pjsua2.net.dll" target="lib/netcoreapp3.1" />
-        <file src="packets/pjsua2.dll" target="runtimes\win-x64\native" />
+        <file src="packets/win-x64/pjsua2.dll" target="runtimes\win-x64\native" />
+        <file src="packets/linux-x64/pjsua2.so" target="runtimes\linux-x64\native" />
     </files>
 </package>

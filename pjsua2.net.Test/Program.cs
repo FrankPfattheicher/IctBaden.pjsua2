@@ -43,7 +43,7 @@ namespace pjsua2.net.Test
                 Environment.Exit(99);
             }
 
-            Console.WriteLine("SUCEEDED: Test ok.");
+            Console.WriteLine("SUCCEEDED: Test ok.");
             Environment.Exit(0);
         }
     }
