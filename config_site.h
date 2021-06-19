@@ -24,8 +24,14 @@
 #define PJ_DLL 1
 #define PJ_EXPORTING 1
 #define PJSUA_DLL_EXPORTS 1
+
+#if defined(_WIN32) || defined(__WIN32__)
 #define PJ_EXPORT_SPECIFIER  __declspec(dllexport)
 #define PJ_IMPORT_SPECIFIER  __declspec(dllimport)
+#else 
+#define PJ_EXPORT_SPECIFIER __attribute__ ((visibility("default")))
+#endif
+
 // Flags bellow are recomended on pjsip.org
 #define PJ_CONFIG_MINIMAL_SIZE 1
 //i'm not using video options on this tutorial =]

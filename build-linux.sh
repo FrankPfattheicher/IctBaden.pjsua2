@@ -34,7 +34,7 @@ make
 echo
 
 echo "Copy artifact (pjsua2.so) to packets directory"
-cp pjsip/lib/libpjsua2.so ../packets/linux-x64/pjsua2.so
+#cp pjsip/lib/libpjsua2.so ../packets/linux-x64/pjsua2.so
 cp pjlib/lib/*.so.2 ../packets/linux-x64/
 cp pjlib-util/lib/*.so.2 ../packets/linux-x64/
 cp pjmedia/lib/*.so.2 ../packets/linux-x64/

@@ -29,25 +29,7 @@ extern "C"
 {
     extern void* CoTaskMemAlloc(long cb);
 
-    __declspec(dllexport) char* __stdcall PjGetVersion()
-    {
-        auto version = pj_get_version();
-        long ulSize = (long)(strlen(version) + sizeof(char));
-        auto pjVersion = (char*)CoTaskMemAlloc(ulSize);
-        strcpy(pjVersion, version);
-        return pjVersion;
-    }
-
-    __declspec(dllexport) char* __stdcall PjGetVersionA()
-    {
-        auto version = pj_get_version();
-        long ulSize = (long)(strlen(version) + sizeof(char));
-        auto pjVersion = (char*)CoTaskMemAlloc(ulSize);
-        strcpy(pjVersion, version);
-        return pjVersion;
-    }
-
-    __declspec(dllexport) char* __stdcall PjGetVersionW()
+    PJ_EXPORT_SPECIFIER char* __stdcall PjGetVersion()
     {
         auto version = pj_get_version();
         long ulSize = (long)(strlen(version) + sizeof(char));
