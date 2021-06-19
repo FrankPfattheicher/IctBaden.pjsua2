@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
@@ -6,6 +9,27 @@ namespace pjsip
 {
     public static class PjsipInfo
     {
+        static PjsipInfo()
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                NativeLibrary.SetDllImportResolver(typeof(PjsipInfo).Assembly, ImportResolver);
+            }
+        }
+        
+        private static IntPtr ImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+        {
+            var libHandle = IntPtr.Zero;
+            if (libraryName == "pjsua2")
+            {
+                var path = AppDomain.CurrentDomain.BaseDirectory ?? ".";
+                var libPath = Path.Combine(path, "linux-x64/native/pjsua2.so");
+                NativeLibrary.TryLoad(libPath, assembly, DllImportSearchPath.System32, out libHandle);
+            }
+            return libHandle;
+        }
+
+        
         [DllImport("pjsua2", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall, EntryPoint="PjGetVersion")]
         [return: MarshalAs(UnmanagedType.LPStr)]        
         private static extern string PjGetVersion();
