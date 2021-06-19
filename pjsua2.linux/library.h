@@ -1,0 +1,6 @@
+#ifndef PJSUA2_LINUX_LIBRARY_H
+#define PJSUA2_LINUX_LIBRARY_H
+
+void hello();
+
+#endif //PJSUA2_LINUX_LIBRARY_H

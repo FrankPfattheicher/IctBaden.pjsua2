@@ -1,3 +1,4 @@
+#include "library.h"
 
 #include <stdlib.h>
 #include <cstring>
@@ -8,12 +9,6 @@ using namespace std;
 
 extern "C"
 {
-	int main()
-	{
-		return 0;
-	}
-	
-    extern void* CoTaskMemAlloc(long cb);
 
     PJ_EXPORT_SPECIFIER char* PjGetVersion()
     {
