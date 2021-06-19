@@ -1,5 +1,10 @@
 
+#include <stdlib.h>
+#include <string.h>
+#include <cstring>
 #include <pjsua.h>
+#include "../config_site.h"
+
 #include <pjsua-lib/pjsua_internal.h>
 #include "pj-media-neg.h"
 
@@ -9,7 +14,7 @@ extern "C"
 
 
 /* Syntax error handler for parser. */
-static void on_syntax_error(pj_scanner * scanner)
+void on_syntax_error(pj_scanner * scanner)
 {
 	PJ_UNUSED_ARG(scanner);
 	PJ_LOG(4, (THIS_FILE, "Scanner syntax error at %s", scanner->curptr));
@@ -245,7 +250,7 @@ extern "C"
 
 	PJ_EXPORT_DECL_SPECIFIER pj_status_t pj_enable_media_negotiation_module()
 	{
-		OutputDebugStringA((char*)"pj_enable_media_negotiation_module");
+		printf((char*)"pj_enable_media_negotiation_module");
 		return pjsip_endpt_register_module(pjsua_get_pjsip_endpt(), &media_neg_module);
 	}
 
