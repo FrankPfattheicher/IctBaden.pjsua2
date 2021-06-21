@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pjsua2.net", "pjsua2.net.csproj", "{0B6A9773-636C-424F-90C2-6102DB90C2B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pjsua2.net.Test", "..\pjsua2.net.Test\pjsua2.net.Test.csproj", "{C341D750-4E8A-4BFB-B049-6D46FCB565A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{52E220FF-DD04-4A4E-AA02-A825DF41C98E}"
+ProjectSection(SolutionItems) = preProject
+	..\ReleaseNotes.md = ..\ReleaseNotes.md
+	..\README.md = ..\README.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B6A9773-636C-424F-90C2-6102DB90C2B4}.Debug|x64.ActiveCfg = Debug|x64
+		{0B6A9773-636C-424F-90C2-6102DB90C2B4}.Debug|x64.Build.0 = Debug|x64
+		{0B6A9773-636C-424F-90C2-6102DB90C2B4}.Release|x64.ActiveCfg = Release|x64
+		{0B6A9773-636C-424F-90C2-6102DB90C2B4}.Release|x64.Build.0 = Release|x64
+		{C341D750-4E8A-4BFB-B049-6D46FCB565A5}.Debug|x64.ActiveCfg = Debug|x64
+		{C341D750-4E8A-4BFB-B049-6D46FCB565A5}.Debug|x64.Build.0 = Debug|x64
+		{C341D750-4E8A-4BFB-B049-6D46FCB565A5}.Release|x64.ActiveCfg = Release|x64
+		{C341D750-4E8A-4BFB-B049-6D46FCB565A5}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E19828D6-2B01-4EA1-8501-FDC50867B5B4}
+	EndGlobalSection
+EndGlobal

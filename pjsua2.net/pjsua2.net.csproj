@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>pjsip</RootNamespace>
+        <IsPackable>false</IsPackable>
+        <LangVersion>9</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Ijwhost.dll" />
+      <None Remove="pjproject\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\pjsua2.win\x64\Release\pjsua2.dll" Link="pjsua2.dll">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="PjsipInfo.cs">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Compile>
+      <Compile Remove="pjproject\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="pjproject\**" />
+    </ItemGroup>
+
+</Project>

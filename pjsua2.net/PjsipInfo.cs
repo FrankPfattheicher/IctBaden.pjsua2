@@ -23,8 +23,8 @@ namespace pjsip
             if (libraryName == "pjsua2")
             {
                 var path = AppDomain.CurrentDomain.BaseDirectory ?? ".";
-                var libPath = Path.Combine(path, "linux-x64/native/pjsua2.so");
-                NativeLibrary.TryLoad(libPath, assembly, DllImportSearchPath.System32, out libHandle);
+                var libPath = Path.Combine(path, "linux-x64/native/libpjsua2.so");
+                NativeLibrary.TryLoad(libPath, assembly, DllImportSearchPath.UseDllDirectoryForDependencies, out libHandle);
             }
             return libHandle;
         }
