@@ -366,4 +366,5 @@ CMakeCache*
 CMakeFiles*
 Makefile
 libpjsua2.so
+*.cbp
 
