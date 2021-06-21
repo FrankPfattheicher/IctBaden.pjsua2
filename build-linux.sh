@@ -25,7 +25,7 @@ cd pjproject
 echo
 
 echo "Configure and create makefiles"
-./configure
+./configure --enable-static --disable-ssl CFLAGS="-fPIC"
 echo
 
 echo "Make"

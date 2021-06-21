@@ -13,7 +13,9 @@ extern "C"
     PJ_EXPORT_SPECIFIER char* PjGetVersion()
     {
         auto version = pj_get_version();
-        return (char*)version;
+        auto ptrVersion = (char*)malloc(strlen(version) + 2);
+        strcpy(ptrVersion, version);
+        return ptrVersion;
     }
 
 }
