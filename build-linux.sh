@@ -1,7 +1,6 @@
 #!/bin/sh
-
 # requirements:
-#   git, gcc, g++
+#   git, gcc, g++, cmake
 
 echo "Directory mounted from Windows"
 cd /mnt/c/Repos/IctBaden.pjsua2
@@ -43,6 +42,7 @@ echo
 
 
 echo "Copy artifact (pjsua2.so) to packets directory"
-cp pjsua2.linux/libpjsua2.so ../packets/linux-x64/
+cp pjsua2.linux/libpjsua2.so packets/linux-x64/
 echo
+
 
