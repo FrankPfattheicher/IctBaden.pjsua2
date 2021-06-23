@@ -1,4 +1,7 @@
 
+# requirements:
+# 	libasound2-dev
+
 cmake_minimum_required(VERSION 3.16)
 
 project(pjsua2_linux VERSION 1.0.1)
@@ -102,4 +105,7 @@ target_link_libraries(${_lib_name}
         PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../pjproject/third_party/lib/libsrtp-x86_64-unknown-linux-gnu.a"
         PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../pjproject/third_party/lib/libwebrtc-x86_64-unknown-linux-gnu.a"
         PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../pjproject/third_party/lib/libyuv-x86_64-unknown-linux-gnu.a"
+		
+		asound
         )
+

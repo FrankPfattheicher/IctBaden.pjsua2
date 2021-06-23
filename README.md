@@ -45,11 +45,12 @@ Mor information for [pj-media-neg...](https://github.com/FrankPfattheicher/pj-me
 April 2021
 * automate build to support latest PJSIP release &nbsp; &nbsp; ✓
 * build nuget package &nbsp; &nbsp; ✓
+* support Windows (>= 7, x64) &nbsp; &nbsp; ✓
+* support Linux (Ubuntu >= 18.04, x64) &nbsp; &nbsp; ✓
 
 
 ### Further plans:
 
-* support Linux (Ubuntu x64) &nbsp; &nbsp; ⌛
 * support RaspberryPi (Linux ARM) &nbsp; &nbsp; ⌛
 
 ## Enable Logging
