@@ -46,6 +46,8 @@ April 2021
 * automate build to support latest PJSIP release &nbsp; &nbsp; ✓
 * build nuget package &nbsp; &nbsp; ✓
 * support Windows (>= 7, x64) &nbsp; &nbsp; ✓
+
+June 2021
 * support Linux (Ubuntu >= 18.04, x64) &nbsp; &nbsp; ✓
 
 
@@ -59,4 +61,10 @@ Set PJ_LOG_MAX_LEVEL to desired value in site_config.h
 For example:
 
     #   define PJ_LOG_MAX_LEVEL			5
+
+## License
+The code in this repository is under MIT license.
+
+The code in PJSIP (not included here) is under General Public License (GPL) version 2.    
+For more information see: https://www.pjsip.org/licensing.htm
 
