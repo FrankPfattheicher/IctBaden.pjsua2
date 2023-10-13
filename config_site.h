@@ -40,7 +40,6 @@
 #define PJ_CONFIG_MAXIMUM_SPEED 1
 
 #define PJMEDIA_SDP_NEG_ANSWER_MULTIPLE_CODECS	1
-#define PJMEDIA_SDP_NEG_COMPARE_BEFORE_INC_VERSION 1
 
 /*
  * Typical configuration for WinCE target.
@@ -469,7 +468,6 @@
 #   undef PJ_OS_HAS_CHECK_STACK
 #   define PJ_OS_HAS_CHECK_STACK	0
 #   define PJ_LOG_MAX_LEVEL			0
-#   define PJ_ENABLE_EXTRA_CHECK	0
 #   define PJ_HAS_ERROR_STRING		0
 #   undef PJ_IOQUEUE_MAX_HANDLES
 /* Putting max handles to lower than 32 will make pj_fd_set_t size smaller
@@ -488,7 +486,6 @@
 #   undef PJ_OS_HAS_CHECK_STACK
 #   define PJ_OS_HAS_CHECK_STACK	0
 #   define PJ_LOG_MAX_LEVEL			3
-#   define PJ_ENABLE_EXTRA_CHECK	0
 #   define PJ_IOQUEUE_MAX_HANDLES	5000
 #   define PJSIP_MAX_TSX_COUNT		((640*1024)-1)
 #   define PJSIP_MAX_DIALOG_COUNT	((640*1024)-1)

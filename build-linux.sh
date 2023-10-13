@@ -9,6 +9,8 @@ echo
 echo "Cleanup existing PJSIP sources"
 rm -rf pjproject/*
 rm -rf pjproject/.git*
+rm -rf pjproject/.editorconfig*
+rm -f pjsua2.linux/*.so
 echo
 
 echo "Get current version of PJSIP sources"
@@ -24,7 +26,7 @@ cd pjproject
 echo
 
 echo "Configure and create makefiles"
-./configure --enable-static --disable-ssl CFLAGS="-fPIC"
+./configure --disable-ssl CFLAGS="-fPIC -Wno-unused-variable -Wno-unused-function -Wno-unused-value -Wno-unused-but-set-variable"
 echo
 
 echo "Make pjproject"
@@ -33,7 +35,8 @@ make
 cd ..
 echo
 
-echo "CMake pjsua2.linux"
+echo "CMake pjsua2.linux x64"
+cp pjproject/pjlib/include/pj/limits.h pjproject/pjlib/include/pj/compat/limits.h
 cd pjsua2.linux
 cmake --configure .
 cmake --build .

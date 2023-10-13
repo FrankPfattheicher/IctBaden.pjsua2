@@ -50,6 +50,8 @@ April 2021
 June 2021
 * support Linux (Ubuntu >= 18.04, x64) &nbsp; &nbsp; ✓
 
+October 2023
+* Updated to PJSIP version 2.13-dev 
 
 ### Further plans:
 

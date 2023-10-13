@@ -12,7 +12,8 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>C# Wrapper for Native PJSIP Implementaion</description>
         <releaseNotes>Stable</releaseNotes>
-        <copyright>Copyright ICT Baden GmbH 2021</copyright>
+		<readme>docs/README.md</readme>
+        <copyright>Copyright ICT Baden GmbH 2021-2023</copyright>
         <tags>.NET Core sip PJSIP PJSUA2 VoIP</tags>
         <dependencies>
             <group targetFramework="netcoreapp3.1" />
@@ -23,8 +24,9 @@
     </metadata>
     <files>
         <file src="pjsip.png" target="images/" />
-        <file src="packets/pjsua2.net.dll" target="ref" />
-        <file src="packets/pjsua2.net.dll" target="lib/netcoreapp3.1" />
+		<file src="README.md" target="docs/" />
+        <file src="packets/netcoreapp3.1/pjsua2.net.dll" target="ref" />
+        <file src="packets/netcoreapp3.1/pjsua2.net.dll" target="lib/netcoreapp3.1" />
         <file src="packets/win-x64/pjsua2.dll" target="runtimes\win-x64\native" />
         <file src="packets/linux-x64/libpjsua2.so" target="runtimes\linux-x64\native" />
     </files>
