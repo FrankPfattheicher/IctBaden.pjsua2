@@ -10,8 +10,8 @@
 
 $pjproject = "pjproject"
 $pjsipRepo = "https://github.com/pjsip/pjproject.git"
-$toolset = "v142"
-$arm = False
+$toolset = "v143"
+$arm = $false
 
 ######################################################################
 Write-Host ""
@@ -143,15 +143,15 @@ Write-Host ""
 
 
 ######################################################################
-Write-Host "Fix C++ code issues" -ForegroundColor Yellow
-
-$source = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\pjsua\pjsua_app_cli.c")
-$old1 = "PJ_DEF(void) cli_get_info"
-$new1 = "void cli_get_info"
-(Get-Content $source).replace($old1, $new1) | Set-Content $source
-Write-Host ""
-
-
+#Write-Host "Fix C++ code issues" -ForegroundColor Yellow
+#
+#$source = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\pjsua\pjsua_app_cli.c")
+#$old1 = "PJ_DEF(void) cli_get_info"
+#$new1 = "void cli_get_info"
+#(Get-Content $source).replace($old1, $new1) | Set-Content $source
+#Write-Host ""
+#
+#
 ######################################################################
 Write-Host "Use SWIG to generate a wrapper for the PJSUA2 library" -ForegroundColor Yellow
 
@@ -241,8 +241,18 @@ $solution = [System.IO.Path]::Combine($pjsua2winPath, "pjsua2.win.sln")
 Write-Host "Using toolset $toolset"
 Write-Host ""
 
+$assetPath = [System.IO.Path]::Combine($pjsua2winPath, "x64")
+Remove-Item $assetPath -Force -Recurse
+
+
 msbuild $solution /p:Configuration=Release-Dynamic /p:Platform="x64"
 Write-Host ""
+
+$asset = [System.IO.Path]::Combine($pjsua2winPath, "x64/Release/pjsua2.dll")
+If(-not (Test-Path $asset)) {
+    Write-Host "FAIL: Failed to build Native Windows pjsua2.dll" -ForegroundColor Magenta
+    return
+}
 
 
 ######################################################################
@@ -272,6 +282,8 @@ If(Test-Path -Path $packetsPath) {
 
 $platformPath = [System.IO.Path]::Combine($packetsPath, "netcoreapp3.1")
 New-Item -ItemType Directory -Path $platformPath
+$platformPath = [System.IO.Path]::Combine($packetsPath, "net6.0")
+New-Item -ItemType Directory -Path $platformPath
 
 
 $platformPath = [System.IO.Path]::Combine($packetsPath, "win-x64")
@@ -289,6 +301,11 @@ Copy-Item $src $dst
 $assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\netcoreapp3.1")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "netcoreapp3.1")
+Copy-Item $src $dst
+
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net6.0-windows")
+$src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
+$dst = [System.IO.Path]::Combine($packetsPath, "net6.0")
 Copy-Item $src $dst
 
 Write-Host ""

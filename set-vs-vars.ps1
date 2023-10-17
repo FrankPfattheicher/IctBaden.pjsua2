@@ -15,7 +15,7 @@ Write-Host "vswhere found at: $vsWhere"
 #
 # Get path to Visual Studio installation using vswhere.
 #
-$vsPath = &$vsWhere -latest -products * -version "[15.0,17.0)" `
+$vsPath = &$vsWhere -latest -products * -version "[15.0,19.0)" `
  -requires Microsoft.Component.MSBuild `
  -property installationPath
 If ([string]::IsNullOrEmpty("$vsPath")) {

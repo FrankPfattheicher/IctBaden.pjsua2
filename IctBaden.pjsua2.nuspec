@@ -17,6 +17,7 @@
         <tags>.NET Core sip PJSIP PJSUA2 VoIP</tags>
         <dependencies>
             <group targetFramework="netcoreapp3.1" />
+            <group targetFramework="net6.0" />
         </dependencies>
         <references>
             <reference file="pjsua2.net.dll" />
@@ -27,6 +28,7 @@
 		<file src="README.md" target="docs/" />
         <file src="packets/netcoreapp3.1/pjsua2.net.dll" target="ref" />
         <file src="packets/netcoreapp3.1/pjsua2.net.dll" target="lib/netcoreapp3.1" />
+        <file src="packets/net6.0/pjsua2.net.dll" target="lib/net6.0" />
         <file src="packets/win-x64/pjsua2.dll" target="runtimes\win-x64\native" />
         <file src="packets/linux-x64/libpjsua2.so" target="runtimes\linux-x64\native" />
     </files>
