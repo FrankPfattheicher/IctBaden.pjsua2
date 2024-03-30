@@ -5,7 +5,7 @@
 #  native pjsua.dll for Windows (x64)
 #  and native pjsua.so for Linux (x64)
 #
-# (C) 2021-2023 Frank Pfattheicher
+# (C) 2021-2024 Frank Pfattheicher
 #
 
 $pjproject = "pjproject"
@@ -143,16 +143,6 @@ Write-Host ""
 
 
 ######################################################################
-#Write-Host "Fix C++ code issues" -ForegroundColor Yellow
-#
-#$source = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\pjsua\pjsua_app_cli.c")
-#$old1 = "PJ_DEF(void) cli_get_info"
-#$new1 = "void cli_get_info"
-#(Get-Content $source).replace($old1, $new1) | Set-Content $source
-#Write-Host ""
-#
-#
-######################################################################
 Write-Host "Use SWIG to generate a wrapper for the PJSUA2 library" -ForegroundColor Yellow
 
 $include1 = [System.IO.Path]::Combine($pjsipPath, "pjlib\include")
@@ -284,6 +274,8 @@ $platformPath = [System.IO.Path]::Combine($packetsPath, "netcoreapp3.1")
 New-Item -ItemType Directory -Path $platformPath
 $platformPath = [System.IO.Path]::Combine($packetsPath, "net6.0")
 New-Item -ItemType Directory -Path $platformPath
+$platformPath = [System.IO.Path]::Combine($packetsPath, "net8.0")
+New-Item -ItemType Directory -Path $platformPath
 
 
 $platformPath = [System.IO.Path]::Combine($packetsPath, "win-x64")
@@ -293,7 +285,7 @@ New-Item -ItemType Directory -Path $platformPath
 $platformPath = [System.IO.Path]::Combine($packetsPath, "linux-arm")
 New-Item -ItemType Directory -Path $platformPath
 
-$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\netcoreapp3.1")
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "win-x64")
 Copy-Item $src $dst
@@ -303,9 +295,14 @@ $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "netcoreapp3.1")
 Copy-Item $src $dst
 
-$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net6.0-windows")
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net6.0")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "net6.0")
+Copy-Item $src $dst
+
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")
+$src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
+$dst = [System.IO.Path]::Combine($packetsPath, "net8.0")
 Copy-Item $src $dst
 
 Write-Host ""
@@ -355,8 +352,13 @@ If($arm) {
 
 ######################################################################
 Write-Host ""
-Write-Host "*********" -ForegroundColor Green
-Write-Host " SUCCESS " -ForegroundColor Green
-Write-Host "*********" -ForegroundColor Green
+Write-Host "***************" -ForegroundColor Green
+Write-Host " BUILD SUCCESS " -ForegroundColor Green
+Write-Host "***************" -ForegroundColor Green
 Write-Host ""
 
+######################################################################
+Write-Host ""
+
+
+. .\pack-nuget.ps1

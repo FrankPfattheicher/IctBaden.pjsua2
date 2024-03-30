@@ -51,7 +51,12 @@ June 2021
 * support Linux (Ubuntu >= 18.04, x64) &nbsp; &nbsp; ✓
 
 October 2023
-* Updated to PJSIP version 2.13-dev 
+* NET 6.0
+* Updated to PJSIP version 2.13-dev
+
+March 2024
+* C#12, NET 8.0
+* Updated to PJSIP version 2.14-dev
 
 ### Further plans:
 

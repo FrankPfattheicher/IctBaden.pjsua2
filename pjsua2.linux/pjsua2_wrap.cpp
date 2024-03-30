@@ -39545,6 +39545,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_IpChangeParam_restartLisDelay_get(voi
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_IpChangeParam_shutdownTransport_set(void * jarg1, unsigned int jarg2) {
+  pj::IpChangeParam *arg1 = (pj::IpChangeParam *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::IpChangeParam *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->shutdownTransport = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_IpChangeParam_shutdownTransport_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::IpChangeParam *arg1 = (pj::IpChangeParam *) 0 ;
+  bool result;
+  
+  arg1 = (pj::IpChangeParam *)jarg1; 
+  result = (bool) ((arg1)->shutdownTransport);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_IpChangeParam() {
   void * jresult ;
   pj::IpChangeParam *result = 0 ;
@@ -42091,24 +42113,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_EpConfig(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_PendingJob_execute(void * jarg1, unsigned int jarg2) {
-  pj::PendingJob *arg1 = (pj::PendingJob *) 0 ;
-  bool arg2 ;
-  
-  arg1 = (pj::PendingJob *)jarg1; 
-  arg2 = jarg2 ? true : false; 
-  (arg1)->execute(arg2);
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_PendingJob(void * jarg1) {
-  pj::PendingJob *arg1 = (pj::PendingJob *) 0 ;
-  
-  arg1 = (pj::PendingJob *)jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_Endpoint_instance() {
   void * jresult ;
   pj::Endpoint *result = 0 ;
@@ -42443,16 +42447,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_utilTimerCancel(void * jarg1, void *
   arg1 = (pj::Endpoint *)jarg1; 
   arg2 = jarg2; 
   (arg1)->utilTimerCancel(arg2);
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_utilAddPendingJob(void * jarg1, void * jarg2) {
-  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
-  pj::PendingJob *arg2 = (pj::PendingJob *) 0 ;
-  
-  arg1 = (pj::Endpoint *)jarg1; 
-  arg2 = (pj::PendingJob *)jarg2; 
-  (arg1)->utilAddPendingJob(arg2);
 }
 
 

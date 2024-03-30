@@ -3,7 +3,7 @@
 #
 # Build script to pack nuget package on Windows
 #
-# (C) 2021-2023 Frank Pfattheicher
+# (C) 2021-2024 Frank Pfattheicher
 #
 
 ######################################################################
@@ -78,8 +78,8 @@ Write-Host ""
 
 ######################################################################
 Write-Host ""
-Write-Host "*********" -ForegroundColor Green
-Write-Host " SUCCESS " -ForegroundColor Green
-Write-Host "*********" -ForegroundColor Green
+Write-Host "***************" -ForegroundColor Green
+Write-Host " NUGET SUCCESS " -ForegroundColor Green
+Write-Host "***************" -ForegroundColor Green
 Write-Host ""
 

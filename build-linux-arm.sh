@@ -26,7 +26,14 @@ cd pjproject
 echo
 
 echo "Configure and create makefiles"
-./configure --build=x86_64-linux-gnu --host=arm-elf-linux --disable-libwebrtc --disable-ssl CFLAGS="-fPIC -march=armv8-a -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -Wno-unused-variable -Wno-unused-function -Wno-unused-value -Wno-unused-but-set-variable"
+export TARGET=arm-elf
+export PREFIX=/opt/gnuarmelf
+export JN='-j 4'
+export CXXFLAGS="$CXXFLAGS -fPIC"
+
+./configure --host=arm-elf-linux CFLAGS="-march=x86-64 -Wno-unused-variable -Wno-unused-function -Wno-unused-value -Wno-unused-but-set-variable"
+# CFLAGS="-fPIC -march=armv8-a -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -Wno-unused-variable -Wno-unused-function -Wno-unused-value -Wno-unused-but-set-variable"
+#--disable-libwebrtc --disable-ssl 
 echo
 
 echo "Make pjproject"

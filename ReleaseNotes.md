@@ -1,4 +1,5 @@
 
+* 1.3.0   - 30.03.2024 C#12, NET 8.0, PJSIP 2.14
 * 1.2.3   - 17.10.2023 Fixed package versions
 * 1.2.2   - 17.10.2023 VS2022, Windows SDK 10.0, net6.0, C#11, Nullable enabled
 * 1.2.1   - 14.10.2023 Removed lock() (DEPRECATED)
