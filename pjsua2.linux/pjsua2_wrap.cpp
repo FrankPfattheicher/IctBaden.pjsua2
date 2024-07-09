@@ -8150,6 +8150,55 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_TlsConfig_privKeyBuf_get(void * jarg1
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_TlsConfig_certLookupType_set(void * jarg1, int jarg2) {
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  pj_ssl_cert_lookup_type arg2 ;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  arg2 = (pj_ssl_cert_lookup_type)jarg2; 
+  if (arg1) (arg1)->certLookupType = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_TlsConfig_certLookupType_get(void * jarg1) {
+  int jresult ;
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  pj_ssl_cert_lookup_type result;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  result = (pj_ssl_cert_lookup_type) ((arg1)->certLookupType);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_TlsConfig_certLookupKeyword_set(void * jarg1, const char * jarg2) {
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->certLookupKeyword = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_TlsConfig_certLookupKeyword_get(void * jarg1) {
+  const char * jresult ;
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  pj::string *result = 0 ;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  result = (pj::string *) & ((arg1)->certLookupKeyword);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_TlsConfig_method_set(void * jarg1, int jarg2) {
   pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
   pjsip_ssl_method arg2 ;
@@ -19671,6 +19720,66 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_new_MediaFormatAudio() {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatAudio_init__SWIG_0(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5, int jarg6, unsigned int jarg7, unsigned int jarg8) {
+  pj::MediaFormatAudio *arg1 = (pj::MediaFormatAudio *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  int arg6 ;
+  pj_uint32_t arg7 ;
+  pj_uint32_t arg8 ;
+  
+  arg1 = (pj::MediaFormatAudio *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (int)jarg6; 
+  arg7 = (pj_uint32_t)jarg7; 
+  arg8 = (pj_uint32_t)jarg8; 
+  (arg1)->init(arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatAudio_init__SWIG_1(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5, int jarg6, unsigned int jarg7) {
+  pj::MediaFormatAudio *arg1 = (pj::MediaFormatAudio *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  int arg6 ;
+  pj_uint32_t arg7 ;
+  
+  arg1 = (pj::MediaFormatAudio *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (int)jarg6; 
+  arg7 = (pj_uint32_t)jarg7; 
+  (arg1)->init(arg2,arg3,arg4,arg5,arg6,arg7);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatAudio_init__SWIG_2(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5, int jarg6) {
+  pj::MediaFormatAudio *arg1 = (pj::MediaFormatAudio *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  int arg6 ;
+  
+  arg1 = (pj::MediaFormatAudio *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (int)jarg6; 
+  (arg1)->init(arg2,arg3,arg4,arg5,arg6);
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_delete_MediaFormatAudio(void * jarg1) {
   pj::MediaFormatAudio *arg1 = (pj::MediaFormatAudio *) 0 ;
   
@@ -19818,6 +19927,82 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_new_MediaFormatVideo() {
   result = (pj::MediaFormatVideo *)new pj::MediaFormatVideo();
   jresult = (void *)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatVideo_init__SWIG_0(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5, int jarg6, unsigned int jarg7, unsigned int jarg8) {
+  pj::MediaFormatVideo *arg1 = (pj::MediaFormatVideo *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  int arg6 ;
+  pj_uint32_t arg7 ;
+  pj_uint32_t arg8 ;
+  
+  arg1 = (pj::MediaFormatVideo *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (int)jarg6; 
+  arg7 = (pj_uint32_t)jarg7; 
+  arg8 = (pj_uint32_t)jarg8; 
+  (arg1)->init(arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatVideo_init__SWIG_1(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5, int jarg6, unsigned int jarg7) {
+  pj::MediaFormatVideo *arg1 = (pj::MediaFormatVideo *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  int arg6 ;
+  pj_uint32_t arg7 ;
+  
+  arg1 = (pj::MediaFormatVideo *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (int)jarg6; 
+  arg7 = (pj_uint32_t)jarg7; 
+  (arg1)->init(arg2,arg3,arg4,arg5,arg6,arg7);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatVideo_init__SWIG_2(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5, int jarg6) {
+  pj::MediaFormatVideo *arg1 = (pj::MediaFormatVideo *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  int arg6 ;
+  
+  arg1 = (pj::MediaFormatVideo *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  arg6 = (int)jarg6; 
+  (arg1)->init(arg2,arg3,arg4,arg5,arg6);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaFormatVideo_init__SWIG_3(void * jarg1, unsigned int jarg2, unsigned int jarg3, unsigned int jarg4, int jarg5) {
+  pj::MediaFormatVideo *arg1 = (pj::MediaFormatVideo *) 0 ;
+  pj_uint32_t arg2 ;
+  unsigned int arg3 ;
+  unsigned int arg4 ;
+  int arg5 ;
+  
+  arg1 = (pj::MediaFormatVideo *)jarg1; 
+  arg2 = (pj_uint32_t)jarg2; 
+  arg3 = (unsigned int)jarg3; 
+  arg4 = (unsigned int)jarg4; 
+  arg5 = (int)jarg5; 
+  (arg1)->init(arg2,arg3,arg4,arg5);
 }
 
 
@@ -25332,6 +25517,73 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_CodecOpusConfig(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_CodecLyraConfig_bitRate_set(void * jarg1, unsigned int jarg2) {
+  pj::CodecLyraConfig *arg1 = (pj::CodecLyraConfig *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::CodecLyraConfig *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->bitRate = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_CodecLyraConfig_bitRate_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::CodecLyraConfig *arg1 = (pj::CodecLyraConfig *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::CodecLyraConfig *)jarg1; 
+  result = (unsigned int) ((arg1)->bitRate);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_CodecLyraConfig_modelPath_set(void * jarg1, const char * jarg2) {
+  pj::CodecLyraConfig *arg1 = (pj::CodecLyraConfig *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::CodecLyraConfig *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->modelPath = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_CodecLyraConfig_modelPath_get(void * jarg1) {
+  const char * jresult ;
+  pj::CodecLyraConfig *arg1 = (pj::CodecLyraConfig *) 0 ;
+  pj::string *result = 0 ;
+  
+  arg1 = (pj::CodecLyraConfig *)jarg1; 
+  result = (pj::string *) & ((arg1)->modelPath);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_CodecLyraConfig() {
+  void * jresult ;
+  pj::CodecLyraConfig *result = 0 ;
+  
+  result = (pj::CodecLyraConfig *)new pj::CodecLyraConfig();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_CodecLyraConfig(void * jarg1) {
+  pj::CodecLyraConfig *arg1 = (pj::CodecLyraConfig *) 0 ;
+  
+  arg1 = (pj::CodecLyraConfig *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_VidCodecParam_dir_set(void * jarg1, int jarg2) {
   pj::VidCodecParam *arg1 = (pj::VidCodecParam *) 0 ;
   pjmedia_dir arg2 ;
@@ -25837,6 +26089,136 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_MediaEvent(void * jarg1) {
   
   arg1 = (pj::MediaEvent *)jarg1; 
   delete arg1;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaCapture() {
+  void * jresult ;
+  pj::AudioMediaCapture *result = 0 ;
+  
+  result = (pj::AudioMediaCapture *)new pj::AudioMediaCapture();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaCapture(void * jarg1) {
+  pj::AudioMediaCapture *arg1 = (pj::AudioMediaCapture *) 0 ;
+  
+  arg1 = (pj::AudioMediaCapture *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaCapture_createMediaCapture(void * jarg1, int jarg2) {
+  pj::AudioMediaCapture *arg1 = (pj::AudioMediaCapture *) 0 ;
+  pjsua_call_id arg2 ;
+  
+  arg1 = (pj::AudioMediaCapture *)jarg1; 
+  arg2 = (pjsua_call_id)jarg2; 
+  (arg1)->createMediaCapture(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaCapture_getFrames(void * jarg1, void * jarg2, void * jarg3) {
+  pj::AudioMediaCapture *arg1 = (pj::AudioMediaCapture *) 0 ;
+  char **arg2 = (char **) 0 ;
+  size_t *arg3 = (size_t *) 0 ;
+  
+  arg1 = (pj::AudioMediaCapture *)jarg1; 
+  arg2 = (char **)jarg2; 
+  arg3 = (size_t *)jarg3; 
+  (arg1)->getFrames(arg2,arg3);
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_AudioMediaCapture_getFramesAsString(void * jarg1) {
+  const char * jresult ;
+  pj::AudioMediaCapture *arg1 = (pj::AudioMediaCapture *) 0 ;
+  pj::string result;
+  
+  arg1 = (pj::AudioMediaCapture *)jarg1; 
+  result = (arg1)->getFramesAsString();
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaCapture_processFrames(void * jarg1, void * jarg2) {
+  pjmedia_port *arg1 = (pjmedia_port *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  arg1 = (pjmedia_port *)jarg1; 
+  arg2 = jarg2; 
+  pj::AudioMediaCapture::processFrames(arg1,arg2);
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaStream() {
+  void * jresult ;
+  pj::AudioMediaStream *result = 0 ;
+  
+  result = (pj::AudioMediaStream *)new pj::AudioMediaStream();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaStream_createMediaStream(void * jarg1, int jarg2) {
+  pj::AudioMediaStream *arg1 = (pj::AudioMediaStream *) 0 ;
+  pjsua_call_id arg2 ;
+  
+  arg1 = (pj::AudioMediaStream *)jarg1; 
+  arg2 = (pjsua_call_id)jarg2; 
+  (arg1)->createMediaStream(arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaStream(void * jarg1) {
+  pj::AudioMediaStream *arg1 = (pj::AudioMediaStream *) 0 ;
+  
+  arg1 = (pj::AudioMediaStream *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_AudioMediaStream_processFrames(void * jarg1, void * jarg2) {
+  int jresult ;
+  pjmedia_port *arg1 = (pjmedia_port *) 0 ;
+  void *arg2 = (void *) 0 ;
+  pj_status_t result;
+  
+  arg1 = (pjmedia_port *)jarg1; 
+  arg2 = jarg2; 
+  result = (pj_status_t)pj::AudioMediaStream::processFrames(arg1,arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaStream_putFrame(void * jarg1, char * jarg2, unsigned long jarg3) {
+  pj::AudioMediaStream *arg1 = (pj::AudioMediaStream *) 0 ;
+  char *arg2 = (char *) 0 ;
+  size_t arg3 ;
+  
+  arg1 = (pj::AudioMediaStream *)jarg1; 
+  arg2 = (char *)jarg2; 
+  arg3 = (size_t)jarg3; 
+  (arg1)->putFrame(arg2,arg3);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaStream_putFrameAsString(void * jarg1, const char * jarg2) {
+  pj::AudioMediaStream *arg1 = (pj::AudioMediaStream *) 0 ;
+  pj::string arg2 ;
+  
+  arg1 = (pj::AudioMediaStream *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  (&arg2)->assign(jarg2); 
+  (arg1)->putFrameAsString(arg2);
 }
 
 
@@ -26619,6 +27001,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountRegConfig_registerOnAdd_get(vo
   
   arg1 = (pj::AccountRegConfig *)jarg1; 
   result = (bool) ((arg1)->registerOnAdd);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountRegConfig_disableRegOnModify_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountRegConfig *arg1 = (pj::AccountRegConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AccountRegConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->disableRegOnModify = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountRegConfig_disableRegOnModify_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountRegConfig *arg1 = (pj::AccountRegConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AccountRegConfig *)jarg1; 
+  result = (bool) ((arg1)->disableRegOnModify);
   jresult = result; 
   return jresult;
 }
@@ -43113,6 +43517,94 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_resetVideoCodecParam(void * jarg1, c
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_Endpoint_getCodecOpusConfig(void * jarg1) {
+  void * jresult ;
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::CodecOpusConfig result;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  try {
+    result = ((pj::Endpoint const *)arg1)->getCodecOpusConfig();
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return 0;
+    }
+  }
+  jresult = new pj::CodecOpusConfig(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_setCodecOpusConfig(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::CodecOpusConfig *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::CodecOpusConfig *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::CodecOpusConfig const & is null", 0);
+    return ;
+  } 
+  try {
+    (arg1)->setCodecOpusConfig((pj::CodecOpusConfig const &)*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_Endpoint_getCodecLyraConfig(void * jarg1) {
+  void * jresult ;
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::CodecLyraConfig result;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  try {
+    result = ((pj::Endpoint const *)arg1)->getCodecLyraConfig();
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return 0;
+    }
+  }
+  jresult = new pj::CodecLyraConfig(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_setCodecLyraConfig(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::CodecLyraConfig *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::CodecLyraConfig *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::CodecLyraConfig const & is null", 0);
+    return ;
+  } 
+  try {
+    (arg1)->setCodecLyraConfig((pj::CodecLyraConfig const &)*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_Endpoint_srtpCryptoEnum(void * jarg1) {
   void * jresult ;
   pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
@@ -43478,6 +43970,14 @@ SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_ExtraAudioDevice_SWIGUpcast(pj::E
 
 SWIGEXPORT pj::Media * SWIGSTDCALL CSharp_VideoMedia_SWIGUpcast(pj::VideoMedia *jarg1) {
     return (pj::Media *)jarg1;
+}
+
+SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_AudioMediaCapture_SWIGUpcast(pj::AudioMediaCapture *jarg1) {
+    return (pj::AudioMedia *)jarg1;
+}
+
+SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_AudioMediaStream_SWIGUpcast(pj::AudioMediaStream *jarg1) {
+    return (pj::AudioMedia *)jarg1;
 }
 
 SWIGEXPORT pj::PersistentObject * SWIGSTDCALL CSharp_BuddyConfig_SWIGUpcast(pj::BuddyConfig *jarg1) {

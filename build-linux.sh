@@ -25,6 +25,11 @@ echo "Change to project directory"
 cd pjproject
 echo
 
+echo "Apply media streaming extention"
+cat "../media_ext/media_ext.hpp" >> "pjsip/include/pjsua2/media.hpp"
+cat "../media_ext/media_ext.cpp" >> "pjsip/src/pjsua2/media.cpp"
+echo
+
 echo "Configure and create makefiles"
 ./configure --disable-ssl CFLAGS="-fPIC -Wno-unused-variable -Wno-unused-function -Wno-unused-value -Wno-unused-but-set-variable"
 echo
@@ -41,7 +46,6 @@ cd pjsua2.linux
 cmake --configure .
 cmake --build .
 cd ..
-echo
 
 
 echo "Copy artifact (pjsua2.so) to packets directory"

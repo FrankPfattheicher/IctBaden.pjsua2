@@ -120,6 +120,21 @@ Write-Host ""
 
 
 ######################################################################
+Write-Host "Apply media streaming extention" -ForegroundColor Yellow
+
+$src = [System.IO.Path]::Combine($path, "media_ext\media_ext.hpp")
+$dst = [System.IO.Path]::Combine($pjsipPath, "pjsip\include\pjsua2\media.hpp")
+$From = Get-Content -Path $src
+Add-Content -Path $dst -Value $From
+
+$src = [System.IO.Path]::Combine($path, "media_ext\media_ext.cpp")
+$dst = [System.IO.Path]::Combine($pjsipPath, "pjsip\src\pjsua2\media.cpp")
+$From = Get-Content -Path $src
+Add-Content -Path $dst -Value $From
+Write-Host ""
+
+
+######################################################################
 Write-Host "Set Environment Variables for Build Tools" -ForegroundColor Yellow
 
 . .\set-vs-vars.ps1
@@ -270,8 +285,6 @@ If(Test-Path -Path $packetsPath) {
     }
 }
 
-$platformPath = [System.IO.Path]::Combine($packetsPath, "netcoreapp3.1")
-New-Item -ItemType Directory -Path $platformPath
 $platformPath = [System.IO.Path]::Combine($packetsPath, "net6.0")
 New-Item -ItemType Directory -Path $platformPath
 $platformPath = [System.IO.Path]::Combine($packetsPath, "net8.0")
@@ -288,11 +301,6 @@ New-Item -ItemType Directory -Path $platformPath
 $assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "win-x64")
-Copy-Item $src $dst
-
-$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\netcoreapp3.1")
-$src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
-$dst = [System.IO.Path]::Combine($packetsPath, "netcoreapp3.1")
 Copy-Item $src $dst
 
 $assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net6.0")
