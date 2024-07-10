@@ -1,4 +1,5 @@
 
+* 1.4.1   - 10.07.2024 createMediaCapture returning status, stopMediaCapture
 * 1.4.0   - 10.07.2024 Removed netcore3.1 and net6.0, added AudioMediaCapture and AudioMediaStream
 
 * 1.3.0   - 30.03.2024 C#12, NET 8.0, PJSIP 2.14.1 

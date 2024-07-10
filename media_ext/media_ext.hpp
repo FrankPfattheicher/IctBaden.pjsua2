@@ -14,8 +14,9 @@ class AudioMediaCapture : public AudioMedia {
 public:
     AudioMediaCapture();
     ~AudioMediaCapture();
-    void createMediaCapture(pjsua_call_id);
+    pj_status_t createMediaCapture(pjsua_call_id);
     void getFrames(char **data, size_t *datasize);
+	void stopMediaCapture();
     string getFramesAsString();
     // static pj_status_t processFrames(pjmedia_port *, void *);
     static void processFrames(pjmedia_port *, void *);

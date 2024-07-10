@@ -22,8 +22,9 @@ AudioMediaCapture::~AudioMediaCapture()
     }
 }
 
-void AudioMediaCapture::createMediaCapture(pjsua_call_id id)
+pj_status_t AudioMediaCapture::createMediaCapture(pjsua_call_id id)
 {
+	pj_status_t status;
     pjsua_call_info ci;
     pjsua_call_get_info(id, &ci);
 
@@ -31,7 +32,7 @@ void AudioMediaCapture::createMediaCapture(pjsua_call_id id)
     pjsua_conf_get_port_info(ci.conf_slot, &cpi);
     frame_size = cpi.bits_per_sample*cpi.samples_per_frame*cpi.channel_count/8;
     frame_buffer = pj_pool_zalloc(pool, frame_size);
-    pjmedia_mem_capture_create( pool, //Pool
+    status = pjmedia_mem_capture_create( pool, //Pool
                           frame_buffer, //Buffer
                           frame_size, //Buffer Size
                           cpi.clock_rate,
@@ -40,14 +41,23 @@ void AudioMediaCapture::createMediaCapture(pjsua_call_id id)
                           cpi.bits_per_sample,
                           0, //Options
                           &capture_port); //The return port}
-    pjmedia_mem_capture_set_eof_cb2(capture_port, this, AudioMediaCapture::processFrames);
+	if(status != PJ_SUCCESS) return status;
+	
+    status = pjmedia_mem_capture_set_eof_cb2(capture_port, this, AudioMediaCapture::processFrames);
+	if(status != PJ_SUCCESS) return status;
+	
     registerMediaPort2(capture_port, pool);
+	return PJ_SUCCESS;
 }
 
 void AudioMediaCapture::processFrames(pjmedia_port *port, void *usr_data) {
     AudioMediaCapture *capture = static_cast<AudioMediaCapture *>(usr_data);
     const std::lock_guard<std::mutex> lock(capture->frames_mtx);
     capture->frames.push_back(string((char *)capture->frame_buffer, capture->frame_size));
+}
+
+void AudioMediaCapture::stopMediaCapture() {
+	 unregisterMediaPort();
 }
 
 string AudioMediaCapture::getFramesAsString()
