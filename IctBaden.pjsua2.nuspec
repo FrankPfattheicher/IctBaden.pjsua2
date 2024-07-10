@@ -16,8 +16,6 @@
         <copyright>Copyright ICT Baden GmbH 2021-2024</copyright>
         <tags>.NET Core sip PJSIP PJSUA2 VoIP</tags>
         <dependencies>
-            <group targetFramework="netcoreapp3.1" />
-            <group targetFramework="net6.0" />
             <group targetFramework="net8.0" />
         </dependencies>
         <references>
@@ -27,9 +25,7 @@
     <files>
         <file src="pjsip.png" target="images/" />
 		<file src="README.md" target="docs/" />
-        <file src="packets/netcoreapp3.1/pjsua2.net.dll" target="ref" />
-        <file src="packets/netcoreapp3.1/pjsua2.net.dll" target="lib/netcoreapp3.1" />
-        <file src="packets/net6.0/pjsua2.net.dll" target="lib/net6.0" />
+        <file src="packets/net8.0/pjsua2.net.dll" target="ref" />
         <file src="packets/net8.0/pjsua2.net.dll" target="lib/net8.0" />
         <file src="packets/win-x64/pjsua2.dll" target="runtimes\win-x64\native" />
         <file src="packets/linux-x64/libpjsua2.so" target="runtimes\linux-x64\native" />
