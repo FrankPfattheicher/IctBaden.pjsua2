@@ -156,6 +156,19 @@ foreach($project in $projects) {
 }
 Write-Host ""
 
+######################################################################
+Write-Host "Update SWIG config for media streaming extention" -ForegroundColor Yellow
+
+$pjsua2_i = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2.i")
+$media_i = [System.IO.Path]::Combine($path, "media_ext\media_ext.i")
+
+$old3 = "%include ""pjsua2/media.hpp"""
+$new3 = ((Get-Content $media_i) -join "`n") + 
+        "%include ""pjsua2/media.hpp""`n"
+
+(Get-Content $pjsua2_i).replace($old3, $new3) | Set-Content $pjsua2_i
+
+Write-Host ""
 
 ######################################################################
 Write-Host "Use SWIG to generate a wrapper for the PJSUA2 library" -ForegroundColor Yellow
@@ -173,6 +186,12 @@ CD $swig_results
 . $swig -I"$include1" -I"$include2" -I"$include3" -I"$include4" -I"$include5" -w312 -c++ -csharp -o pjsua2_wrap.cpp $swig_i
 CD $path
 Write-Host ""
+
+$src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2_wrap.cpp")
+$old4 = "jframeBuffer = (void *) frameBuffer;"
+$new4 = "jframeBuffer = (unsigned char *) frameBuffer;"
+
+(Get-Content $src).replace($old4, $new4) | Set-Content $src
 
 
 ######################################################################
@@ -285,8 +304,6 @@ If(Test-Path -Path $packetsPath) {
     }
 }
 
-$platformPath = [System.IO.Path]::Combine($packetsPath, "net6.0")
-New-Item -ItemType Directory -Path $platformPath
 $platformPath = [System.IO.Path]::Combine($packetsPath, "net8.0")
 New-Item -ItemType Directory -Path $platformPath
 
@@ -301,11 +318,6 @@ New-Item -ItemType Directory -Path $platformPath
 $assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "win-x64")
-Copy-Item $src $dst
-
-$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net6.0")
-$src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
-$dst = [System.IO.Path]::Combine($packetsPath, "net6.0")
 Copy-Item $src $dst
 
 $assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")

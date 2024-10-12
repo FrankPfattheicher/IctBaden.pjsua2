@@ -28,6 +28,7 @@ echo
 echo "Apply media streaming extention"
 cat "../media_ext/media_ext.hpp" >> "pjsip/include/pjsua2/media.hpp"
 cat "../media_ext/media_ext.cpp" >> "pjsip/src/pjsua2/media.cpp"
+sed -i -e 's/%include "pjsua2/media.hpp"/%feature("director") AudioMediaCapture;\r\n%typemap(imtype, inattributes="[In, MarshalAs(UnmanagedType.LPArray, SizeConst=2048, ArraySubType=UnmanagedType.U1)]") char INPUT[] "byte[]"\r\n%apply char INPUT[] {unsigned char *frameBuffer}\r\n%include "pjsua2/media.hpp"/g' pjsip-apps/src/swig/pjsua2.i
 echo
 
 echo "Configure and create makefiles"

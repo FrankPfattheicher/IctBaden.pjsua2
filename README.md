@@ -58,6 +58,9 @@ March 2024
 * C#12, NET 8.0
 * Updated to PJSIP version 2.14-dev
 
+October 2024
+* Audio stream capture added 
+
 ### Further plans:
 
 * support RaspberryPi (Linux ARM) &nbsp; &nbsp; ⌛

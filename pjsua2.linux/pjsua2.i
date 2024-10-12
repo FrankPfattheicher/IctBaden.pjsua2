@@ -166,6 +166,7 @@ using namespace pj;
 
 %include "pjsua2/siptypes.hpp"
 
+%template(SockOptVector)		std::vector<pj::SockOpt>;
 %template(SipHeaderVector)		std::vector<pj::SipHeader>;
 %template(AuthCredInfoVector)		std::vector<pj::AuthCredInfo>;
 %template(SrtpCryptoVector)		std::vector<pj::SrtpCrypto>;
@@ -217,7 +218,17 @@ using namespace pj;
 }
 #endif
 
+
+%include "arrays_csharp.i"
+%include "typemaps.i"
+
+%{
+#include "pjsua2/media.hpp"
+%}
+
+%feature("director") AudioMediaCapture;
 %include "pjsua2/media.hpp"
+
 %include "pjsua2/presence.hpp"
 %include "pjsua2/account.hpp"
 %include "pjsua2/call.hpp"

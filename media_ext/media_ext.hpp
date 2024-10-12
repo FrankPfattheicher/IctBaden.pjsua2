@@ -8,44 +8,33 @@
 /** PJSUA2 API is inside pj namespace */
 namespace pj
 {
-// pj_status_t incomingFrameHandler(pjmedia_port *, void *);
 
-class AudioMediaCapture : public AudioMedia {
-public:
-    AudioMediaCapture();
-    ~AudioMediaCapture();
-    pj_status_t createMediaCapture(pjsua_call_id);
-    void getFrames(char **data, size_t *datasize);
-	void stopMediaCapture();
-    string getFramesAsString();
-    // static pj_status_t processFrames(pjmedia_port *, void *);
-    static void processFrames(pjmedia_port *, void *);
-private:
-    pj_pool_t *pool;
-    void *frame_buffer;
-    unsigned frame_size;
-    pjmedia_port *capture_port;
-    std::list<string> frames;
-    std::mutex frames_mtx;
-};
+	class AudioMediaCapture : public AudioMedia 
+	{
+		public:
+			AudioMediaCapture();
+			~AudioMediaCapture();
+			
+			pj_status_t createMediaCapture(pjsua_call_id);
+			void stopMediaCapture();
+			
+			unsigned getFrameSize();
+			unsigned getFramesCaptured();
+			void *getFrameBuffer();
+			
+			virtual void onNewFrame() = 0;
+			
+		private:
+			pj_pool_t *pool;
+			pjmedia_port *capture_port;
+			std::mutex frames_mtx;
+			
+			unsigned frame_size;
+			unsigned received_frames;
+			void *frame_buffer;
 
-class AudioMediaStream : public AudioMedia {
-public:
-    AudioMediaStream();
-    void createMediaStream(pjsua_call_id);
-    virtual ~AudioMediaStream();
-    static pj_status_t processFrames(pjmedia_port *, void *);
-    // static void processFrames(pjmedia_port *, void *);
-    void putFrame(char *data, size_t datasize);
-    void putFrameAsString(string);
-private:
-    pj_pool_t *pool;
-    pjmedia_port *stream_port;
-    void *frame_buffer;
-    unsigned frame_size;
-    std::list<string> frames;
-    std::mutex frames_mtx;
-};
+			static pj_status_t processFrame(pjmedia_port *, void *);
+	};
 
 } // namespace pj
 

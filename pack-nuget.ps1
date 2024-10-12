@@ -77,6 +77,15 @@ Write-Host ""
 
 
 ######################################################################
+Write-Host "Publish Nuget Packet to loacl feed" -ForegroundColor Yellow
+
+$packageFile = [System.IO.Path]::Combine($packagePath, "IctBaden.pjsua.$packageVersion.nupkg")
+.\nuget.exe add $packageFile -Source \\SCHRANK\Repos\nuget -Expand
+
+Write-Host ""
+
+
+######################################################################
 Write-Host ""
 Write-Host "***************" -ForegroundColor Green
 Write-Host " NUGET SUCCESS " -ForegroundColor Green
