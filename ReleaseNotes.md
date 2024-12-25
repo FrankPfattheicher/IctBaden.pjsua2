@@ -1,4 +1,10 @@
 
+* 1.5.6	  - 25.10.2024 Make putFrame non protected
+* 1.5.5	  - 25.10.2024 Make putFrame protected and non virtual
+* 1.5.4	  - 25.10.2024 frameBuffer as void*
+* 1.5.3	  - 25.10.2024 frameBuffer as byte[]
+* 1.5.2	  - 25.10.2024 playback done event
+* 1.5.1	  - 23.10.2024 PJSIP 2.15, PJSUA_MAX_CALLS 32, audio stream playback
 * 1.5.0   - 12.10.2024 Removed net6.0
 
 * 1.4.15  - 12.10.2024 Buffer access functions

@@ -3336,6 +3336,32 @@ void SwigDirector_AudioMediaCapture::swig_init_callbacks() {
   swig_callbackonNewFrame = 0;
 }
 
+SwigDirector_AudioMediaPlayback::SwigDirector_AudioMediaPlayback() : pj::AudioMediaPlayback(), Swig::Director() {
+  swig_init_callbacks();
+}
+
+SwigDirector_AudioMediaPlayback::~SwigDirector_AudioMediaPlayback() {
+  
+}
+
+
+void SwigDirector_AudioMediaPlayback::onPlaybackDone() {
+  if (!swig_callbackonPlaybackDone) {
+    Swig::DirectorPureVirtualException::raise("pj::AudioMediaPlayback::onPlaybackDone");
+    return;
+  } else {
+    swig_callbackonPlaybackDone();
+  }
+}
+
+void SwigDirector_AudioMediaPlayback::swig_connect_director(SWIG_Callback0_t callbackonPlaybackDone) {
+  swig_callbackonPlaybackDone = callbackonPlaybackDone;
+}
+
+void SwigDirector_AudioMediaPlayback::swig_init_callbacks() {
+  swig_callbackonPlaybackDone = 0;
+}
+
 SwigDirector_Buddy::SwigDirector_Buddy() : pj::Buddy(), Swig::Director() {
   swig_init_callbacks();
 }
@@ -3491,6 +3517,18 @@ void SwigDirector_Account::onInstantMessageStatus(pj::OnInstantMessageStatusPara
   }
 }
 
+void SwigDirector_Account::onSendRequest(pj::OnSendRequestParam &prm) {
+  void * jprm = 0 ;
+  
+  if (!swig_callbackonSendRequest) {
+    pj::Account::onSendRequest(prm);
+    return;
+  } else {
+    jprm = (pj::OnSendRequestParam *) &prm; 
+    swig_callbackonSendRequest(jprm);
+  }
+}
+
 void SwigDirector_Account::onTypingIndication(pj::OnTypingIndicationParam &prm) {
   void * jprm = 0 ;
   
@@ -3515,13 +3553,14 @@ void SwigDirector_Account::onMwiInfo(pj::OnMwiInfoParam &prm) {
   }
 }
 
-void SwigDirector_Account::swig_connect_director(SWIG_Callback0_t callbackonIncomingCall, SWIG_Callback1_t callbackonRegStarted, SWIG_Callback2_t callbackonRegState, SWIG_Callback3_t callbackonIncomingSubscribe, SWIG_Callback4_t callbackonInstantMessage, SWIG_Callback5_t callbackonInstantMessageStatus, SWIG_Callback6_t callbackonTypingIndication, SWIG_Callback7_t callbackonMwiInfo) {
+void SwigDirector_Account::swig_connect_director(SWIG_Callback0_t callbackonIncomingCall, SWIG_Callback1_t callbackonRegStarted, SWIG_Callback2_t callbackonRegState, SWIG_Callback3_t callbackonIncomingSubscribe, SWIG_Callback4_t callbackonInstantMessage, SWIG_Callback5_t callbackonInstantMessageStatus, SWIG_Callback6_t callbackonSendRequest, SWIG_Callback7_t callbackonTypingIndication, SWIG_Callback8_t callbackonMwiInfo) {
   swig_callbackonIncomingCall = callbackonIncomingCall;
   swig_callbackonRegStarted = callbackonRegStarted;
   swig_callbackonRegState = callbackonRegState;
   swig_callbackonIncomingSubscribe = callbackonIncomingSubscribe;
   swig_callbackonInstantMessage = callbackonInstantMessage;
   swig_callbackonInstantMessageStatus = callbackonInstantMessageStatus;
+  swig_callbackonSendRequest = callbackonSendRequest;
   swig_callbackonTypingIndication = callbackonTypingIndication;
   swig_callbackonMwiInfo = callbackonMwiInfo;
 }
@@ -3533,6 +3572,7 @@ void SwigDirector_Account::swig_init_callbacks() {
   swig_callbackonIncomingSubscribe = 0;
   swig_callbackonInstantMessage = 0;
   swig_callbackonInstantMessageStatus = 0;
+  swig_callbackonSendRequest = 0;
   swig_callbackonTypingIndication = 0;
   swig_callbackonMwiInfo = 0;
 }
@@ -7962,6 +8002,28 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_AuthCredInfo_data_get(void * jarg1) {
   arg1 = (pj::AuthCredInfo *)jarg1; 
   result = (pj::string *) & ((arg1)->data);
   jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AuthCredInfo_algoType_set(void * jarg1, int jarg2) {
+  pj::AuthCredInfo *arg1 = (pj::AuthCredInfo *) 0 ;
+  pjsip_auth_algorithm_type arg2 ;
+  
+  arg1 = (pj::AuthCredInfo *)jarg1; 
+  arg2 = (pjsip_auth_algorithm_type)jarg2; 
+  if (arg1) (arg1)->algoType = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_AuthCredInfo_algoType_get(void * jarg1) {
+  int jresult ;
+  pj::AuthCredInfo *arg1 = (pj::AuthCredInfo *) 0 ;
+  pjsip_auth_algorithm_type result;
+  
+  arg1 = (pj::AuthCredInfo *)jarg1; 
+  result = (pjsip_auth_algorithm_type) ((arg1)->algoType);
+  jresult = (int)result; 
   return jresult;
 }
 
@@ -27265,6 +27327,95 @@ SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaCapture_director_connect(void *obja
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaPlayback() {
+  void * jresult ;
+  pj::AudioMediaPlayback *result = 0 ;
+  
+  result = (pj::AudioMediaPlayback *)new SwigDirector_AudioMediaPlayback();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_AudioMediaPlayback_createMediaPlayback(void * jarg1, int jarg2) {
+  int jresult ;
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  pjsua_call_id arg2 ;
+  pj_status_t result;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  arg2 = (pjsua_call_id)jarg2; 
+  result = (pj_status_t)(arg1)->createMediaPlayback(arg2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaPlayback(void * jarg1) {
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_processFrames(void * jarg1, void * jarg2) {
+  pjmedia_port *arg1 = (pjmedia_port *) 0 ;
+  void *arg2 = (void *) 0 ;
+  
+  arg1 = (pjmedia_port *)jarg1; 
+  arg2 = jarg2; 
+  pj::AudioMediaPlayback::processFrames(arg1,arg2);
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaPlayback_getFrameSize(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  result = (unsigned int)(arg1)->getFrameSize();
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_stopPlayback(void * jarg1) {
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  (arg1)->stopPlayback();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_onPlaybackDone(void * jarg1) {
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  (arg1)->onPlaybackDone();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_putFrame(void * jarg1, void * jarg2, unsigned int jarg3) {
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  void *arg2 = (void *) 0 ;
+  size_t arg3 ;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  arg2 = jarg2; 
+  arg3 = (size_t)jarg3; 
+  (arg1)->putFrame(arg2,arg3);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_director_connect(void *objarg, SwigDirector_AudioMediaPlayback::SWIG_Callback0_t callback0) {
+  pj::AudioMediaPlayback *obj = (pj::AudioMediaPlayback *)objarg;
+  SwigDirector_AudioMediaPlayback *director = static_cast<SwigDirector_AudioMediaPlayback *>(obj);
+  director->swig_connect_director(callback0);
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_PresenceStatus_status_set(void * jarg1, int jarg2) {
   pj::PresenceStatus *arg1 = (pj::PresenceStatus *) 0 ;
   pjsua_buddy_status arg2 ;
@@ -27571,6 +27722,28 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_BuddyInfo_contact_get(void * jarg1) {
   arg1 = (pj::BuddyInfo *)jarg1; 
   result = (pj::string *) & ((arg1)->contact);
   jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_BuddyInfo_accId_set(void * jarg1, int jarg2) {
+  pj::BuddyInfo *arg1 = (pj::BuddyInfo *) 0 ;
+  pjsua_acc_id arg2 ;
+  
+  arg1 = (pj::BuddyInfo *)jarg1; 
+  arg2 = (pjsua_acc_id)jarg2; 
+  if (arg1) (arg1)->accId = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_BuddyInfo_accId_get(void * jarg1) {
+  int jresult ;
+  pj::BuddyInfo *arg1 = (pj::BuddyInfo *) 0 ;
+  pjsua_acc_id result;
+  
+  arg1 = (pj::BuddyInfo *)jarg1; 
+  result = (pjsua_acc_id) ((arg1)->accId);
+  jresult = result; 
   return jresult;
 }
 
@@ -29858,6 +30031,95 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_AccountNatConfig(void * jarg1) {
   pj::AccountNatConfig *arg1 = (pj::AccountNatConfig *) 0 ;
   
   arg1 = (pj::AccountNatConfig *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_SendRequestParam_userData_set(void * jarg1, void * jarg2) {
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  pj::Token arg2 = (pj::Token) 0 ;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
+  arg2 = jarg2; 
+  if (arg1) (arg1)->userData = arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_SendRequestParam_userData_get(void * jarg1) {
+  void * jresult ;
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  pj::Token result;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
+  result = (pj::Token) ((arg1)->userData);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_SendRequestParam_method_set(void * jarg1, const char * jarg2) {
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->method = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_SendRequestParam_method_get(void * jarg1) {
+  const char * jresult ;
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  pj::string *result = 0 ;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
+  result = (pj::string *) & ((arg1)->method);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_SendRequestParam_txOption_set(void * jarg1, void * jarg2) {
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  pj::SipTxOption *arg2 = (pj::SipTxOption *) 0 ;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
+  arg2 = (pj::SipTxOption *)jarg2; 
+  if (arg1) (arg1)->txOption = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_SendRequestParam_txOption_get(void * jarg1) {
+  void * jresult ;
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  pj::SipTxOption *result = 0 ;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
+  result = (pj::SipTxOption *)& ((arg1)->txOption);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_SendRequestParam() {
+  void * jresult ;
+  pj::SendRequestParam *result = 0 ;
+  
+  result = (pj::SendRequestParam *)new pj::SendRequestParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_SendRequestParam(void * jarg1) {
+  pj::SendRequestParam *arg1 = (pj::SendRequestParam *) 0 ;
+  
+  arg1 = (pj::SendRequestParam *)jarg1; 
   delete arg1;
 }
 
@@ -32561,6 +32823,68 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnMwiInfoParam(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_OnSendRequestParam_userData_set(void * jarg1, void * jarg2) {
+  pj::OnSendRequestParam *arg1 = (pj::OnSendRequestParam *) 0 ;
+  pj::Token arg2 = (pj::Token) 0 ;
+  
+  arg1 = (pj::OnSendRequestParam *)jarg1; 
+  arg2 = jarg2; 
+  if (arg1) (arg1)->userData = arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_OnSendRequestParam_userData_get(void * jarg1) {
+  void * jresult ;
+  pj::OnSendRequestParam *arg1 = (pj::OnSendRequestParam *) 0 ;
+  pj::Token result;
+  
+  arg1 = (pj::OnSendRequestParam *)jarg1; 
+  result = (pj::Token) ((arg1)->userData);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnSendRequestParam_e_set(void * jarg1, void * jarg2) {
+  pj::OnSendRequestParam *arg1 = (pj::OnSendRequestParam *) 0 ;
+  pj::SipEvent *arg2 = (pj::SipEvent *) 0 ;
+  
+  arg1 = (pj::OnSendRequestParam *)jarg1; 
+  arg2 = (pj::SipEvent *)jarg2; 
+  if (arg1) (arg1)->e = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_OnSendRequestParam_e_get(void * jarg1) {
+  void * jresult ;
+  pj::OnSendRequestParam *arg1 = (pj::OnSendRequestParam *) 0 ;
+  pj::SipEvent *result = 0 ;
+  
+  arg1 = (pj::OnSendRequestParam *)jarg1; 
+  result = (pj::SipEvent *)& ((arg1)->e);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_OnSendRequestParam() {
+  void * jresult ;
+  pj::OnSendRequestParam *result = 0 ;
+  
+  result = (pj::OnSendRequestParam *)new pj::OnSendRequestParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnSendRequestParam(void * jarg1) {
+  pj::OnSendRequestParam *arg1 = (pj::OnSendRequestParam *) 0 ;
+  
+  arg1 = (pj::OnSendRequestParam *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_PresNotifyParam_srvPres_set(void * jarg1, void * jarg2) {
   pj::PresNotifyParam *arg1 = (pj::PresNotifyParam *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -32979,6 +33303,29 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_Account_getInfo(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Account_sendRequest(void * jarg1, void * jarg2) {
+  pj::Account *arg1 = (pj::Account *) 0 ;
+  pj::SendRequestParam *arg2 = 0 ;
+  
+  arg1 = (pj::Account *)jarg1; 
+  arg2 = (pj::SendRequestParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::SendRequestParam const & is null", 0);
+    return ;
+  } 
+  try {
+    (arg1)->sendRequest((pj::SendRequestParam const &)*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_Account_setRegistration(void * jarg1, unsigned int jarg2) {
   pj::Account *arg1 = (pj::Account *) 0 ;
   bool arg2 ;
@@ -33279,6 +33626,34 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Account_onInstantMessageStatusSwigExplicitAcc
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Account_onSendRequest(void * jarg1, void * jarg2) {
+  pj::Account *arg1 = (pj::Account *) 0 ;
+  pj::OnSendRequestParam *arg2 = 0 ;
+  
+  arg1 = (pj::Account *)jarg1; 
+  arg2 = (pj::OnSendRequestParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnSendRequestParam & is null", 0);
+    return ;
+  } 
+  (arg1)->onSendRequest(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Account_onSendRequestSwigExplicitAccount(void * jarg1, void * jarg2) {
+  pj::Account *arg1 = (pj::Account *) 0 ;
+  pj::OnSendRequestParam *arg2 = 0 ;
+  
+  arg1 = (pj::Account *)jarg1; 
+  arg2 = (pj::OnSendRequestParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnSendRequestParam & is null", 0);
+    return ;
+  } 
+  (arg1)->pj::Account::onSendRequest(*arg2);
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_Account_onTypingIndication(void * jarg1, void * jarg2) {
   pj::Account *arg1 = (pj::Account *) 0 ;
   pj::OnTypingIndicationParam *arg2 = 0 ;
@@ -33335,10 +33710,10 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Account_onMwiInfoSwigExplicitAccount(void * j
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Account_director_connect(void *objarg, SwigDirector_Account::SWIG_Callback0_t callback0, SwigDirector_Account::SWIG_Callback1_t callback1, SwigDirector_Account::SWIG_Callback2_t callback2, SwigDirector_Account::SWIG_Callback3_t callback3, SwigDirector_Account::SWIG_Callback4_t callback4, SwigDirector_Account::SWIG_Callback5_t callback5, SwigDirector_Account::SWIG_Callback6_t callback6, SwigDirector_Account::SWIG_Callback7_t callback7) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Account_director_connect(void *objarg, SwigDirector_Account::SWIG_Callback0_t callback0, SwigDirector_Account::SWIG_Callback1_t callback1, SwigDirector_Account::SWIG_Callback2_t callback2, SwigDirector_Account::SWIG_Callback3_t callback3, SwigDirector_Account::SWIG_Callback4_t callback4, SwigDirector_Account::SWIG_Callback5_t callback5, SwigDirector_Account::SWIG_Callback6_t callback6, SwigDirector_Account::SWIG_Callback7_t callback7, SwigDirector_Account::SWIG_Callback8_t callback8) {
   pj::Account *obj = (pj::Account *)objarg;
   SwigDirector_Account *director = static_cast<SwigDirector_Account *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8);
 }
 
 
@@ -42903,6 +43278,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_MediaConfig_sndClockRate_get(void * j
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaConfig_sndUseSwClock_set(void * jarg1, unsigned int jarg2) {
+  pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::MediaConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->sndUseSwClock = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_MediaConfig_sndUseSwClock_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::MediaConfig *)jarg1; 
+  result = (bool) ((arg1)->sndUseSwClock);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_MediaConfig_channelCount_set(void * jarg1, unsigned int jarg2) {
   pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
   unsigned int arg2 ;
@@ -45026,6 +45423,10 @@ SWIGEXPORT pj::Media * SWIGSTDCALL CSharp_VideoMedia_SWIGUpcast(pj::VideoMedia *
 }
 
 SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_AudioMediaCapture_SWIGUpcast(pj::AudioMediaCapture *jarg1) {
+    return (pj::AudioMedia *)jarg1;
+}
+
+SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_AudioMediaPlayback_SWIGUpcast(pj::AudioMediaPlayback *jarg1) {
     return (pj::AudioMedia *)jarg1;
 }
 

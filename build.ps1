@@ -187,13 +187,6 @@ CD $swig_results
 CD $path
 Write-Host ""
 
-$src = [System.IO.Path]::Combine($pjsipPath, "pjsip-apps\src\swig\pjsua2_wrap.cpp")
-$old4 = "jframeBuffer = (void *) frameBuffer;"
-$new4 = "jframeBuffer = (unsigned char *) frameBuffer;"
-
-(Get-Content $src).replace($old4, $new4) | Set-Content $src
-
-
 ######################################################################
 Write-Host "Copy generated C++ wrappers to pjsua2.win" -ForegroundColor Yellow
 

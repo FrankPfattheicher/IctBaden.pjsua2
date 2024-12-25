@@ -61,6 +61,11 @@ March 2024
 October 2024
 * Audio stream capture added 
 
+December 2024
+* PJSIP 2.15
+* PJSUA_MAX_CALLS set to 32
+* Audio stream capture using pjmedia_mem_capture_set_eof_cb2
+
 ### Further plans:
 
 * support RaspberryPi (Linux ARM) &nbsp; &nbsp; ⌛

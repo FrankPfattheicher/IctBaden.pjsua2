@@ -227,7 +227,7 @@ using namespace pj;
 %}
 
 %feature("director") AudioMediaCapture;
-%include "pjsua2/media.hpp"
+%feature("director") AudioMediaPlayback;%include "pjsua2/media.hpp"
 
 %include "pjsua2/presence.hpp"
 %include "pjsua2/account.hpp"

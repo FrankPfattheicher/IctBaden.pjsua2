@@ -33,7 +33,32 @@ namespace pj
 			unsigned received_frames;
 			void *frame_buffer;
 
-			static pj_status_t processFrame(pjmedia_port *, void *);
+			static void processFrame(pjmedia_port *, void *);
+	};
+	
+	class AudioMediaPlayback : public AudioMedia 
+	{
+		public:
+			AudioMediaPlayback();
+			pj_status_t createMediaPlayback(pjsua_call_id);
+			virtual ~AudioMediaPlayback();
+			static void processFrames(pjmedia_port *, void *);
+
+			unsigned getFrameSize();
+			void stopPlayback();
+
+			virtual void onPlaybackDone() = 0;
+			
+			void putFrame(void *frameData, size_t datasize);
+			
+		private:
+			pj_pool_t *pool;
+			pjmedia_port *stream_port;
+			void *frame_buffer;
+			unsigned frame_size;
+			std::list<string> frames;
+			std::mutex frames_mtx;
+			bool playback;
 	};
 
 } // namespace pj

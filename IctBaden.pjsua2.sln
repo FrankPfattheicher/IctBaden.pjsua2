@@ -12,6 +12,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{F505B4B9-35CC-43EE-8279-016891230117}"
 	ProjectSection(SolutionItems) = preProject
 		IctBaden.pjsua2.nuspec = IctBaden.pjsua2.nuspec
+		build-linux.sh = build-linux.sh
+		build-linux-arm.sh = build-linux-arm.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "media_ext", "media_ext", "{9AAF0F3A-5D97-4E91-B2E1-D73E09F82336}"
+	ProjectSection(SolutionItems) = preProject
+		media_ext\media_ext.cpp = media_ext\media_ext.cpp
+		media_ext\media_ext.hpp = media_ext\media_ext.hpp
+		media_ext\media_ext.i = media_ext\media_ext.i
 	EndProjectSection
 EndProject
 Global

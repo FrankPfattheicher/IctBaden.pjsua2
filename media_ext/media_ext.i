@@ -7,4 +7,4 @@
 %}
 
 %feature("director") AudioMediaCapture;
-
+%feature("director") AudioMediaPlayback;
