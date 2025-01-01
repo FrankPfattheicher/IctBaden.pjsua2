@@ -47,9 +47,8 @@ namespace pj
 			unsigned getFrameSize();
 			void stopPlayback();
 
-			virtual void onPlaybackDone() = 0;
-			
 			void putFrame(void *frameData, size_t datasize);
+			bool isPaying();
 			
 		private:
 			pj_pool_t *pool;
@@ -58,7 +57,6 @@ namespace pj
 			unsigned frame_size;
 			std::list<string> frames;
 			std::mutex frames_mtx;
-			bool playback;
 	};
 
 } // namespace pj

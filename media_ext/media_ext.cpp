@@ -124,11 +124,15 @@ void AudioMediaPlayback::stopPlayback()
 	frames.clear();
 }
 
+bool AudioMediaPlayback::isPaying()
+{
+	return frames.size() > 0;
+}
+
 void AudioMediaPlayback::putFrame(void *frameData, size_t datasize) 
 {
     const std::lock_guard<std::mutex> lock(frames_mtx);
     frames.push_front(std::string((char *)frameData, datasize));
-	playback = true;
 }
 
 void AudioMediaPlayback::processFrames(pjmedia_port *port, void *usr_data) 
@@ -143,10 +147,6 @@ void AudioMediaPlayback::processFrames(pjmedia_port *port, void *usr_data)
         stream->frames.pop_back();
     } else {
         memset((char*)stream->frame_buffer, 0, stream->frame_size);
-		if(stream->playback) {
-			stream->playback = false;
-			stream->onPlaybackDone();
-		}
     }
 }
 

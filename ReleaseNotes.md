@@ -1,4 +1,5 @@
 
+* 1.5.7	  - 26.10.2024 Added isPaying
 * 1.5.6	  - 25.10.2024 Make putFrame non protected
 * 1.5.5	  - 25.10.2024 Make putFrame protected and non virtual
 * 1.5.4	  - 25.10.2024 frameBuffer as void*

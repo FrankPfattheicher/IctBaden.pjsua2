@@ -3345,21 +3345,12 @@ SwigDirector_AudioMediaPlayback::~SwigDirector_AudioMediaPlayback() {
 }
 
 
-void SwigDirector_AudioMediaPlayback::onPlaybackDone() {
-  if (!swig_callbackonPlaybackDone) {
-    Swig::DirectorPureVirtualException::raise("pj::AudioMediaPlayback::onPlaybackDone");
-    return;
-  } else {
-    swig_callbackonPlaybackDone();
-  }
-}
-
-void SwigDirector_AudioMediaPlayback::swig_connect_director(SWIG_Callback0_t callbackonPlaybackDone) {
-  swig_callbackonPlaybackDone = callbackonPlaybackDone;
+void SwigDirector_AudioMediaPlayback::swig_connect_director() {
+  
 }
 
 void SwigDirector_AudioMediaPlayback::swig_init_callbacks() {
-  swig_callbackonPlaybackDone = 0;
+  
 }
 
 SwigDirector_Buddy::SwigDirector_Buddy() : pj::Buddy(), Swig::Director() {
@@ -27389,14 +27380,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_stopPlayback(void * jarg1)
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_onPlaybackDone(void * jarg1) {
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  (arg1)->onPlaybackDone();
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_putFrame(void * jarg1, void * jarg2, unsigned int jarg3) {
   pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -27409,10 +27392,22 @@ SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_putFrame(void * jarg1, voi
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_director_connect(void *objarg, SwigDirector_AudioMediaPlayback::SWIG_Callback0_t callback0) {
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaPlayback_isPaying(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AudioMediaPlayback *)jarg1; 
+  result = (bool)(arg1)->isPaying();
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_director_connect(void *objarg) {
   pj::AudioMediaPlayback *obj = (pj::AudioMediaPlayback *)objarg;
   SwigDirector_AudioMediaPlayback *director = static_cast<SwigDirector_AudioMediaPlayback *>(obj);
-  director->swig_connect_director(callback0);
+  director->swig_connect_director();
 }
 
 

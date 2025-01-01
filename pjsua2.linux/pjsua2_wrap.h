@@ -62,13 +62,7 @@ class SwigDirector_AudioMediaPlayback : public pj::AudioMediaPlayback, public Sw
 public:
     SwigDirector_AudioMediaPlayback();
     virtual ~SwigDirector_AudioMediaPlayback();
-    virtual void onPlaybackDone();
-
-    typedef void (SWIGSTDCALL* SWIG_Callback0_t)();
-    void swig_connect_director(SWIG_Callback0_t callbackonPlaybackDone);
-
-private:
-    SWIG_Callback0_t swig_callbackonPlaybackDone;
+    void swig_connect_director();
     void swig_init_callbacks();
 };
 
