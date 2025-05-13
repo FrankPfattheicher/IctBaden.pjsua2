@@ -3232,7 +3232,6 @@ SWIGINTERN void std_vector_Sl_pj_SslCertName_Sg__SetRange(std::vector< pj::SslCe
 
 #include "pjsua2/media.hpp"
 
-SWIGINTERN void pj_WindowHandle_setWindow(pj::WindowHandle *self,long long hwnd){ self->window = (void*)hwnd; }
 
 
 /* ---------------------------------------------------
@@ -3371,6 +3370,15 @@ void SwigDirector_Buddy::onBuddyState() {
   }
 }
 
+void SwigDirector_Buddy::onBuddyDlgEventState() {
+  if (!swig_callbackonBuddyDlgEventState) {
+    pj::Buddy::onBuddyDlgEventState();
+    return;
+  } else {
+    swig_callbackonBuddyDlgEventState();
+  }
+}
+
 void SwigDirector_Buddy::onBuddyEvSubState(pj::OnBuddyEvSubStateParam &prm) {
   void * jprm = 0 ;
   
@@ -3383,14 +3391,30 @@ void SwigDirector_Buddy::onBuddyEvSubState(pj::OnBuddyEvSubStateParam &prm) {
   }
 }
 
-void SwigDirector_Buddy::swig_connect_director(SWIG_Callback0_t callbackonBuddyState, SWIG_Callback1_t callbackonBuddyEvSubState) {
+void SwigDirector_Buddy::onBuddyEvSubDlgEventState(pj::OnBuddyEvSubStateParam &prm) {
+  void * jprm = 0 ;
+  
+  if (!swig_callbackonBuddyEvSubDlgEventState) {
+    pj::Buddy::onBuddyEvSubDlgEventState(prm);
+    return;
+  } else {
+    jprm = (pj::OnBuddyEvSubStateParam *) &prm; 
+    swig_callbackonBuddyEvSubDlgEventState(jprm);
+  }
+}
+
+void SwigDirector_Buddy::swig_connect_director(SWIG_Callback0_t callbackonBuddyState, SWIG_Callback1_t callbackonBuddyDlgEventState, SWIG_Callback2_t callbackonBuddyEvSubState, SWIG_Callback3_t callbackonBuddyEvSubDlgEventState) {
   swig_callbackonBuddyState = callbackonBuddyState;
+  swig_callbackonBuddyDlgEventState = callbackonBuddyDlgEventState;
   swig_callbackonBuddyEvSubState = callbackonBuddyEvSubState;
+  swig_callbackonBuddyEvSubDlgEventState = callbackonBuddyEvSubDlgEventState;
 }
 
 void SwigDirector_Buddy::swig_init_callbacks() {
   swig_callbackonBuddyState = 0;
+  swig_callbackonBuddyDlgEventState = 0;
   swig_callbackonBuddyEvSubState = 0;
+  swig_callbackonBuddyEvSubDlgEventState = 0;
 }
 
 SwigDirector_FindBuddyMatch::SwigDirector_FindBuddyMatch() : pj::FindBuddyMatch(), Swig::Director() {
@@ -3685,6 +3709,18 @@ void SwigDirector_Call::onDtmfEvent(pj::OnDtmfEventParam &prm) {
   }
 }
 
+void SwigDirector_Call::onCallRxText(pj::OnCallRxTextParam &prm) {
+  void * jprm = 0 ;
+  
+  if (!swig_callbackonCallRxText) {
+    pj::Call::onCallRxText(prm);
+    return;
+  } else {
+    jprm = (pj::OnCallRxTextParam *) &prm; 
+    swig_callbackonCallRxText(jprm);
+  }
+}
+
 void SwigDirector_Call::onCallTransferRequest(pj::OnCallTransferRequestParam &prm) {
   void * jprm = 0 ;
   
@@ -3868,7 +3904,7 @@ void SwigDirector_Call::onCreateMediaTransportSrtp(pj::OnCreateMediaTransportSrt
   }
 }
 
-void SwigDirector_Call::swig_connect_director(SWIG_Callback0_t callbackonCallState, SWIG_Callback1_t callbackonCallTsxState, SWIG_Callback2_t callbackonCallMediaState, SWIG_Callback3_t callbackonCallSdpCreated, SWIG_Callback4_t callbackonStreamPreCreate, SWIG_Callback5_t callbackonStreamCreated, SWIG_Callback6_t callbackonStreamDestroyed, SWIG_Callback7_t callbackonDtmfDigit, SWIG_Callback8_t callbackonDtmfEvent, SWIG_Callback9_t callbackonCallTransferRequest, SWIG_Callback10_t callbackonCallTransferStatus, SWIG_Callback11_t callbackonCallReplaceRequest, SWIG_Callback12_t callbackonCallReplaced, SWIG_Callback13_t callbackonCallRxOffer, SWIG_Callback14_t callbackonCallRxReinvite, SWIG_Callback15_t callbackonCallTxOffer, SWIG_Callback16_t callbackonInstantMessage, SWIG_Callback17_t callbackonInstantMessageStatus, SWIG_Callback18_t callbackonTypingIndication, SWIG_Callback19_t callbackonCallRedirected, SWIG_Callback20_t callbackonCallMediaTransportState, SWIG_Callback21_t callbackonCallMediaEvent, SWIG_Callback22_t callbackonCreateMediaTransport, SWIG_Callback23_t callbackonCreateMediaTransportSrtp) {
+void SwigDirector_Call::swig_connect_director(SWIG_Callback0_t callbackonCallState, SWIG_Callback1_t callbackonCallTsxState, SWIG_Callback2_t callbackonCallMediaState, SWIG_Callback3_t callbackonCallSdpCreated, SWIG_Callback4_t callbackonStreamPreCreate, SWIG_Callback5_t callbackonStreamCreated, SWIG_Callback6_t callbackonStreamDestroyed, SWIG_Callback7_t callbackonDtmfDigit, SWIG_Callback8_t callbackonDtmfEvent, SWIG_Callback9_t callbackonCallRxText, SWIG_Callback10_t callbackonCallTransferRequest, SWIG_Callback11_t callbackonCallTransferStatus, SWIG_Callback12_t callbackonCallReplaceRequest, SWIG_Callback13_t callbackonCallReplaced, SWIG_Callback14_t callbackonCallRxOffer, SWIG_Callback15_t callbackonCallRxReinvite, SWIG_Callback16_t callbackonCallTxOffer, SWIG_Callback17_t callbackonInstantMessage, SWIG_Callback18_t callbackonInstantMessageStatus, SWIG_Callback19_t callbackonTypingIndication, SWIG_Callback20_t callbackonCallRedirected, SWIG_Callback21_t callbackonCallMediaTransportState, SWIG_Callback22_t callbackonCallMediaEvent, SWIG_Callback23_t callbackonCreateMediaTransport, SWIG_Callback24_t callbackonCreateMediaTransportSrtp) {
   swig_callbackonCallState = callbackonCallState;
   swig_callbackonCallTsxState = callbackonCallTsxState;
   swig_callbackonCallMediaState = callbackonCallMediaState;
@@ -3878,6 +3914,7 @@ void SwigDirector_Call::swig_connect_director(SWIG_Callback0_t callbackonCallSta
   swig_callbackonStreamDestroyed = callbackonStreamDestroyed;
   swig_callbackonDtmfDigit = callbackonDtmfDigit;
   swig_callbackonDtmfEvent = callbackonDtmfEvent;
+  swig_callbackonCallRxText = callbackonCallRxText;
   swig_callbackonCallTransferRequest = callbackonCallTransferRequest;
   swig_callbackonCallTransferStatus = callbackonCallTransferStatus;
   swig_callbackonCallReplaceRequest = callbackonCallReplaceRequest;
@@ -3905,6 +3942,7 @@ void SwigDirector_Call::swig_init_callbacks() {
   swig_callbackonStreamDestroyed = 0;
   swig_callbackonDtmfDigit = 0;
   swig_callbackonDtmfEvent = 0;
+  swig_callbackonCallRxText = 0;
   swig_callbackonCallTransferRequest = 0;
   swig_callbackonCallTransferStatus = 0;
   swig_callbackonCallReplaceRequest = 0;
@@ -4099,408 +4137,6 @@ void SwigDirector_Endpoint::swig_init_callbacks() {
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_flags_set(void * jarg1, unsigned char jarg2) {
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_uint8_t arg2 ;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  arg2 = (pj_uint8_t)jarg2; 
-  if (arg1) (arg1)->flags = arg2;
-}
-
-
-SWIGEXPORT unsigned char SWIGSTDCALL CSharp_pj_qos_params_flags_get(void * jarg1) {
-  unsigned char jresult ;
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_uint8_t result;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  result = (pj_uint8_t) ((arg1)->flags);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_dscp_val_set(void * jarg1, unsigned char jarg2) {
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_uint8_t arg2 ;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  arg2 = (pj_uint8_t)jarg2; 
-  if (arg1) (arg1)->dscp_val = arg2;
-}
-
-
-SWIGEXPORT unsigned char SWIGSTDCALL CSharp_pj_qos_params_dscp_val_get(void * jarg1) {
-  unsigned char jresult ;
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_uint8_t result;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  result = (pj_uint8_t) ((arg1)->dscp_val);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_so_prio_set(void * jarg1, unsigned char jarg2) {
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_uint8_t arg2 ;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  arg2 = (pj_uint8_t)jarg2; 
-  if (arg1) (arg1)->so_prio = arg2;
-}
-
-
-SWIGEXPORT unsigned char SWIGSTDCALL CSharp_pj_qos_params_so_prio_get(void * jarg1) {
-  unsigned char jresult ;
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_uint8_t result;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  result = (pj_uint8_t) ((arg1)->so_prio);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_wmm_prio_set(void * jarg1, int jarg2) {
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_qos_wmm_prio arg2 ;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  arg2 = (pj_qos_wmm_prio)jarg2; 
-  if (arg1) (arg1)->wmm_prio = arg2;
-}
-
-
-SWIGEXPORT int SWIGSTDCALL CSharp_pj_qos_params_wmm_prio_get(void * jarg1) {
-  int jresult ;
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  pj_qos_wmm_prio result;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  result = (pj_qos_wmm_prio) ((arg1)->wmm_prio);
-  jresult = (int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_pj_qos_params() {
-  void * jresult ;
-  pj_qos_params *result = 0 ;
-  
-  result = (pj_qos_params *)new pj_qos_params();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_pj_qos_params(void * jarg1) {
-  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
-  
-  arg1 = (pj_qos_params *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_digit_set(void * jarg1, char jarg2) {
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  char arg2 ;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  arg2 = (char)jarg2; 
-  if (arg1) (arg1)->digit = arg2;
-}
-
-
-SWIGEXPORT char SWIGSTDCALL CSharp_pjmedia_tone_digit_digit_get(void * jarg1) {
-  char jresult ;
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  char result;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  result = (char) ((arg1)->digit);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_on_msec_set(void * jarg1, short jarg2) {
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->on_msec = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_digit_on_msec_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  result = (short) ((arg1)->on_msec);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_off_msec_set(void * jarg1, short jarg2) {
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->off_msec = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_digit_off_msec_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  result = (short) ((arg1)->off_msec);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_volume_set(void * jarg1, short jarg2) {
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->volume = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_digit_volume_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  result = (short) ((arg1)->volume);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_pjmedia_tone_digit() {
-  void * jresult ;
-  pjmedia_tone_digit *result = 0 ;
-  
-  result = (pjmedia_tone_digit *)new pjmedia_tone_digit();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_pjmedia_tone_digit(void * jarg1) {
-  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
-  
-  arg1 = (pjmedia_tone_digit *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_map_count_set(void * jarg1, unsigned int jarg2) {
-  pjmedia_tone_digit_map *arg1 = (pjmedia_tone_digit_map *) 0 ;
-  unsigned int arg2 ;
-  
-  arg1 = (pjmedia_tone_digit_map *)jarg1; 
-  arg2 = (unsigned int)jarg2; 
-  if (arg1) (arg1)->count = arg2;
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pjmedia_tone_digit_map_count_get(void * jarg1) {
-  unsigned int jresult ;
-  pjmedia_tone_digit_map *arg1 = (pjmedia_tone_digit_map *) 0 ;
-  unsigned int result;
-  
-  arg1 = (pjmedia_tone_digit_map *)jarg1; 
-  result = (unsigned int) ((arg1)->count);
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_pjmedia_tone_digit_map() {
-  void * jresult ;
-  pjmedia_tone_digit_map *result = 0 ;
-  
-  result = (pjmedia_tone_digit_map *)new pjmedia_tone_digit_map();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_pjmedia_tone_digit_map(void * jarg1) {
-  pjmedia_tone_digit_map *arg1 = (pjmedia_tone_digit_map *) 0 ;
-  
-  arg1 = (pjmedia_tone_digit_map *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_freq1_set(void * jarg1, short jarg2) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->freq1 = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_freq1_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  result = (short) ((arg1)->freq1);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_freq2_set(void * jarg1, short jarg2) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->freq2 = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_freq2_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  result = (short) ((arg1)->freq2);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_on_msec_set(void * jarg1, short jarg2) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->on_msec = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_on_msec_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  result = (short) ((arg1)->on_msec);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_off_msec_set(void * jarg1, short jarg2) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->off_msec = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_off_msec_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  result = (short) ((arg1)->off_msec);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_volume_set(void * jarg1, short jarg2) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->volume = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_volume_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  result = (short) ((arg1)->volume);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_flags_set(void * jarg1, short jarg2) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short arg2 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  arg2 = (short)jarg2; 
-  if (arg1) (arg1)->flags = arg2;
-}
-
-
-SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_flags_get(void * jarg1) {
-  short jresult ;
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  short result;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  result = (short) ((arg1)->flags);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_pjmedia_tone_desc() {
-  void * jresult ;
-  pjmedia_tone_desc *result = 0 ;
-  
-  result = (pjmedia_tone_desc *)new pjmedia_tone_desc();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_pjmedia_tone_desc(void * jarg1) {
-  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
-  
-  arg1 = (pjmedia_tone_desc *)jarg1; 
-  delete arg1;
-}
-
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_StringVector__SWIG_0() {
   void * jresult ;
@@ -5998,6 +5634,408 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_StringToStringMap(void * jarg1) {
   std::map< string,string > *arg1 = (std::map< string,string > *) 0 ;
   
   arg1 = (std::map< string,string > *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_flags_set(void * jarg1, unsigned char jarg2) {
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_uint8_t arg2 ;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  arg2 = (pj_uint8_t)jarg2; 
+  if (arg1) (arg1)->flags = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_pj_qos_params_flags_get(void * jarg1) {
+  unsigned char jresult ;
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_uint8_t result;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  result = (pj_uint8_t) ((arg1)->flags);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_dscp_val_set(void * jarg1, unsigned char jarg2) {
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_uint8_t arg2 ;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  arg2 = (pj_uint8_t)jarg2; 
+  if (arg1) (arg1)->dscp_val = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_pj_qos_params_dscp_val_get(void * jarg1) {
+  unsigned char jresult ;
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_uint8_t result;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  result = (pj_uint8_t) ((arg1)->dscp_val);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_so_prio_set(void * jarg1, unsigned char jarg2) {
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_uint8_t arg2 ;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  arg2 = (pj_uint8_t)jarg2; 
+  if (arg1) (arg1)->so_prio = arg2;
+}
+
+
+SWIGEXPORT unsigned char SWIGSTDCALL CSharp_pj_qos_params_so_prio_get(void * jarg1) {
+  unsigned char jresult ;
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_uint8_t result;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  result = (pj_uint8_t) ((arg1)->so_prio);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pj_qos_params_wmm_prio_set(void * jarg1, int jarg2) {
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_qos_wmm_prio arg2 ;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  arg2 = (pj_qos_wmm_prio)jarg2; 
+  if (arg1) (arg1)->wmm_prio = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_pj_qos_params_wmm_prio_get(void * jarg1) {
+  int jresult ;
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  pj_qos_wmm_prio result;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  result = (pj_qos_wmm_prio) ((arg1)->wmm_prio);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_pj_qos_params() {
+  void * jresult ;
+  pj_qos_params *result = 0 ;
+  
+  result = (pj_qos_params *)new pj_qos_params();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_pj_qos_params(void * jarg1) {
+  pj_qos_params *arg1 = (pj_qos_params *) 0 ;
+  
+  arg1 = (pj_qos_params *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_digit_set(void * jarg1, char jarg2) {
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  char arg2 ;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  arg2 = (char)jarg2; 
+  if (arg1) (arg1)->digit = arg2;
+}
+
+
+SWIGEXPORT char SWIGSTDCALL CSharp_pjmedia_tone_digit_digit_get(void * jarg1) {
+  char jresult ;
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  char result;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  result = (char) ((arg1)->digit);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_on_msec_set(void * jarg1, short jarg2) {
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->on_msec = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_digit_on_msec_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  result = (short) ((arg1)->on_msec);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_off_msec_set(void * jarg1, short jarg2) {
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->off_msec = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_digit_off_msec_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  result = (short) ((arg1)->off_msec);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_volume_set(void * jarg1, short jarg2) {
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->volume = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_digit_volume_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  result = (short) ((arg1)->volume);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_pjmedia_tone_digit() {
+  void * jresult ;
+  pjmedia_tone_digit *result = 0 ;
+  
+  result = (pjmedia_tone_digit *)new pjmedia_tone_digit();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_pjmedia_tone_digit(void * jarg1) {
+  pjmedia_tone_digit *arg1 = (pjmedia_tone_digit *) 0 ;
+  
+  arg1 = (pjmedia_tone_digit *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_digit_map_count_set(void * jarg1, unsigned int jarg2) {
+  pjmedia_tone_digit_map *arg1 = (pjmedia_tone_digit_map *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pjmedia_tone_digit_map *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->count = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_pjmedia_tone_digit_map_count_get(void * jarg1) {
+  unsigned int jresult ;
+  pjmedia_tone_digit_map *arg1 = (pjmedia_tone_digit_map *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pjmedia_tone_digit_map *)jarg1; 
+  result = (unsigned int) ((arg1)->count);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_pjmedia_tone_digit_map() {
+  void * jresult ;
+  pjmedia_tone_digit_map *result = 0 ;
+  
+  result = (pjmedia_tone_digit_map *)new pjmedia_tone_digit_map();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_pjmedia_tone_digit_map(void * jarg1) {
+  pjmedia_tone_digit_map *arg1 = (pjmedia_tone_digit_map *) 0 ;
+  
+  arg1 = (pjmedia_tone_digit_map *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_freq1_set(void * jarg1, short jarg2) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->freq1 = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_freq1_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  result = (short) ((arg1)->freq1);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_freq2_set(void * jarg1, short jarg2) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->freq2 = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_freq2_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  result = (short) ((arg1)->freq2);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_on_msec_set(void * jarg1, short jarg2) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->on_msec = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_on_msec_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  result = (short) ((arg1)->on_msec);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_off_msec_set(void * jarg1, short jarg2) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->off_msec = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_off_msec_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  result = (short) ((arg1)->off_msec);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_volume_set(void * jarg1, short jarg2) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->volume = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_volume_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  result = (short) ((arg1)->volume);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_pjmedia_tone_desc_flags_set(void * jarg1, short jarg2) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short arg2 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  arg2 = (short)jarg2; 
+  if (arg1) (arg1)->flags = arg2;
+}
+
+
+SWIGEXPORT short SWIGSTDCALL CSharp_pjmedia_tone_desc_flags_get(void * jarg1) {
+  short jresult ;
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  short result;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
+  result = (short) ((arg1)->flags);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_pjmedia_tone_desc() {
+  void * jresult ;
+  pjmedia_tone_desc *result = 0 ;
+  
+  result = (pjmedia_tone_desc *)new pjmedia_tone_desc();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_pjmedia_tone_desc(void * jarg1) {
+  pjmedia_tone_desc *arg1 = (pjmedia_tone_desc *) 0 ;
+  
+  arg1 = (pjmedia_tone_desc *)jarg1; 
   delete arg1;
 }
 
@@ -24434,16 +24472,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_WindowHandle_display_get(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_WindowHandle_setWindow(void * jarg1, long long jarg2) {
-  pj::WindowHandle *arg1 = (pj::WindowHandle *) 0 ;
-  long long arg2 ;
-  
-  arg1 = (pj::WindowHandle *)jarg1; 
-  arg2 = (long long)jarg2; 
-  pj_WindowHandle_setWindow(arg1,arg2);
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_WindowHandle() {
   void * jresult ;
   pj::WindowHandle *result = 0 ;
@@ -24462,30 +24490,24 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_WindowHandle(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_VideoWindowHandle_type_set(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoWindowHandle_type_set(void * jarg1, int jarg2) {
   pj::VideoWindowHandle *arg1 = (pj::VideoWindowHandle *) 0 ;
   pjmedia_vid_dev_hwnd_type arg2 ;
-  pjmedia_vid_dev_hwnd_type *argp2 ;
   
   arg1 = (pj::VideoWindowHandle *)jarg1; 
-  argp2 = (pjmedia_vid_dev_hwnd_type *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pjmedia_vid_dev_hwnd_type", 0);
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (pjmedia_vid_dev_hwnd_type)jarg2; 
   if (arg1) (arg1)->type = arg2;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_VideoWindowHandle_type_get(void * jarg1) {
-  void * jresult ;
+SWIGEXPORT int SWIGSTDCALL CSharp_VideoWindowHandle_type_get(void * jarg1) {
+  int jresult ;
   pj::VideoWindowHandle *arg1 = (pj::VideoWindowHandle *) 0 ;
   pjmedia_vid_dev_hwnd_type result;
   
   arg1 = (pj::VideoWindowHandle *)jarg1; 
-  result =  ((arg1)->type);
-  jresult = new pjmedia_vid_dev_hwnd_type(result); 
+  result = (pjmedia_vid_dev_hwnd_type) ((arg1)->type);
+  jresult = (int)result; 
   return jresult;
 }
 
@@ -27603,6 +27625,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_BuddyConfig_subscribe_get(void * jarg
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_BuddyConfig_subscribe_dlg_event_set(void * jarg1, unsigned int jarg2) {
+  pj::BuddyConfig *arg1 = (pj::BuddyConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::BuddyConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->subscribe_dlg_event = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_BuddyConfig_subscribe_dlg_event_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::BuddyConfig *arg1 = (pj::BuddyConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::BuddyConfig *)jarg1; 
+  result = (bool) ((arg1)->subscribe_dlg_event);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_BuddyConfig_readObject(void * jarg1, void * jarg2) {
   pj::BuddyConfig *arg1 = (pj::BuddyConfig *) 0 ;
   pj::ContainerNode *arg2 = 0 ;
@@ -28071,6 +28115,42 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_updatePresence(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_subscribeDlgEvent(void * jarg1, unsigned int jarg2) {
+  pj::Buddy *arg1 = (pj::Buddy *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::Buddy *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  try {
+    (arg1)->subscribeDlgEvent(arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_updateDlgEvent(void * jarg1) {
+  pj::Buddy *arg1 = (pj::Buddy *) 0 ;
+  
+  arg1 = (pj::Buddy *)jarg1; 
+  try {
+    (arg1)->updateDlgEvent();
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_sendInstantMessage(void * jarg1, void * jarg2) {
   pj::Buddy *arg1 = (pj::Buddy *) 0 ;
   pj::SendInstantMessageParam *arg2 = 0 ;
@@ -28133,6 +28213,22 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyStateSwigExplicitBuddy(void * ja
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyDlgEventState(void * jarg1) {
+  pj::Buddy *arg1 = (pj::Buddy *) 0 ;
+  
+  arg1 = (pj::Buddy *)jarg1; 
+  (arg1)->onBuddyDlgEventState();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyDlgEventStateSwigExplicitBuddy(void * jarg1) {
+  pj::Buddy *arg1 = (pj::Buddy *) 0 ;
+  
+  arg1 = (pj::Buddy *)jarg1; 
+  (arg1)->pj::Buddy::onBuddyDlgEventState();
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyEvSubState(void * jarg1, void * jarg2) {
   pj::Buddy *arg1 = (pj::Buddy *) 0 ;
   pj::OnBuddyEvSubStateParam *arg2 = 0 ;
@@ -28161,10 +28257,38 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyEvSubStateSwigExplicitBuddy(void
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_director_connect(void *objarg, SwigDirector_Buddy::SWIG_Callback0_t callback0, SwigDirector_Buddy::SWIG_Callback1_t callback1) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyEvSubDlgEventState(void * jarg1, void * jarg2) {
+  pj::Buddy *arg1 = (pj::Buddy *) 0 ;
+  pj::OnBuddyEvSubStateParam *arg2 = 0 ;
+  
+  arg1 = (pj::Buddy *)jarg1; 
+  arg2 = (pj::OnBuddyEvSubStateParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnBuddyEvSubStateParam & is null", 0);
+    return ;
+  } 
+  (arg1)->onBuddyEvSubDlgEventState(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_onBuddyEvSubDlgEventStateSwigExplicitBuddy(void * jarg1, void * jarg2) {
+  pj::Buddy *arg1 = (pj::Buddy *) 0 ;
+  pj::OnBuddyEvSubStateParam *arg2 = 0 ;
+  
+  arg1 = (pj::Buddy *)jarg1; 
+  arg2 = (pj::OnBuddyEvSubStateParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnBuddyEvSubStateParam & is null", 0);
+    return ;
+  } 
+  (arg1)->pj::Buddy::onBuddyEvSubDlgEventState(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Buddy_director_connect(void *objarg, SwigDirector_Buddy::SWIG_Callback0_t callback0, SwigDirector_Buddy::SWIG_Callback1_t callback1, SwigDirector_Buddy::SWIG_Callback2_t callback2, SwigDirector_Buddy::SWIG_Callback3_t callback3) {
   pj::Buddy *obj = (pj::Buddy *)objarg;
   SwigDirector_Buddy *director = static_cast<SwigDirector_Buddy *>(obj);
-  director->swig_connect_director(callback0, callback1);
+  director->swig_connect_director(callback0, callback1, callback2, callback3);
 }
 
 
@@ -28773,6 +28897,28 @@ SWIGEXPORT int SWIGSTDCALL CSharp_AccountSipConfig_ipv6Use_get(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountSipConfig_useSharedAuth_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountSipConfig *arg1 = (pj::AccountSipConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AccountSipConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->useSharedAuth = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountSipConfig_useSharedAuth_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountSipConfig *arg1 = (pj::AccountSipConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AccountSipConfig *)jarg1; 
+  result = (bool) ((arg1)->useSharedAuth);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_AccountSipConfig_readObject(void * jarg1, void * jarg2) {
   pj::AccountSipConfig *arg1 = (pj::AccountSipConfig *) 0 ;
   pj::ContainerNode *arg2 = 0 ;
@@ -28898,6 +29044,28 @@ SWIGEXPORT int SWIGSTDCALL CSharp_AccountCallConfig_timerUse_get(void * jarg1) {
   
   arg1 = (pj::AccountCallConfig *)jarg1; 
   result = (pjsua_sip_timer_use) ((arg1)->timerUse);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountCallConfig_siprecUse_set(void * jarg1, int jarg2) {
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  pjsua_sip_siprec_use arg2 ;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  arg2 = (pjsua_sip_siprec_use)jarg2; 
+  if (arg1) (arg1)->siprecUse = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_AccountCallConfig_siprecUse_get(void * jarg1) {
+  int jresult ;
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  pjsua_sip_siprec_use result;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  result = (pjsua_sip_siprec_use) ((arg1)->siprecUse);
   jresult = (int)result; 
   return jresult;
 }
@@ -29536,6 +29704,28 @@ SWIGEXPORT int SWIGSTDCALL CSharp_AccountNatConfig_iceWaitNominationTimeoutMsec_
   arg1 = (pj::AccountNatConfig *)jarg1; 
   result = (int) ((arg1)->iceWaitNominationTimeoutMsec);
   jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountNatConfig_iceCheckSrcAddr_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountNatConfig *arg1 = (pj::AccountNatConfig *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AccountNatConfig *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->iceCheckSrcAddr = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountNatConfig_iceCheckSrcAddr_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountNatConfig *arg1 = (pj::AccountNatConfig *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AccountNatConfig *)jarg1; 
+  result = (unsigned int) ((arg1)->iceCheckSrcAddr);
+  jresult = (unsigned int)result; 
   return jresult;
 }
 
@@ -31140,6 +31330,92 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_AccountVideoConfig(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountTextConfig_redundancyLevel_set(void * jarg1, int jarg2) {
+  pj::AccountTextConfig *arg1 = (pj::AccountTextConfig *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::AccountTextConfig *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->redundancyLevel = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_AccountTextConfig_redundancyLevel_get(void * jarg1) {
+  int jresult ;
+  pj::AccountTextConfig *arg1 = (pj::AccountTextConfig *) 0 ;
+  int result;
+  
+  arg1 = (pj::AccountTextConfig *)jarg1; 
+  result = (int) ((arg1)->redundancyLevel);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AccountTextConfig() {
+  void * jresult ;
+  pj::AccountTextConfig *result = 0 ;
+  
+  result = (pj::AccountTextConfig *)new pj::AccountTextConfig();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountTextConfig_readObject(void * jarg1, void * jarg2) {
+  pj::AccountTextConfig *arg1 = (pj::AccountTextConfig *) 0 ;
+  pj::ContainerNode *arg2 = 0 ;
+  
+  arg1 = (pj::AccountTextConfig *)jarg1; 
+  arg2 = (pj::ContainerNode *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::ContainerNode const & is null", 0);
+    return ;
+  } 
+  try {
+    (arg1)->readObject((pj::ContainerNode const &)*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountTextConfig_writeObject(void * jarg1, void * jarg2) {
+  pj::AccountTextConfig *arg1 = (pj::AccountTextConfig *) 0 ;
+  pj::ContainerNode *arg2 = 0 ;
+  
+  arg1 = (pj::AccountTextConfig *)jarg1; 
+  arg2 = (pj::ContainerNode *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::ContainerNode & is null", 0);
+    return ;
+  } 
+  try {
+    ((pj::AccountTextConfig const *)arg1)->writeObject(*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AccountTextConfig(void * jarg1) {
+  pj::AccountTextConfig *arg1 = (pj::AccountTextConfig *) 0 ;
+  
+  arg1 = (pj::AccountTextConfig *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_AccountIpChangeConfig_shutdownTp_set(void * jarg1, unsigned int jarg2) {
   pj::AccountIpChangeConfig *arg1 = (pj::AccountIpChangeConfig *) 0 ;
   bool arg2 ;
@@ -31512,6 +31788,28 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_AccountConfig_videoConfig_get(void * jarg1)
   
   arg1 = (pj::AccountConfig *)jarg1; 
   result = (pj::AccountVideoConfig *)& ((arg1)->videoConfig);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountConfig_textConfig_set(void * jarg1, void * jarg2) {
+  pj::AccountConfig *arg1 = (pj::AccountConfig *) 0 ;
+  pj::AccountTextConfig *arg2 = (pj::AccountTextConfig *) 0 ;
+  
+  arg1 = (pj::AccountConfig *)jarg1; 
+  arg2 = (pj::AccountTextConfig *)jarg2; 
+  if (arg1) (arg1)->textConfig = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_AccountConfig_textConfig_get(void * jarg1) {
+  void * jresult ;
+  pj::AccountConfig *arg1 = (pj::AccountConfig *) 0 ;
+  pj::AccountTextConfig *result = 0 ;
+  
+  arg1 = (pj::AccountConfig *)jarg1; 
+  result = (pj::AccountTextConfig *)& ((arg1)->textConfig);
   jresult = (void *)result; 
   return jresult;
 }
@@ -35192,6 +35490,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_CallSetting_videoCount_get(void * jar
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_CallSetting_textCount_set(void * jarg1, unsigned int jarg2) {
+  pj::CallSetting *arg1 = (pj::CallSetting *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::CallSetting *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->textCount = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_CallSetting_textCount_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::CallSetting *arg1 = (pj::CallSetting *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::CallSetting *)jarg1; 
+  result = (unsigned int) ((arg1)->textCount);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_CallSetting_mediaDir_set(void * jarg1, void * jarg2) {
   pj::CallSetting *arg1 = (pj::CallSetting *) 0 ;
   pj::MediaDirVector *arg2 = (pj::MediaDirVector *) 0 ;
@@ -35952,6 +36272,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_CallInfo_remVideoCount_get(void * jar
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_CallInfo_remTextCount_set(void * jarg1, unsigned int jarg2) {
+  pj::CallInfo *arg1 = (pj::CallInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::CallInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->remTextCount = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_CallInfo_remTextCount_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::CallInfo *arg1 = (pj::CallInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::CallInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->remTextCount);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_CallInfo() {
   void * jresult ;
   pj::CallInfo *result = 0 ;
@@ -36359,30 +36701,24 @@ SWIGEXPORT int SWIGSTDCALL CSharp_StreamInfo_jbMax_get(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_StreamInfo_jbDiscardAlgo_set(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_StreamInfo_jbDiscardAlgo_set(void * jarg1, int jarg2) {
   pj::StreamInfo *arg1 = (pj::StreamInfo *) 0 ;
   pjmedia_jb_discard_algo arg2 ;
-  pjmedia_jb_discard_algo *argp2 ;
   
   arg1 = (pj::StreamInfo *)jarg1; 
-  argp2 = (pjmedia_jb_discard_algo *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pjmedia_jb_discard_algo", 0);
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (pjmedia_jb_discard_algo)jarg2; 
   if (arg1) (arg1)->jbDiscardAlgo = arg2;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_StreamInfo_jbDiscardAlgo_get(void * jarg1) {
-  void * jresult ;
+SWIGEXPORT int SWIGSTDCALL CSharp_StreamInfo_jbDiscardAlgo_get(void * jarg1) {
+  int jresult ;
   pj::StreamInfo *arg1 = (pj::StreamInfo *) 0 ;
   pjmedia_jb_discard_algo result;
   
   arg1 = (pj::StreamInfo *)jarg1; 
-  result =  ((arg1)->jbDiscardAlgo);
-  jresult = new pjmedia_jb_discard_algo(result); 
+  result = (pjmedia_jb_discard_algo) ((arg1)->jbDiscardAlgo);
+  jresult = (int)result; 
   return jresult;
 }
 
@@ -37097,6 +37433,95 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnDtmfEventParam(void * jarg1) {
   pj::OnDtmfEventParam *arg1 = (pj::OnDtmfEventParam *) 0 ;
   
   arg1 = (pj::OnDtmfEventParam *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnCallRxTextParam_seq_set(void * jarg1, int jarg2) {
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->seq = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnCallRxTextParam_seq_get(void * jarg1) {
+  int jresult ;
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  int result;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  result = (int) ((arg1)->seq);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnCallRxTextParam_ts_set(void * jarg1, unsigned int jarg2) {
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->ts = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_OnCallRxTextParam_ts_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  result = (unsigned int) ((arg1)->ts);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnCallRxTextParam_text_set(void * jarg1, const char * jarg2) {
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->text = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_OnCallRxTextParam_text_get(void * jarg1) {
+  const char * jresult ;
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  pj::string *result = 0 ;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  result = (pj::string *) & ((arg1)->text);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_OnCallRxTextParam() {
+  void * jresult ;
+  pj::OnCallRxTextParam *result = 0 ;
+  
+  result = (pj::OnCallRxTextParam *)new pj::OnCallRxTextParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnCallRxTextParam(void * jarg1) {
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
   delete arg1;
 }
 
@@ -38580,6 +39005,73 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_CallSendDtmfParam(void * jarg1) {
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_CallSendTextParam_medIdx_set(void * jarg1, int jarg2) {
+  pj::CallSendTextParam *arg1 = (pj::CallSendTextParam *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::CallSendTextParam *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->medIdx = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_CallSendTextParam_medIdx_get(void * jarg1) {
+  int jresult ;
+  pj::CallSendTextParam *arg1 = (pj::CallSendTextParam *) 0 ;
+  int result;
+  
+  arg1 = (pj::CallSendTextParam *)jarg1; 
+  result = (int) ((arg1)->medIdx);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_CallSendTextParam_text_set(void * jarg1, const char * jarg2) {
+  pj::CallSendTextParam *arg1 = (pj::CallSendTextParam *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::CallSendTextParam *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->text = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_CallSendTextParam_text_get(void * jarg1) {
+  const char * jresult ;
+  pj::CallSendTextParam *arg1 = (pj::CallSendTextParam *) 0 ;
+  pj::string *result = 0 ;
+  
+  arg1 = (pj::CallSendTextParam *)jarg1; 
+  result = (pj::string *) & ((arg1)->text);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_CallSendTextParam() {
+  void * jresult ;
+  pj::CallSendTextParam *result = 0 ;
+  
+  result = (pj::CallSendTextParam *)new pj::CallSendTextParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_CallSendTextParam(void * jarg1) {
+  pj::CallSendTextParam *arg1 = (pj::CallSendTextParam *) 0 ;
+  
+  arg1 = (pj::CallSendTextParam *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_Call__SWIG_0(void * jarg1, int jarg2) {
   void * jresult ;
   pj::Account *arg1 = 0 ;
@@ -39104,6 +39596,29 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Call_sendDtmf(void * jarg1, void * jarg2) {
   } 
   try {
     (arg1)->sendDtmf((pj::CallSendDtmfParam const &)*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Call_sendText(void * jarg1, void * jarg2) {
+  pj::Call *arg1 = (pj::Call *) 0 ;
+  pj::CallSendTextParam *arg2 = 0 ;
+  
+  arg1 = (pj::Call *)jarg1; 
+  arg2 = (pj::CallSendTextParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::CallSendTextParam const & is null", 0);
+    return ;
+  } 
+  try {
+    (arg1)->sendText((pj::CallSendTextParam const &)*arg2);
   } catch(pj::Error &_e) {
     {
       SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
@@ -39665,6 +40180,34 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Call_onDtmfEventSwigExplicitCall(void * jarg1
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_Call_onCallRxText(void * jarg1, void * jarg2) {
+  pj::Call *arg1 = (pj::Call *) 0 ;
+  pj::OnCallRxTextParam *arg2 = 0 ;
+  
+  arg1 = (pj::Call *)jarg1; 
+  arg2 = (pj::OnCallRxTextParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnCallRxTextParam & is null", 0);
+    return ;
+  } 
+  (arg1)->onCallRxText(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Call_onCallRxTextSwigExplicitCall(void * jarg1, void * jarg2) {
+  pj::Call *arg1 = (pj::Call *) 0 ;
+  pj::OnCallRxTextParam *arg2 = 0 ;
+  
+  arg1 = (pj::Call *)jarg1; 
+  arg2 = (pj::OnCallRxTextParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnCallRxTextParam & is null", 0);
+    return ;
+  } 
+  (arg1)->pj::Call::onCallRxText(*arg2);
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_Call_onCallTransferRequest(void * jarg1, void * jarg2) {
   pj::Call *arg1 = (pj::Call *) 0 ;
   pj::OnCallTransferRequestParam *arg2 = 0 ;
@@ -40093,10 +40636,10 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Call_onCreateMediaTransportSrtpSwigExplicitCa
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Call_director_connect(void *objarg, SwigDirector_Call::SWIG_Callback0_t callback0, SwigDirector_Call::SWIG_Callback1_t callback1, SwigDirector_Call::SWIG_Callback2_t callback2, SwigDirector_Call::SWIG_Callback3_t callback3, SwigDirector_Call::SWIG_Callback4_t callback4, SwigDirector_Call::SWIG_Callback5_t callback5, SwigDirector_Call::SWIG_Callback6_t callback6, SwigDirector_Call::SWIG_Callback7_t callback7, SwigDirector_Call::SWIG_Callback8_t callback8, SwigDirector_Call::SWIG_Callback9_t callback9, SwigDirector_Call::SWIG_Callback10_t callback10, SwigDirector_Call::SWIG_Callback11_t callback11, SwigDirector_Call::SWIG_Callback12_t callback12, SwigDirector_Call::SWIG_Callback13_t callback13, SwigDirector_Call::SWIG_Callback14_t callback14, SwigDirector_Call::SWIG_Callback15_t callback15, SwigDirector_Call::SWIG_Callback16_t callback16, SwigDirector_Call::SWIG_Callback17_t callback17, SwigDirector_Call::SWIG_Callback18_t callback18, SwigDirector_Call::SWIG_Callback19_t callback19, SwigDirector_Call::SWIG_Callback20_t callback20, SwigDirector_Call::SWIG_Callback21_t callback21, SwigDirector_Call::SWIG_Callback22_t callback22, SwigDirector_Call::SWIG_Callback23_t callback23) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Call_director_connect(void *objarg, SwigDirector_Call::SWIG_Callback0_t callback0, SwigDirector_Call::SWIG_Callback1_t callback1, SwigDirector_Call::SWIG_Callback2_t callback2, SwigDirector_Call::SWIG_Callback3_t callback3, SwigDirector_Call::SWIG_Callback4_t callback4, SwigDirector_Call::SWIG_Callback5_t callback5, SwigDirector_Call::SWIG_Callback6_t callback6, SwigDirector_Call::SWIG_Callback7_t callback7, SwigDirector_Call::SWIG_Callback8_t callback8, SwigDirector_Call::SWIG_Callback9_t callback9, SwigDirector_Call::SWIG_Callback10_t callback10, SwigDirector_Call::SWIG_Callback11_t callback11, SwigDirector_Call::SWIG_Callback12_t callback12, SwigDirector_Call::SWIG_Callback13_t callback13, SwigDirector_Call::SWIG_Callback14_t callback14, SwigDirector_Call::SWIG_Callback15_t callback15, SwigDirector_Call::SWIG_Callback16_t callback16, SwigDirector_Call::SWIG_Callback17_t callback17, SwigDirector_Call::SWIG_Callback18_t callback18, SwigDirector_Call::SWIG_Callback19_t callback19, SwigDirector_Call::SWIG_Callback20_t callback20, SwigDirector_Call::SWIG_Callback21_t callback21, SwigDirector_Call::SWIG_Callback22_t callback22, SwigDirector_Call::SWIG_Callback23_t callback23, SwigDirector_Call::SWIG_Callback24_t callback24) {
   pj::Call *obj = (pj::Call *)objarg;
   SwigDirector_Call *director = static_cast<SwigDirector_Call *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10, callback11, callback12, callback13, callback14, callback15, callback16, callback17, callback18, callback19, callback20, callback21, callback22, callback23);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10, callback11, callback12, callback13, callback14, callback15, callback16, callback17, callback18, callback19, callback20, callback21, callback22, callback23, callback24);
 }
 
 
@@ -43713,30 +44256,24 @@ SWIGEXPORT int SWIGSTDCALL CSharp_MediaConfig_jbMax_get(void * jarg1) {
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_MediaConfig_jbDiscardAlgo_set(void * jarg1, void * jarg2) {
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaConfig_jbDiscardAlgo_set(void * jarg1, int jarg2) {
   pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
   pjmedia_jb_discard_algo arg2 ;
-  pjmedia_jb_discard_algo *argp2 ;
   
   arg1 = (pj::MediaConfig *)jarg1; 
-  argp2 = (pjmedia_jb_discard_algo *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null pjmedia_jb_discard_algo", 0);
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (pjmedia_jb_discard_algo)jarg2; 
   if (arg1) (arg1)->jbDiscardAlgo = arg2;
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_MediaConfig_jbDiscardAlgo_get(void * jarg1) {
-  void * jresult ;
+SWIGEXPORT int SWIGSTDCALL CSharp_MediaConfig_jbDiscardAlgo_get(void * jarg1) {
+  int jresult ;
   pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
   pjmedia_jb_discard_algo result;
   
   arg1 = (pj::MediaConfig *)jarg1; 
-  result =  ((arg1)->jbDiscardAlgo);
-  jresult = new pjmedia_jb_discard_algo(result); 
+  result = (pjmedia_jb_discard_algo) ((arg1)->jbDiscardAlgo);
+  jresult = (int)result; 
   return jresult;
 }
 
@@ -45466,6 +46003,10 @@ SWIGEXPORT pj::PersistentObject * SWIGSTDCALL CSharp_AccountMediaConfig_SWIGUpca
 }
 
 SWIGEXPORT pj::PersistentObject * SWIGSTDCALL CSharp_AccountVideoConfig_SWIGUpcast(pj::AccountVideoConfig *jarg1) {
+    return (pj::PersistentObject *)jarg1;
+}
+
+SWIGEXPORT pj::PersistentObject * SWIGSTDCALL CSharp_AccountTextConfig_SWIGUpcast(pj::AccountTextConfig *jarg1) {
     return (pj::PersistentObject *)jarg1;
 }
 

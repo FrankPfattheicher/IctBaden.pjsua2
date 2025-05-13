@@ -3,7 +3,7 @@
 #
 # Build script to pack nuget package on Windows
 #
-# (C) 2021-2024 Frank Pfattheicher
+# (C) 2021-2025 Frank Pfattheicher
 #
 
 ######################################################################
@@ -30,7 +30,9 @@ $lines = Get-Content $ReleaseNotesFileName
 $version = $lines | Select-String -Pattern $semVer | Select-Object -First 1
 $ok = $version -match $semVer
 If($ok -ne $true) {
-    Write-Host "FAIL: Could not find release notes with current version" -ForegroundColor Magenta
+    Write-Host "=========================================================" -ForegroundColor Magenta
+    Write-Host " FAIL: Could not find release notes with current version" -ForegroundColor Magenta
+    Write-Host "=========================================================" -ForegroundColor Magenta
     return
 }
 

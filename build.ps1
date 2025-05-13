@@ -5,7 +5,7 @@
 #  native pjsua.dll for Windows (x64)
 #  and native pjsua.so for Linux (x64)
 #
-# (C) 2021-2024 Frank Pfattheicher
+# (C) 2021-2025 Frank Pfattheicher
 #
 
 $pjproject = "pjproject"
@@ -30,8 +30,10 @@ Write-Host "Detect SWIG installation" -ForegroundColor Yellow
 
 $swig = (Get-ChildItem -Path "$ENV:ProgramFiles" -Filter "swigwin*").FullName
 If($swig -eq $null) {
-    Write-Host "FAIL: Could not find SWIG installation" -fore magenta
-    Write-Host "      Should be placed in an folder under $ENV:ProgramFiles" -fore magenta
+    Write-Host "========================================" -fore magenta
+    Write-Host " FAIL: Could not find SWIG installation" -fore magenta
+    Write-Host "       Should be placed in an folder under $ENV:ProgramFiles" -fore magenta
+    Write-Host "========================================" -fore magenta
     return
 }
 
@@ -50,7 +52,9 @@ $lines = Get-Content $ReleaseNotesFileName
 $version = $lines | Select-String -Pattern $semVer | Select-Object -First 1
 $ok = $version -match $semVer
 If($ok -ne $true) {
-    Write-Host "FAIL: Could not find release notes with current version" -ForegroundColor Magenta
+    Write-Host "=========================================================" -fore magenta
+    Write-Host " FAIL: Could not find release notes with current version" -ForegroundColor Magenta
+    Write-Host "=========================================================" -fore magenta
     return
 }
 
@@ -74,7 +78,9 @@ try {
 
 } catch {
 
-    Write-Host "FAIL: Could not remove PJSIP folder" -ForegroundColor Magenta
+    Write-Host "=====================================" -fore magenta
+    Write-Host " FAIL: Could not remove PJSIP folder" -ForegroundColor Magenta
+    Write-Host "=====================================" -fore magenta
     return
 }
 
@@ -267,7 +273,9 @@ Write-Host ""
 
 $asset = [System.IO.Path]::Combine($pjsua2winPath, "x64/Release/pjsua2.dll")
 If(-not (Test-Path $asset)) {
-    Write-Host "FAIL: Failed to build Native Windows pjsua2.dll" -ForegroundColor Magenta
+    Write-Host "=================================================" -fore magenta
+    Write-Host " FAIL: Failed to build Native Windows pjsua2.dll" -ForegroundColor Magenta
+    Write-Host "=================================================" -fore magenta
     return
 }
 
@@ -341,7 +349,9 @@ Write-Host "Build Linux (x64)" -ForegroundColor Yellow
 wsl -e ./build-linux.sh
 
 If(-not (Test-Path .\pjsua2.linux\*.so)) {
-    Write-Host "FAIL: Failed to build linux-x64" -ForegroundColor Magenta
+    Write-Host "=================================" -ForegroundColor Magenta
+    Write-Host " FAIL: Failed to build linux-x64" -ForegroundColor Magenta
+    Write-Host "=================================" -ForegroundColor Magenta
     return
 }
 
@@ -356,7 +366,9 @@ If($arm) {
 	wsl -e ./build-linux-arm.sh
 
 	If(-not (Test-Path .\pjsua2.linux\*.so)) {
-		Write-Host "FAIL: Failed to build linux-arm" -ForegroundColor Magenta
+        Write-Host "=================================" -ForegroundColor Magenta
+		Write-Host " FAIL: Failed to build linux-arm" -ForegroundColor Magenta
+        Write-Host "=================================" -ForegroundColor Magenta
 		return
 	}
 

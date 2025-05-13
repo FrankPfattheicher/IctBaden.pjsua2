@@ -6,5 +6,7 @@
 #include "pjsua2/media.hpp"
 %}
 
+%feature("director") LogWriter;
+
 %feature("director") AudioMediaCapture;
 %feature("director") AudioMediaPlayback;
