@@ -62,7 +62,7 @@ echo " CMake pjsua2.linux x64"
 cp pjproject/pjlib/include/pj/limits.h pjproject/pjlib/include/pj/compat/limits.h
 echo "************************"
 cd pjsua2.linux
-echo "cmake --configure ."
+echo cmake --configure .
 cmake --build .
 cd ..
 

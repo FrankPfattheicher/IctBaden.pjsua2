@@ -467,7 +467,7 @@
 
 #   undef PJ_OS_HAS_CHECK_STACK
 #   define PJ_OS_HAS_CHECK_STACK	0
-#   define PJ_LOG_MAX_LEVEL			1
+#   define PJ_LOG_MAX_LEVEL			5
 #   define PJ_HAS_ERROR_STRING		0
 #   undef PJ_IOQUEUE_MAX_HANDLES
 /* Putting max handles to lower than 32 will make pj_fd_set_t size smaller
@@ -503,4 +503,3 @@
 #   define PJSUA_MAX_CALLS		512
 
 #endif
-

@@ -16,17 +16,20 @@ internal static class Program
             var pjsipVersion = PjsipInfo.GetVersionInfo();
             Console.WriteLine("INFO: " + pjsipVersion);
 
+            var pjsipLogLevel = PjsipExt.GetLogLevel();
+            Console.WriteLine("LOG LEVEL: " + pjsipLogLevel);
+
             var ep = new Endpoint();
             ep.libCreate();
-
+            
             var cfg = new EpConfig();
             ep.libInit(cfg);
-
+            
             var result = PjsipExt.EnableTelephoneEventNegotiationExtension();
             Console.WriteLine($"EnableNegExt: {result}");
                 
             ep.libStart();
-
+            
             var ver = ep.libVersion();
             var epVersion = $"PJSIP V{ver.full}";
             Console.WriteLine("INFO: " + epVersion);

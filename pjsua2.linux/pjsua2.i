@@ -237,8 +237,6 @@ using namespace pj;
 #include "pjsua2/media.hpp"
 %}
 
-%feature("director") LogWriter;
-
 %feature("director") AudioMediaCapture;
 %feature("director") AudioMediaPlayback;%include "pjsua2/media.hpp"
 

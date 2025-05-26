@@ -1,4 +1,9 @@
 
+* 1.5.13  - 26.05.2025 Rebuild
+* 1.5.12  - 26.05.2025 PjsipExt get/set log level
+* 1.5.11  - 26.05.2025 PJ_LOG_MAX_LEVEL	set to 5
+* 1.5.10  - 18.05.2025 Playback add port
+* 1.5.9	  - 14.05.2025 Playback fix
 * 1.5.8	  - 13.05.2025 LogWriter marked as director
 * 1.5.7	  - 26.10.2024 Added isPaying
 * 1.5.6	  - 25.10.2024 Make putFrame non protected

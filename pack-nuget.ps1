@@ -73,7 +73,7 @@ Write-Host "Build Nuget Packets" -ForegroundColor Yellow
 
 $packagePath = [System.IO.Path]::Combine($path, "package")
 
-.\nuget.exe pack IctBaden.pjsua2.nuspec -Version $packageVersion -OutputDirectory $packagePath -properties PjsipVersion=$pjsipVersion
+.\nuget.exe pack IctBaden.pjsua2.nuspec -Version $packageVersion -OutputDirectory $packagePath -Properties PjsipVersion=$pjsipVersion;ReleaseNotes="$releaseNotes"
 
 Write-Host ""
 

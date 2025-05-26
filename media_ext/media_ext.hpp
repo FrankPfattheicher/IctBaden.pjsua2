@@ -49,10 +49,11 @@ namespace pj
 
 			void putFrame(void *frameData, size_t datasize);
 			bool isPaying();
+		    virtual void onPlaybackDone() = 0;
 			
 		private:
 			pj_pool_t *pool;
-			pjmedia_port *stream_port;
+			pjmedia_port *playback_port;
 			void *frame_buffer;
 			unsigned frame_size;
 			std::list<string> frames;

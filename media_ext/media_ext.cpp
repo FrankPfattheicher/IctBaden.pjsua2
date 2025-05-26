@@ -94,18 +94,18 @@ void AudioMediaCapture::stopMediaCapture()
 
 AudioMediaPlayback::AudioMediaPlayback() 
 {
-    pool = pjsua_pool_create("stream_pool", 2000, 2000);
+    pool = pjsua_pool_create("playback_pool", 2000, 2000);
     frame_buffer = NULL;
-    stream_port = NULL;
+    playback_port = NULL;
 }
 
 AudioMediaPlayback::~AudioMediaPlayback() 
 {
-    if(stream_port) 
+    if(playback_port) 
 	{
         unregisterMediaPort();
-        pjmedia_port_destroy(stream_port);
-        stream_port = NULL;
+        pjmedia_port_destroy(playback_port);
+        playback_port = NULL;
         frame_buffer = NULL;
     }
     if(pool) 
@@ -137,16 +137,27 @@ void AudioMediaPlayback::putFrame(void *frameData, size_t datasize)
 
 void AudioMediaPlayback::processFrames(pjmedia_port *port, void *usr_data) 
 {
-    AudioMediaPlayback *stream = static_cast<AudioMediaPlayback *>(usr_data);
-    if(stream->frames.size() > 0) {
-        string f = stream->frames.back();
-        unsigned buf_size = f.length();
-        if(buf_size > stream->frame_size) buf_size = stream->frame_size;
-        f.copy((char*)stream->frame_buffer, buf_size, 0);
-        const std::lock_guard<std::mutex> lock(stream->frames_mtx);
-        stream->frames.pop_back();
+    AudioMediaPlayback *playback = static_cast<AudioMediaPlayback *>(usr_data);
+    if(playback->frames.size() > 0) {
+		auto frame = playback->frames.back(); 
+        const char* buffer = frame.c_str();
+        unsigned buf_size = frame.length();
+
+        if(buf_size > playback->frame_size) buf_size = playback->frame_size;
+
+    	std::memcpy((char*)playback->frame_buffer, buffer, buf_size);
+
+    	pjmedia_frame mframe; 
+    	mframe.type = PJMEDIA_FRAME_TYPE_AUDIO;
+    	mframe.buf = playback->frame_buffer;
+    	mframe.size = buf_size;
+    	pjmedia_port_put_frame(port, &mframe);
+
+        const std::lock_guard<std::mutex> lock(playback->frames_mtx);
+        playback->frames.pop_back();
     } else {
-        memset((char*)stream->frame_buffer, 0, stream->frame_size);
+    	playback->onPlaybackDone();
+        memset((char*)playback->frame_buffer, 0, playback->frame_size);
     }
 }
 
@@ -159,8 +170,10 @@ pj_status_t AudioMediaPlayback::createMediaPlayback(pjsua_call_id id)
 
     pjsua_conf_port_info cpi;
     pjsua_conf_get_port_info(ci.conf_slot, &cpi);
+
     frame_size = cpi.bits_per_sample*cpi.samples_per_frame*cpi.channel_count/8;
     frame_buffer = pj_pool_zalloc(pool, frame_size);
+
     status = pjmedia_mem_player_create( pool, //Pool
                           frame_buffer, //Buffer
                           frame_size, //Buffer Size
@@ -168,15 +181,14 @@ pj_status_t AudioMediaPlayback::createMediaPlayback(pjsua_call_id id)
                           cpi.channel_count,
                           cpi.samples_per_frame,
                           cpi.bits_per_sample,
-                          0, //Options
-                          // PJMEDIA_MEM_NO_LOOP,
-                          &stream_port); //The return port}
+                          PJMEDIA_MEM_NO_LOOP, //Options
+                          &playback_port); //The return port}
 	if(status != PJ_SUCCESS) return status;
 	
-    status = pjmedia_mem_player_set_eof_cb2(stream_port, this, AudioMediaPlayback::processFrames);
+    status = pjmedia_mem_player_set_eof_cb2(playback_port, this, AudioMediaPlayback::processFrames);
 	if(status != PJ_SUCCESS) return status;
 	
-    registerMediaPort2(stream_port, pool);
+    registerMediaPort2(playback_port, pool);
 	return PJ_SUCCESS;
 }
 

@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
@@ -40,16 +39,5 @@ public static class PjsipInfo
     {
         var version = PjGetVersion();
         return $"PJSIP V{version}";
-    }
-}
-    
-public static class PjsipExt
-{
-    [DllImport("pjsua2", EntryPoint="pj_enable_media_negotiation_module")]
-    private static extern int pj_enable_media_negotiation_module();
-
-    public static int EnableTelephoneEventNegotiationExtension()
-    {
-        return pj_enable_media_negotiation_module();
     }
 }
