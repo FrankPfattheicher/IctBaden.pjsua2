@@ -6,6 +6,9 @@ echo "Directory mounted from Windows"
 cd /mnt/c/Repos/IctBaden.pjsua2
 echo
 
+echo "Set the -e option"
+set -e
+
 echo "Cleanup existing PJSIP sources"
 rm -rf pjproject/*
 rm -rf pjproject/.git*

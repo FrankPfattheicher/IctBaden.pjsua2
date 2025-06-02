@@ -145,7 +145,7 @@ void AudioMediaPlayback::processFrames(pjmedia_port *port, void *usr_data)
 
         if(buf_size > playback->frame_size) buf_size = playback->frame_size;
 
-    	std::memcpy((char*)playback->frame_buffer, buffer, buf_size);
+    	memcpy((char*)playback->frame_buffer, buffer, buf_size);
 
     	pjmedia_frame mframe; 
     	mframe.type = PJMEDIA_FRAME_TYPE_AUDIO;
