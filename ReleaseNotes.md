@@ -1,4 +1,7 @@
 
+* 1.6.0   - 06.06.2025 Release w/o audio playback
+
+* 1.5.14  - 05.06.2025 Removed AudioMediaPlayback
 * 1.5.13  - 26.05.2025 Rebuild
 * 1.5.12  - 26.05.2025 PjsipExt get/set log level
 * 1.5.11  - 26.05.2025 PJ_LOG_MAX_LEVEL	set to 5

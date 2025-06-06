@@ -65,11 +65,15 @@ echo " CMake pjsua2.linux x64"
 cp pjproject/pjlib/include/pj/limits.h pjproject/pjlib/include/pj/compat/limits.h
 echo "************************"
 cd pjsua2.linux
-wget https://cmake.org/files/v3.16/cmake-3.16.9-Linux-x86_64.sh
-mkdir cmake-3.16.9-linux-x86_64
-./cmake-3.16.9-Linux-x86_64.sh --skip-license --prefix=cmake-3.16.9-linux-x86_64
-cmake-3.16.9-linux-x86_64/bin/cmake --configure .
-cmake-3.16.9-linux-x86_64/bin/cmake --build .
+
+cmake_ver="cmake-3.16.9-linux-x86_64"
+if [ ! -d $cmake_ver ]; then
+	wget https://cmake.org/files/v3.16/$cmake_ver.sh
+	mkdir $cmake_ver
+	./$cmake_ver.sh --skip-license --prefix=$cmake_ver
+fi
+$cmake_ver/bin/cmake --configure .
+$cmake_ver/bin/cmake --build .
 cd ..
 
 

@@ -19,7 +19,7 @@
             <group targetFramework="net8.0" />
         </dependencies>
         <references>
-            <reference file="pjsua2.net.dll" />
+			<reference file="pjsua2.net.dll" />
         </references>
     </metadata>
     <files>

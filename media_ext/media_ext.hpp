@@ -36,30 +36,6 @@ namespace pj
 			static void processFrame(pjmedia_port *, void *);
 	};
 	
-	class AudioMediaPlayback : public AudioMedia 
-	{
-		public:
-			AudioMediaPlayback();
-			pj_status_t createMediaPlayback(pjsua_call_id);
-			virtual ~AudioMediaPlayback();
-			static void processFrames(pjmedia_port *, void *);
-
-			unsigned getFrameSize();
-			void stopPlayback();
-
-			void putFrame(void *frameData, size_t datasize);
-			bool isPaying();
-		    virtual void onPlaybackDone() = 0;
-			
-		private:
-			pj_pool_t *pool;
-			pjmedia_port *playback_port;
-			void *frame_buffer;
-			unsigned frame_size;
-			std::list<string> frames;
-			std::mutex frames_mtx;
-	};
-
 } // namespace pj
 
 #endif  /* __PJSUA2_MEDIA_EXT_HPP__ */

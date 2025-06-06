@@ -3313,6 +3313,32 @@ void SwigDirector_AudioMediaPlayer::swig_init_callbacks() {
   swig_callbackonEof2 = 0;
 }
 
+SwigDirector_VideoRecorder::SwigDirector_VideoRecorder() : pj::VideoRecorder(), Swig::Director() {
+  swig_init_callbacks();
+}
+
+void SwigDirector_VideoRecorder::onMaxSize() {
+  if (!swig_callbackonMaxSize) {
+    pj::VideoRecorder::onMaxSize();
+    return;
+  } else {
+    swig_callbackonMaxSize();
+  }
+}
+
+SwigDirector_VideoRecorder::~SwigDirector_VideoRecorder() {
+  
+}
+
+
+void SwigDirector_VideoRecorder::swig_connect_director(SWIG_Callback0_t callbackonMaxSize) {
+  swig_callbackonMaxSize = callbackonMaxSize;
+}
+
+void SwigDirector_VideoRecorder::swig_init_callbacks() {
+  swig_callbackonMaxSize = 0;
+}
+
 SwigDirector_AudioMediaCapture::SwigDirector_AudioMediaCapture() : pj::AudioMediaCapture(), Swig::Director() {
   swig_init_callbacks();
 }
@@ -3337,32 +3363,6 @@ void SwigDirector_AudioMediaCapture::swig_connect_director(SWIG_Callback0_t call
 
 void SwigDirector_AudioMediaCapture::swig_init_callbacks() {
   swig_callbackonNewFrame = 0;
-}
-
-SwigDirector_AudioMediaPlayback::SwigDirector_AudioMediaPlayback() : pj::AudioMediaPlayback(), Swig::Director() {
-  swig_init_callbacks();
-}
-
-SwigDirector_AudioMediaPlayback::~SwigDirector_AudioMediaPlayback() {
-  
-}
-
-
-void SwigDirector_AudioMediaPlayback::onPlaybackDone() {
-  if (!swig_callbackonPlaybackDone) {
-    Swig::DirectorPureVirtualException::raise("pj::AudioMediaPlayback::onPlaybackDone");
-    return;
-  } else {
-    swig_callbackonPlaybackDone();
-  }
-}
-
-void SwigDirector_AudioMediaPlayback::swig_connect_director(SWIG_Callback0_t callbackonPlaybackDone) {
-  swig_callbackonPlaybackDone = callbackonPlaybackDone;
-}
-
-void SwigDirector_AudioMediaPlayback::swig_init_callbacks() {
-  swig_callbackonPlaybackDone = 0;
 }
 
 SwigDirector_Buddy::SwigDirector_Buddy() : pj::Buddy(), Swig::Director() {
@@ -4122,7 +4122,31 @@ void SwigDirector_Endpoint::onRejectedIncomingCall(pj::OnRejectedIncomingCallPar
   }
 }
 
-void SwigDirector_Endpoint::swig_connect_director(SWIG_Callback0_t callbackonNatDetectionComplete, SWIG_Callback1_t callbackonNatCheckStunServersComplete, SWIG_Callback2_t callbackonTransportState, SWIG_Callback3_t callbackonTimer, SWIG_Callback4_t callbackonSelectAccount, SWIG_Callback5_t callbackonIpChangeProgress, SWIG_Callback6_t callbackonMediaEvent, SWIG_Callback7_t callbackonCredAuth, SWIG_Callback8_t callbackonRejectedIncomingCall) {
+void SwigDirector_Endpoint::onAudioMediaOpCompleted(pj::OnAudioMediaOpCompletedParam &prm) {
+  void * jprm = 0 ;
+  
+  if (!swig_callbackonAudioMediaOpCompleted) {
+    pj::Endpoint::onAudioMediaOpCompleted(prm);
+    return;
+  } else {
+    jprm = (pj::OnAudioMediaOpCompletedParam *) &prm; 
+    swig_callbackonAudioMediaOpCompleted(jprm);
+  }
+}
+
+void SwigDirector_Endpoint::onVideoMediaOpCompleted(pj::OnVideoMediaOpCompletedParam &prm) {
+  void * jprm = 0 ;
+  
+  if (!swig_callbackonVideoMediaOpCompleted) {
+    pj::Endpoint::onVideoMediaOpCompleted(prm);
+    return;
+  } else {
+    jprm = (pj::OnVideoMediaOpCompletedParam *) &prm; 
+    swig_callbackonVideoMediaOpCompleted(jprm);
+  }
+}
+
+void SwigDirector_Endpoint::swig_connect_director(SWIG_Callback0_t callbackonNatDetectionComplete, SWIG_Callback1_t callbackonNatCheckStunServersComplete, SWIG_Callback2_t callbackonTransportState, SWIG_Callback3_t callbackonTimer, SWIG_Callback4_t callbackonSelectAccount, SWIG_Callback5_t callbackonIpChangeProgress, SWIG_Callback6_t callbackonMediaEvent, SWIG_Callback7_t callbackonCredAuth, SWIG_Callback8_t callbackonRejectedIncomingCall, SWIG_Callback9_t callbackonAudioMediaOpCompleted, SWIG_Callback10_t callbackonVideoMediaOpCompleted) {
   swig_callbackonNatDetectionComplete = callbackonNatDetectionComplete;
   swig_callbackonNatCheckStunServersComplete = callbackonNatCheckStunServersComplete;
   swig_callbackonTransportState = callbackonTransportState;
@@ -4132,6 +4156,8 @@ void SwigDirector_Endpoint::swig_connect_director(SWIG_Callback0_t callbackonNat
   swig_callbackonMediaEvent = callbackonMediaEvent;
   swig_callbackonCredAuth = callbackonCredAuth;
   swig_callbackonRejectedIncomingCall = callbackonRejectedIncomingCall;
+  swig_callbackonAudioMediaOpCompleted = callbackonAudioMediaOpCompleted;
+  swig_callbackonVideoMediaOpCompleted = callbackonVideoMediaOpCompleted;
 }
 
 void SwigDirector_Endpoint::swig_init_callbacks() {
@@ -4144,6 +4170,8 @@ void SwigDirector_Endpoint::swig_init_callbacks() {
   swig_callbackonMediaEvent = 0;
   swig_callbackonCredAuth = 0;
   swig_callbackonRejectedIncomingCall = 0;
+  swig_callbackonAudioMediaOpCompleted = 0;
+  swig_callbackonVideoMediaOpCompleted = 0;
 }
 
 
@@ -25723,6 +25751,229 @@ SWIGEXPORT void SWIGSTDCALL CSharp_VidDevManager_setCaptureOrient__SWIG_1(void *
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoRecorder() {
+  void * jresult ;
+  pj::VideoRecorder *result = 0 ;
+  
+  result = (pj::VideoRecorder *)new SwigDirector_VideoRecorder();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_createVideoRecorder__SWIG_0(void * jarg1, const char * jarg2, int jarg3, void * jarg4, void * jarg5, unsigned int jarg6) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::string *arg2 = 0 ;
+  long arg3 ;
+  pj::MediaFormatVideo *arg4 = (pj::MediaFormatVideo *) 0 ;
+  pj::MediaFormatAudio *arg5 = (pj::MediaFormatAudio *) 0 ;
+  unsigned int arg6 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (long)jarg3; 
+  arg4 = (pj::MediaFormatVideo *)jarg4; 
+  arg5 = (pj::MediaFormatAudio *)jarg5; 
+  arg6 = (unsigned int)jarg6; 
+  try {
+    (arg1)->createVideoRecorder((pj::string const &)*arg2,arg3,arg4,arg5,arg6);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_createVideoRecorder__SWIG_1(void * jarg1, const char * jarg2, int jarg3, void * jarg4, void * jarg5) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::string *arg2 = 0 ;
+  long arg3 ;
+  pj::MediaFormatVideo *arg4 = (pj::MediaFormatVideo *) 0 ;
+  pj::MediaFormatAudio *arg5 = (pj::MediaFormatAudio *) 0 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (long)jarg3; 
+  arg4 = (pj::MediaFormatVideo *)jarg4; 
+  arg5 = (pj::MediaFormatAudio *)jarg5; 
+  try {
+    (arg1)->createVideoRecorder((pj::string const &)*arg2,arg3,arg4,arg5);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_createVideoRecorder__SWIG_2(void * jarg1, const char * jarg2, int jarg3, void * jarg4) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::string *arg2 = 0 ;
+  long arg3 ;
+  pj::MediaFormatVideo *arg4 = (pj::MediaFormatVideo *) 0 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (long)jarg3; 
+  arg4 = (pj::MediaFormatVideo *)jarg4; 
+  try {
+    (arg1)->createVideoRecorder((pj::string const &)*arg2,arg3,arg4);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_createVideoRecorder__SWIG_3(void * jarg1, const char * jarg2, int jarg3) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::string *arg2 = 0 ;
+  long arg3 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (long)jarg3; 
+  try {
+    (arg1)->createVideoRecorder((pj::string const &)*arg2,arg3);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_createVideoRecorder__SWIG_4(void * jarg1, const char * jarg2) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  try {
+    (arg1)->createVideoRecorder((pj::string const &)*arg2);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoRecorder_getVideoMedia(void * jarg1) {
+  void * jresult ;
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::VideoMedia result;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  try {
+    result = (arg1)->getVideoMedia();
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return 0;
+    }
+  }
+  jresult = new pj::VideoMedia(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoRecorder_getAudioMedia(void * jarg1) {
+  void * jresult ;
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  pj::AudioMedia result;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  try {
+    result = (arg1)->getAudioMedia();
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return 0;
+    }
+  }
+  jresult = new pj::AudioMedia(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_onMaxSize(void * jarg1) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  (arg1)->onMaxSize();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_onMaxSizeSwigExplicitVideoRecorder(void * jarg1) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  (arg1)->pj::VideoRecorder::onMaxSize();
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoRecorder(void * jarg1) {
+  pj::VideoRecorder *arg1 = (pj::VideoRecorder *) 0 ;
+  
+  arg1 = (pj::VideoRecorder *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoRecorder_director_connect(void *objarg, SwigDirector_VideoRecorder::SWIG_Callback0_t callback0) {
+  pj::VideoRecorder *obj = (pj::VideoRecorder *)objarg;
+  SwigDirector_VideoRecorder *director = static_cast<SwigDirector_VideoRecorder *>(obj);
+  director->swig_connect_director(callback0);
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_CodecInfo_codecId_set(void * jarg1, const char * jarg2) {
   pj::CodecInfo *arg1 = (pj::CodecInfo *) 0 ;
   pj::string *arg2 = 0 ;
@@ -27349,107 +27600,6 @@ SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaCapture_onNewFrame(void * jarg1) {
 SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaCapture_director_connect(void *objarg, SwigDirector_AudioMediaCapture::SWIG_Callback0_t callback0) {
   pj::AudioMediaCapture *obj = (pj::AudioMediaCapture *)objarg;
   SwigDirector_AudioMediaCapture *director = static_cast<SwigDirector_AudioMediaCapture *>(obj);
-  director->swig_connect_director(callback0);
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaPlayback() {
-  void * jresult ;
-  pj::AudioMediaPlayback *result = 0 ;
-  
-  result = (pj::AudioMediaPlayback *)new SwigDirector_AudioMediaPlayback();
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT int SWIGSTDCALL CSharp_AudioMediaPlayback_createMediaPlayback(void * jarg1, int jarg2) {
-  int jresult ;
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  pjsua_call_id arg2 ;
-  pj_status_t result;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  arg2 = (pjsua_call_id)jarg2; 
-  result = (pj_status_t)(arg1)->createMediaPlayback(arg2);
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaPlayback(void * jarg1) {
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  delete arg1;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_processFrames(void * jarg1, void * jarg2) {
-  pjmedia_port *arg1 = (pjmedia_port *) 0 ;
-  void *arg2 = (void *) 0 ;
-  
-  arg1 = (pjmedia_port *)jarg1; 
-  arg2 = jarg2; 
-  pj::AudioMediaPlayback::processFrames(arg1,arg2);
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaPlayback_getFrameSize(void * jarg1) {
-  unsigned int jresult ;
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  unsigned int result;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  result = (unsigned int)(arg1)->getFrameSize();
-  jresult = (unsigned int)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_stopPlayback(void * jarg1) {
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  (arg1)->stopPlayback();
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_putFrame(void * jarg1, void * jarg2, unsigned int jarg3) {
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  void *arg2 = (void *) 0 ;
-  size_t arg3 ;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  arg2 = jarg2; 
-  arg3 = (size_t)jarg3; 
-  (arg1)->putFrame(arg2,SWIG_STD_MOVE(arg3));
-}
-
-
-SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaPlayback_isPaying(void * jarg1) {
-  unsigned int jresult ;
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  bool result;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  result = (bool)(arg1)->isPaying();
-  jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_onPlaybackDone(void * jarg1) {
-  pj::AudioMediaPlayback *arg1 = (pj::AudioMediaPlayback *) 0 ;
-  
-  arg1 = (pj::AudioMediaPlayback *)jarg1; 
-  (arg1)->onPlaybackDone();
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPlayback_director_connect(void *objarg, SwigDirector_AudioMediaPlayback::SWIG_Callback0_t callback0) {
-  pj::AudioMediaPlayback *obj = (pj::AudioMediaPlayback *)objarg;
-  SwigDirector_AudioMediaPlayback *director = static_cast<SwigDirector_AudioMediaPlayback *>(obj);
   director->swig_connect_director(callback0);
 }
 
@@ -42410,6 +42560,878 @@ SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnRejectedIncomingCallParam(void * jar
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaAddInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::AudioMediaAddInfo *arg1 = (pj::AudioMediaAddInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AudioMediaAddInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaAddInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaAddInfo *arg1 = (pj::AudioMediaAddInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaAddInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaAddInfo() {
+  void * jresult ;
+  pj::AudioMediaAddInfo *result = 0 ;
+  
+  result = (pj::AudioMediaAddInfo *)new pj::AudioMediaAddInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaAddInfo(void * jarg1) {
+  pj::AudioMediaAddInfo *arg1 = (pj::AudioMediaAddInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaAddInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaRemoveInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::AudioMediaRemoveInfo *arg1 = (pj::AudioMediaRemoveInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AudioMediaRemoveInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaRemoveInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaRemoveInfo *arg1 = (pj::AudioMediaRemoveInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaRemoveInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaRemoveInfo() {
+  void * jresult ;
+  pj::AudioMediaRemoveInfo *result = 0 ;
+  
+  result = (pj::AudioMediaRemoveInfo *)new pj::AudioMediaRemoveInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaRemoveInfo(void * jarg1) {
+  pj::AudioMediaRemoveInfo *arg1 = (pj::AudioMediaRemoveInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaRemoveInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaConnectInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaConnectInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaConnectInfo_targetMediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->targetMediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaConnectInfo_targetMediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->targetMediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaConnectInfo_adjLevel_set(void * jarg1, int jarg2) {
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->adjLevel = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_AudioMediaConnectInfo_adjLevel_get(void * jarg1) {
+  int jresult ;
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  int result;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  result = (int) ((arg1)->adjLevel);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaConnectInfo() {
+  void * jresult ;
+  pj::AudioMediaConnectInfo *result = 0 ;
+  
+  result = (pj::AudioMediaConnectInfo *)new pj::AudioMediaConnectInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaConnectInfo(void * jarg1) {
+  pj::AudioMediaConnectInfo *arg1 = (pj::AudioMediaConnectInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaConnectInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaDisconnectInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::AudioMediaDisconnectInfo *arg1 = (pj::AudioMediaDisconnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AudioMediaDisconnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaDisconnectInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaDisconnectInfo *arg1 = (pj::AudioMediaDisconnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaDisconnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaDisconnectInfo_targetMediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::AudioMediaDisconnectInfo *arg1 = (pj::AudioMediaDisconnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::AudioMediaDisconnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->targetMediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AudioMediaDisconnectInfo_targetMediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AudioMediaDisconnectInfo *arg1 = (pj::AudioMediaDisconnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::AudioMediaDisconnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->targetMediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaDisconnectInfo() {
+  void * jresult ;
+  pj::AudioMediaDisconnectInfo *result = 0 ;
+  
+  result = (pj::AudioMediaDisconnectInfo *)new pj::AudioMediaDisconnectInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaDisconnectInfo(void * jarg1) {
+  pj::AudioMediaDisconnectInfo *arg1 = (pj::AudioMediaDisconnectInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaDisconnectInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaOpParam_addInfo_set(void * jarg1, void * jarg2) {
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaAddInfo *arg2 = (pj::AudioMediaAddInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  arg2 = (pj::AudioMediaAddInfo *)jarg2; 
+  if (arg1) (arg1)->addInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_AudioMediaOpParam_addInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaAddInfo *result = 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  result = (pj::AudioMediaAddInfo *)& ((arg1)->addInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaOpParam_removeInfo_set(void * jarg1, void * jarg2) {
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaRemoveInfo *arg2 = (pj::AudioMediaRemoveInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  arg2 = (pj::AudioMediaRemoveInfo *)jarg2; 
+  if (arg1) (arg1)->removeInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_AudioMediaOpParam_removeInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaRemoveInfo *result = 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  result = (pj::AudioMediaRemoveInfo *)& ((arg1)->removeInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaOpParam_connectInfo_set(void * jarg1, void * jarg2) {
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaConnectInfo *arg2 = (pj::AudioMediaConnectInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  arg2 = (pj::AudioMediaConnectInfo *)jarg2; 
+  if (arg1) (arg1)->connectInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_AudioMediaOpParam_connectInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaConnectInfo *result = 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  result = (pj::AudioMediaConnectInfo *)& ((arg1)->connectInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaOpParam_disconnectInfo_set(void * jarg1, void * jarg2) {
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaDisconnectInfo *arg2 = (pj::AudioMediaDisconnectInfo *) 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  arg2 = (pj::AudioMediaDisconnectInfo *)jarg2; 
+  if (arg1) (arg1)->disconnectInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_AudioMediaOpParam_disconnectInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  pj::AudioMediaDisconnectInfo *result = 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  result = (pj::AudioMediaDisconnectInfo *)& ((arg1)->disconnectInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_AudioMediaOpParam() {
+  void * jresult ;
+  pj::AudioMediaOpParam *result = 0 ;
+  
+  result = (pj::AudioMediaOpParam *)new pj::AudioMediaOpParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_AudioMediaOpParam(void * jarg1) {
+  pj::AudioMediaOpParam *arg1 = (pj::AudioMediaOpParam *) 0 ;
+  
+  arg1 = (pj::AudioMediaOpParam *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnAudioMediaOpCompletedParam_opType_set(void * jarg1, int jarg2) {
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  pjmedia_conf_op_type arg2 ;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  arg2 = (pjmedia_conf_op_type)jarg2; 
+  if (arg1) (arg1)->opType = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnAudioMediaOpCompletedParam_opType_get(void * jarg1) {
+  int jresult ;
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  pjmedia_conf_op_type result;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  result = (pjmedia_conf_op_type) ((arg1)->opType);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnAudioMediaOpCompletedParam_status_set(void * jarg1, int jarg2) {
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  pj_status_t arg2 ;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  arg2 = (pj_status_t)jarg2; 
+  if (arg1) (arg1)->status = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnAudioMediaOpCompletedParam_status_get(void * jarg1) {
+  int jresult ;
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  pj_status_t result;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  result = (pj_status_t) ((arg1)->status);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnAudioMediaOpCompletedParam_opParam_set(void * jarg1, void * jarg2) {
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  pj::AudioMediaOpParam *arg2 = (pj::AudioMediaOpParam *) 0 ;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  arg2 = (pj::AudioMediaOpParam *)jarg2; 
+  if (arg1) (arg1)->opParam = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_OnAudioMediaOpCompletedParam_opParam_get(void * jarg1) {
+  void * jresult ;
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  pj::AudioMediaOpParam *result = 0 ;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  result = (pj::AudioMediaOpParam *)& ((arg1)->opParam);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_OnAudioMediaOpCompletedParam() {
+  void * jresult ;
+  pj::OnAudioMediaOpCompletedParam *result = 0 ;
+  
+  result = (pj::OnAudioMediaOpCompletedParam *)new pj::OnAudioMediaOpCompletedParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnAudioMediaOpCompletedParam(void * jarg1) {
+  pj::OnAudioMediaOpCompletedParam *arg1 = (pj::OnAudioMediaOpCompletedParam *) 0 ;
+  
+  arg1 = (pj::OnAudioMediaOpCompletedParam *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaAddInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaAddInfo *arg1 = (pj::VideoMediaAddInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaAddInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaAddInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaAddInfo *arg1 = (pj::VideoMediaAddInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaAddInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoMediaAddInfo() {
+  void * jresult ;
+  pj::VideoMediaAddInfo *result = 0 ;
+  
+  result = (pj::VideoMediaAddInfo *)new pj::VideoMediaAddInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoMediaAddInfo(void * jarg1) {
+  pj::VideoMediaAddInfo *arg1 = (pj::VideoMediaAddInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaAddInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaRemoveInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaRemoveInfo *arg1 = (pj::VideoMediaRemoveInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaRemoveInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaRemoveInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaRemoveInfo *arg1 = (pj::VideoMediaRemoveInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaRemoveInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoMediaRemoveInfo() {
+  void * jresult ;
+  pj::VideoMediaRemoveInfo *result = 0 ;
+  
+  result = (pj::VideoMediaRemoveInfo *)new pj::VideoMediaRemoveInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoMediaRemoveInfo(void * jarg1) {
+  pj::VideoMediaRemoveInfo *arg1 = (pj::VideoMediaRemoveInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaRemoveInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaConnectInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaConnectInfo *arg1 = (pj::VideoMediaConnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaConnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaConnectInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaConnectInfo *arg1 = (pj::VideoMediaConnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaConnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaConnectInfo_targetMediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaConnectInfo *arg1 = (pj::VideoMediaConnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaConnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->targetMediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaConnectInfo_targetMediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaConnectInfo *arg1 = (pj::VideoMediaConnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaConnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->targetMediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoMediaConnectInfo() {
+  void * jresult ;
+  pj::VideoMediaConnectInfo *result = 0 ;
+  
+  result = (pj::VideoMediaConnectInfo *)new pj::VideoMediaConnectInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoMediaConnectInfo(void * jarg1) {
+  pj::VideoMediaConnectInfo *arg1 = (pj::VideoMediaConnectInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaConnectInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaDisconnectInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaDisconnectInfo *arg1 = (pj::VideoMediaDisconnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaDisconnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaDisconnectInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaDisconnectInfo *arg1 = (pj::VideoMediaDisconnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaDisconnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaDisconnectInfo_targetMediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaDisconnectInfo *arg1 = (pj::VideoMediaDisconnectInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaDisconnectInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->targetMediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaDisconnectInfo_targetMediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaDisconnectInfo *arg1 = (pj::VideoMediaDisconnectInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaDisconnectInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->targetMediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoMediaDisconnectInfo() {
+  void * jresult ;
+  pj::VideoMediaDisconnectInfo *result = 0 ;
+  
+  result = (pj::VideoMediaDisconnectInfo *)new pj::VideoMediaDisconnectInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoMediaDisconnectInfo(void * jarg1) {
+  pj::VideoMediaDisconnectInfo *arg1 = (pj::VideoMediaDisconnectInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaDisconnectInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaUpdateInfo_mediaId_set(void * jarg1, unsigned int jarg2) {
+  pj::VideoMediaUpdateInfo *arg1 = (pj::VideoMediaUpdateInfo *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::VideoMediaUpdateInfo *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->mediaId = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_VideoMediaUpdateInfo_mediaId_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::VideoMediaUpdateInfo *arg1 = (pj::VideoMediaUpdateInfo *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::VideoMediaUpdateInfo *)jarg1; 
+  result = (unsigned int) ((arg1)->mediaId);
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoMediaUpdateInfo() {
+  void * jresult ;
+  pj::VideoMediaUpdateInfo *result = 0 ;
+  
+  result = (pj::VideoMediaUpdateInfo *)new pj::VideoMediaUpdateInfo();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoMediaUpdateInfo(void * jarg1) {
+  pj::VideoMediaUpdateInfo *arg1 = (pj::VideoMediaUpdateInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaUpdateInfo *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaOpParam_addInfo_set(void * jarg1, void * jarg2) {
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaAddInfo *arg2 = (pj::VideoMediaAddInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  arg2 = (pj::VideoMediaAddInfo *)jarg2; 
+  if (arg1) (arg1)->addInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoMediaOpParam_addInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaAddInfo *result = 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  result = (pj::VideoMediaAddInfo *)& ((arg1)->addInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaOpParam_removeInfo_set(void * jarg1, void * jarg2) {
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaRemoveInfo *arg2 = (pj::VideoMediaRemoveInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  arg2 = (pj::VideoMediaRemoveInfo *)jarg2; 
+  if (arg1) (arg1)->removeInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoMediaOpParam_removeInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaRemoveInfo *result = 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  result = (pj::VideoMediaRemoveInfo *)& ((arg1)->removeInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaOpParam_connectInfo_set(void * jarg1, void * jarg2) {
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaConnectInfo *arg2 = (pj::VideoMediaConnectInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  arg2 = (pj::VideoMediaConnectInfo *)jarg2; 
+  if (arg1) (arg1)->connectInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoMediaOpParam_connectInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaConnectInfo *result = 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  result = (pj::VideoMediaConnectInfo *)& ((arg1)->connectInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaOpParam_disconnectInfo_set(void * jarg1, void * jarg2) {
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaDisconnectInfo *arg2 = (pj::VideoMediaDisconnectInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  arg2 = (pj::VideoMediaDisconnectInfo *)jarg2; 
+  if (arg1) (arg1)->disconnectInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoMediaOpParam_disconnectInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaDisconnectInfo *result = 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  result = (pj::VideoMediaDisconnectInfo *)& ((arg1)->disconnectInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_VideoMediaOpParam_updateInfo_set(void * jarg1, void * jarg2) {
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaUpdateInfo *arg2 = (pj::VideoMediaUpdateInfo *) 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  arg2 = (pj::VideoMediaUpdateInfo *)jarg2; 
+  if (arg1) (arg1)->updateInfo = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_VideoMediaOpParam_updateInfo_get(void * jarg1) {
+  void * jresult ;
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  pj::VideoMediaUpdateInfo *result = 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  result = (pj::VideoMediaUpdateInfo *)& ((arg1)->updateInfo);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_VideoMediaOpParam() {
+  void * jresult ;
+  pj::VideoMediaOpParam *result = 0 ;
+  
+  result = (pj::VideoMediaOpParam *)new pj::VideoMediaOpParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_VideoMediaOpParam(void * jarg1) {
+  pj::VideoMediaOpParam *arg1 = (pj::VideoMediaOpParam *) 0 ;
+  
+  arg1 = (pj::VideoMediaOpParam *)jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnVideoMediaOpCompletedParam_opType_set(void * jarg1, int jarg2) {
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  pjmedia_vid_conf_op_type arg2 ;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  arg2 = (pjmedia_vid_conf_op_type)jarg2; 
+  if (arg1) (arg1)->opType = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnVideoMediaOpCompletedParam_opType_get(void * jarg1) {
+  int jresult ;
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  pjmedia_vid_conf_op_type result;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  result = (pjmedia_vid_conf_op_type) ((arg1)->opType);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnVideoMediaOpCompletedParam_status_set(void * jarg1, int jarg2) {
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  pj_status_t arg2 ;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  arg2 = (pj_status_t)jarg2; 
+  if (arg1) (arg1)->status = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnVideoMediaOpCompletedParam_status_get(void * jarg1) {
+  int jresult ;
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  pj_status_t result;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  result = (pj_status_t) ((arg1)->status);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnVideoMediaOpCompletedParam_opParam_set(void * jarg1, void * jarg2) {
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  pj::VideoMediaOpParam *arg2 = (pj::VideoMediaOpParam *) 0 ;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  arg2 = (pj::VideoMediaOpParam *)jarg2; 
+  if (arg1) (arg1)->opParam = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_OnVideoMediaOpCompletedParam_opParam_get(void * jarg1) {
+  void * jresult ;
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  pj::VideoMediaOpParam *result = 0 ;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  result = (pj::VideoMediaOpParam *)& ((arg1)->opParam);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_OnVideoMediaOpCompletedParam() {
+  void * jresult ;
+  pj::OnVideoMediaOpCompletedParam *result = 0 ;
+  
+  result = (pj::OnVideoMediaOpCompletedParam *)new pj::OnVideoMediaOpCompletedParam();
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_delete_OnVideoMediaOpCompletedParam(void * jarg1) {
+  pj::OnVideoMediaOpCompletedParam *arg1 = (pj::OnVideoMediaOpCompletedParam *) 0 ;
+  
+  arg1 = (pj::OnVideoMediaOpCompletedParam *)jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DigestChallenge_realm_set(void * jarg1, const char * jarg2) {
   pj::DigestChallenge *arg1 = (pj::DigestChallenge *) 0 ;
   std::string *arg2 = 0 ;
@@ -45908,10 +46930,66 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_onRejectedIncomingCallSwigExplicitEn
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_director_connect(void *objarg, SwigDirector_Endpoint::SWIG_Callback0_t callback0, SwigDirector_Endpoint::SWIG_Callback1_t callback1, SwigDirector_Endpoint::SWIG_Callback2_t callback2, SwigDirector_Endpoint::SWIG_Callback3_t callback3, SwigDirector_Endpoint::SWIG_Callback4_t callback4, SwigDirector_Endpoint::SWIG_Callback5_t callback5, SwigDirector_Endpoint::SWIG_Callback6_t callback6, SwigDirector_Endpoint::SWIG_Callback7_t callback7, SwigDirector_Endpoint::SWIG_Callback8_t callback8) {
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_onAudioMediaOpCompleted(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::OnAudioMediaOpCompletedParam *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::OnAudioMediaOpCompletedParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnAudioMediaOpCompletedParam & is null", 0);
+    return ;
+  } 
+  (arg1)->onAudioMediaOpCompleted(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_onAudioMediaOpCompletedSwigExplicitEndpoint(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::OnAudioMediaOpCompletedParam *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::OnAudioMediaOpCompletedParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnAudioMediaOpCompletedParam & is null", 0);
+    return ;
+  } 
+  (arg1)->pj::Endpoint::onAudioMediaOpCompleted(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_onVideoMediaOpCompleted(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::OnVideoMediaOpCompletedParam *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::OnVideoMediaOpCompletedParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnVideoMediaOpCompletedParam & is null", 0);
+    return ;
+  } 
+  (arg1)->onVideoMediaOpCompleted(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_onVideoMediaOpCompletedSwigExplicitEndpoint(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::OnVideoMediaOpCompletedParam *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::OnVideoMediaOpCompletedParam *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::OnVideoMediaOpCompletedParam & is null", 0);
+    return ;
+  } 
+  (arg1)->pj::Endpoint::onVideoMediaOpCompleted(*arg2);
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_director_connect(void *objarg, SwigDirector_Endpoint::SWIG_Callback0_t callback0, SwigDirector_Endpoint::SWIG_Callback1_t callback1, SwigDirector_Endpoint::SWIG_Callback2_t callback2, SwigDirector_Endpoint::SWIG_Callback3_t callback3, SwigDirector_Endpoint::SWIG_Callback4_t callback4, SwigDirector_Endpoint::SWIG_Callback5_t callback5, SwigDirector_Endpoint::SWIG_Callback6_t callback6, SwigDirector_Endpoint::SWIG_Callback7_t callback7, SwigDirector_Endpoint::SWIG_Callback8_t callback8, SwigDirector_Endpoint::SWIG_Callback9_t callback9, SwigDirector_Endpoint::SWIG_Callback10_t callback10) {
   pj::Endpoint *obj = (pj::Endpoint *)objarg;
   SwigDirector_Endpoint *director = static_cast<SwigDirector_Endpoint *>(obj);
-  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8);
+  director->swig_connect_director(callback0, callback1, callback2, callback3, callback4, callback5, callback6, callback7, callback8, callback9, callback10);
 }
 
 
@@ -45976,10 +47054,6 @@ SWIGEXPORT pj::Media * SWIGSTDCALL CSharp_VideoMedia_SWIGUpcast(pj::VideoMedia *
 }
 
 SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_AudioMediaCapture_SWIGUpcast(pj::AudioMediaCapture *jarg1) {
-    return (pj::AudioMedia *)jarg1;
-}
-
-SWIGEXPORT pj::AudioMedia * SWIGSTDCALL CSharp_AudioMediaPlayback_SWIGUpcast(pj::AudioMediaPlayback *jarg1) {
     return (pj::AudioMedia *)jarg1;
 }
 

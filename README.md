@@ -70,8 +70,10 @@ December 2024
 * PJSUA_MAX_CALLS set to 32
 * Audio stream capture using pjmedia_mem_capture_set_eof_cb2
 
-May 2025
+June 2025
+* PJ_LOG_MAX_LEVEL set to 5
 * PjsipExt Get/Set LogLevel
+* Still NO audio stream playback
 
 ### Further plans:
 

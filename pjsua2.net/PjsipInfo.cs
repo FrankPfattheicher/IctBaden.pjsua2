@@ -12,12 +12,15 @@ public static class PjsipInfo
 {
     static PjsipInfo()
     {
+#if !NETSTANDARD2_0
         if (Environment.OSVersion.Platform == PlatformID.Unix)
         {
             NativeLibrary.SetDllImportResolver(typeof(PjsipInfo).Assembly, ImportResolver);
         }
+#endif
     }
         
+#if !NETSTANDARD2_0
     private static IntPtr ImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
         var libHandle = IntPtr.Zero;
@@ -29,7 +32,7 @@ public static class PjsipInfo
         }
         return libHandle;
     }
-
+#endif
         
     [DllImport("pjsua2", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall, EntryPoint="PjGetVersion")]
     [return: MarshalAs(UnmanagedType.LPStr)]        

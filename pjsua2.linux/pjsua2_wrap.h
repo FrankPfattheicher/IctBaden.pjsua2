@@ -42,6 +42,21 @@ private:
     void swig_init_callbacks();
 };
 
+class SwigDirector_VideoRecorder : public pj::VideoRecorder, public Swig::Director {
+
+public:
+    SwigDirector_VideoRecorder();
+    virtual void onMaxSize();
+    virtual ~SwigDirector_VideoRecorder();
+
+    typedef void (SWIGSTDCALL* SWIG_Callback0_t)();
+    void swig_connect_director(SWIG_Callback0_t callbackonMaxSize);
+
+private:
+    SWIG_Callback0_t swig_callbackonMaxSize;
+    void swig_init_callbacks();
+};
+
 class SwigDirector_AudioMediaCapture : public pj::AudioMediaCapture, public Swig::Director {
 
 public:
@@ -54,21 +69,6 @@ public:
 
 private:
     SWIG_Callback0_t swig_callbackonNewFrame;
-    void swig_init_callbacks();
-};
-
-class SwigDirector_AudioMediaPlayback : public pj::AudioMediaPlayback, public Swig::Director {
-
-public:
-    SwigDirector_AudioMediaPlayback();
-    virtual ~SwigDirector_AudioMediaPlayback();
-    virtual void onPlaybackDone();
-
-    typedef void (SWIGSTDCALL* SWIG_Callback0_t)();
-    void swig_connect_director(SWIG_Callback0_t callbackonPlaybackDone);
-
-private:
-    SWIG_Callback0_t swig_callbackonPlaybackDone;
     void swig_init_callbacks();
 };
 
@@ -266,6 +266,8 @@ public:
     virtual void onMediaEvent(pj::OnMediaEventParam &prm);
     virtual pj_status_t onCredAuth(pj::OnCredAuthParam &prm);
     virtual void onRejectedIncomingCall(pj::OnRejectedIncomingCallParam &prm);
+    virtual void onAudioMediaOpCompleted(pj::OnAudioMediaOpCompletedParam &prm);
+    virtual void onVideoMediaOpCompleted(pj::OnVideoMediaOpCompletedParam &prm);
 
     typedef void (SWIGSTDCALL* SWIG_Callback0_t)(void *);
     typedef void (SWIGSTDCALL* SWIG_Callback1_t)(void *);
@@ -276,7 +278,9 @@ public:
     typedef void (SWIGSTDCALL* SWIG_Callback6_t)(void *);
     typedef int (SWIGSTDCALL* SWIG_Callback7_t)(void *);
     typedef void (SWIGSTDCALL* SWIG_Callback8_t)(void *);
-    void swig_connect_director(SWIG_Callback0_t callbackonNatDetectionComplete, SWIG_Callback1_t callbackonNatCheckStunServersComplete, SWIG_Callback2_t callbackonTransportState, SWIG_Callback3_t callbackonTimer, SWIG_Callback4_t callbackonSelectAccount, SWIG_Callback5_t callbackonIpChangeProgress, SWIG_Callback6_t callbackonMediaEvent, SWIG_Callback7_t callbackonCredAuth, SWIG_Callback8_t callbackonRejectedIncomingCall);
+    typedef void (SWIGSTDCALL* SWIG_Callback9_t)(void *);
+    typedef void (SWIGSTDCALL* SWIG_Callback10_t)(void *);
+    void swig_connect_director(SWIG_Callback0_t callbackonNatDetectionComplete, SWIG_Callback1_t callbackonNatCheckStunServersComplete, SWIG_Callback2_t callbackonTransportState, SWIG_Callback3_t callbackonTimer, SWIG_Callback4_t callbackonSelectAccount, SWIG_Callback5_t callbackonIpChangeProgress, SWIG_Callback6_t callbackonMediaEvent, SWIG_Callback7_t callbackonCredAuth, SWIG_Callback8_t callbackonRejectedIncomingCall, SWIG_Callback9_t callbackonAudioMediaOpCompleted, SWIG_Callback10_t callbackonVideoMediaOpCompleted);
 
 private:
     SWIG_Callback0_t swig_callbackonNatDetectionComplete;
@@ -288,6 +292,8 @@ private:
     SWIG_Callback6_t swig_callbackonMediaEvent;
     SWIG_Callback7_t swig_callbackonCredAuth;
     SWIG_Callback8_t swig_callbackonRejectedIncomingCall;
+    SWIG_Callback9_t swig_callbackonAudioMediaOpCompleted;
+    SWIG_Callback10_t swig_callbackonVideoMediaOpCompleted;
     void swig_init_callbacks();
 };
 
