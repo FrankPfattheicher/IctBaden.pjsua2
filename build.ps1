@@ -350,7 +350,7 @@ wsl -e ./build-linux.sh
 
 If(-not (Test-Path .\pjsua2.linux\*.so)) {
     Write-Host "=================================" -ForegroundColor Magenta
-    Write-Host " FAIL: Failed to build linux-x64" -ForegroundColor Magenta
+    Write-Host " FAIL: Failed to build linux-x64 " -ForegroundColor Magenta
     Write-Host "=================================" -ForegroundColor Magenta
     return
 }
@@ -367,7 +367,7 @@ If($arm) {
 
 	If(-not (Test-Path .\pjsua2.linux\*.so)) {
         Write-Host "=================================" -ForegroundColor Magenta
-		Write-Host " FAIL: Failed to build linux-arm" -ForegroundColor Magenta
+		Write-Host " FAIL: Failed to build linux-arm " -ForegroundColor Magenta
         Write-Host "=================================" -ForegroundColor Magenta
 		return
 	}
