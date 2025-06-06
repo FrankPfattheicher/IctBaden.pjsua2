@@ -69,11 +69,15 @@ Write-Host ""
 Write-Host "Cleanup existing PJSIP sources" -ForegroundColor Yellow
 
 $pjsipPath = [System.IO.Path]::Combine($path, $pjproject)
+$cmakePath = [System.IO.Path]::Combine($path, 'pjsua2.linux', 'cmake-3.16.9-Linux-x86_64')
 
 try {
 
     If(Test-Path -Path $pjsipPath) {
         Remove-Item $pjsipPath -Force -Recurse
+    }
+    If(Test-Path -Path $cmakePath) {
+        Remove-Item $cmakePath -Force -Recurse
     }
 
 } catch {
