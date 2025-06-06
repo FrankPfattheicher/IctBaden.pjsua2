@@ -66,13 +66,12 @@ cp pjproject/pjlib/include/pj/limits.h pjproject/pjlib/include/pj/compat/limits.
 echo "************************"
 cd pjsua2.linux
 
-if [ ! -d cmake-3.16.9-linux-x86_64 ]; then
-	wget https://cmake.org/files/v3.16/cmake-3.16.9-linux-x86_64.sh
-	mkdir cmake-3.16.9-linux-x86_64
-	./cmake-3.16.9-linux-x86_64.sh --skip-license --prefix=$cmake-3.16.9-linux-x86_64
-fi
-cmake-3.16.9-linux-x86_64/bin/cmake --configure .
-cmake-3.16.9-linux-x86_64/bin/cmake --build .
+wget https://cmake.org/files/v3.16/cmake-3.16.9-Linux-x86_64.sh
+mkdir cmake-3.16.9-Linux-x86_64
+./cmake-3.16.9-Linux-x86_64.sh --skip-license --prefix=cmake-3.16.9-Linux-x86_64
+
+cmake-3.16.9-Linux-x86_64/bin/cmake --configure .
+cmake-3.16.9-Linux-x86_64/bin/cmake --build .
 cd ..
 
 
