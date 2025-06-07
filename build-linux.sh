@@ -66,14 +66,23 @@ cp pjproject/pjlib/include/pj/limits.h pjproject/pjlib/include/pj/compat/limits.
 echo "************************"
 cd pjsua2.linux
 
-wget https://cmake.org/files/v3.16/cmake-3.16.9-Linux-x86_64.sh
-mkdir cmake-3.16.9-Linux-x86_64
-./cmake-3.16.9-Linux-x86_64.sh --skip-license --prefix=cmake-3.16.9-Linux-x86_64
+cm=cmake-3.16.9-Linux-x86_64
 
-cmake-3.16.9-Linux-x86_64/bin/cmake --configure .
-cmake-3.16.9-Linux-x86_64/bin/cmake --build .
+if [ ! -d $cm ]; then
+
+	echo "*******************"
+	echo  Install $cm
+	echo "*******************"
+	wget https://cmake.org/files/v3.16/$cm.sh
+	mkdir $cm
+	./$cm.sh --skip-license --prefix=$cm
+
+fi
+
+$cm/bin/cmake --configure .
+$cm/bin/cmake --build .
+
 cd ..
-
 
 echo "Copy artifact (pjsua2.so) to packets directory"
 cp pjsua2.linux/libpjsua2.so packets/linux-x64/
