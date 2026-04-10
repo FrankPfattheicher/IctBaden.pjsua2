@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
@@ -13,12 +12,15 @@ public static class PjsipInfo
 {
     static PjsipInfo()
     {
+#if !NETSTANDARD2_0
         if (Environment.OSVersion.Platform == PlatformID.Unix)
         {
             NativeLibrary.SetDllImportResolver(typeof(PjsipInfo).Assembly, ImportResolver);
         }
+#endif
     }
         
+#if !NETSTANDARD2_0
     private static IntPtr ImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
     {
         var libHandle = IntPtr.Zero;
@@ -30,7 +32,7 @@ public static class PjsipInfo
         }
         return libHandle;
     }
-
+#endif
         
     [DllImport("pjsua2", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall, EntryPoint="PjGetVersion")]
     [return: MarshalAs(UnmanagedType.LPStr)]        
@@ -40,16 +42,5 @@ public static class PjsipInfo
     {
         var version = PjGetVersion();
         return $"PJSIP V{version}";
-    }
-}
-    
-public static class PjsipExt
-{
-    [DllImport("pjsua2", EntryPoint="pj_enable_media_negotiation_module")]
-    private static extern int pj_enable_media_negotiation_module();
-
-    public static int EnableTelephoneEventNegotiationExtension()
-    {
-        return pj_enable_media_negotiation_module();
     }
 }

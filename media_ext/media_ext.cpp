@@ -46,7 +46,7 @@ pj_status_t AudioMediaCapture::createMediaCapture(pjsua_call_id id)
                           &capture_port); //The return port}
 	if(status != PJ_SUCCESS) return status;
 	
-    status = pjmedia_mem_capture_set_eof_cb(capture_port, this, AudioMediaCapture::processFrame);
+    status = pjmedia_mem_capture_set_eof_cb2(capture_port, this, AudioMediaCapture::processFrame);
 	if(status != PJ_SUCCESS) return status;
 	
 	pjsua_conf_port_id port_id;
@@ -72,16 +72,15 @@ void *AudioMediaCapture::getFrameBuffer()
 	return frame_buffer;
 }
 
-pj_status_t AudioMediaCapture::processFrame(pjmedia_port *port, void *usr_data) 
+void AudioMediaCapture::processFrame(pjmedia_port *port, void *usr_data) 
 {
     AudioMediaCapture *capture = static_cast<AudioMediaCapture *>(usr_data);
 
-	if(!capture->frame_buffer) return !PJ_SUCCESS;
+	if(!capture->frame_buffer) return;
 	
 	capture->received_frames++;
     const std::lock_guard<std::mutex> lock(capture->frames_mtx);
 	capture->onNewFrame();
-	return PJ_SUCCESS;
 }
 
 void AudioMediaCapture::stopMediaCapture() 

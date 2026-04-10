@@ -33,9 +33,9 @@ namespace pj
 			unsigned received_frames;
 			void *frame_buffer;
 
-			static pj_status_t processFrame(pjmedia_port *, void *);
+			static void processFrame(pjmedia_port *, void *);
 	};
-
+	
 } // namespace pj
 
 #endif  /* __PJSUA2_MEDIA_EXT_HPP__ */

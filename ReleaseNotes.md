@@ -1,4 +1,20 @@
 
+* 1.6.0   - 06.06.2025 Release w/o audio playback
+
+* 1.5.14  - 05.06.2025 Removed AudioMediaPlayback
+* 1.5.13  - 26.05.2025 Rebuild
+* 1.5.12  - 26.05.2025 PjsipExt get/set log level
+* 1.5.11  - 26.05.2025 PJ_LOG_MAX_LEVEL	set to 5
+* 1.5.10  - 18.05.2025 Playback add port
+* 1.5.9	  - 14.05.2025 Playback fix
+* 1.5.8	  - 13.05.2025 LogWriter marked as director
+* 1.5.7	  - 26.10.2024 Added isPaying
+* 1.5.6	  - 25.10.2024 Make putFrame non protected
+* 1.5.5	  - 25.10.2024 Make putFrame protected and non virtual
+* 1.5.4	  - 25.10.2024 frameBuffer as void*
+* 1.5.3	  - 25.10.2024 frameBuffer as byte[]
+* 1.5.2	  - 25.10.2024 playback done event
+* 1.5.1	  - 23.10.2024 PJSIP 2.15, PJSUA_MAX_CALLS 32, audio stream playback
 * 1.5.0   - 12.10.2024 Removed net6.0
 
 * 1.4.15  - 12.10.2024 Buffer access functions

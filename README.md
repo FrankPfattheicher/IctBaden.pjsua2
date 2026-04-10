@@ -35,6 +35,10 @@ The pjsua2.net.dll includes two additional static classes:
     {
         // Enable the pj-media-neg extension
         public static int EnableTelephoneEventNegotiationExtension();
+        
+        // Get and set log level
+        public static int GetLogLevel();
+        public static void SetLogLevel(int level);
     }
 ```
 
@@ -60,6 +64,16 @@ March 2024
 
 October 2024
 * Audio stream capture added 
+
+December 2024
+* PJSIP 2.15
+* PJSUA_MAX_CALLS set to 32
+* Audio stream capture using pjmedia_mem_capture_set_eof_cb2
+
+June 2025
+* PJ_LOG_MAX_LEVEL set to 5
+* PjsipExt Get/Set LogLevel
+* Still NO audio stream playback
 
 ### Further plans:
 

@@ -3,7 +3,7 @@
 #
 # Build script to pack nuget package on Windows
 #
-# (C) 2021-2024 Frank Pfattheicher
+# (C) 2021-2025 Frank Pfattheicher
 #
 
 ######################################################################
@@ -30,7 +30,9 @@ $lines = Get-Content $ReleaseNotesFileName
 $version = $lines | Select-String -Pattern $semVer | Select-Object -First 1
 $ok = $version -match $semVer
 If($ok -ne $true) {
-    Write-Host "FAIL: Could not find release notes with current version" -ForegroundColor Magenta
+    Write-Host "=========================================================" -ForegroundColor Magenta
+    Write-Host " FAIL: Could not find release notes with current version " -ForegroundColor Magenta
+    Write-Host "=========================================================" -ForegroundColor Magenta
     return
 }
 
@@ -71,13 +73,13 @@ Write-Host "Build Nuget Packets" -ForegroundColor Yellow
 
 $packagePath = [System.IO.Path]::Combine($path, "package")
 
-.\nuget.exe pack IctBaden.pjsua2.nuspec -Version $packageVersion -OutputDirectory $packagePath -properties PjsipVersion=$pjsipVersion
+.\nuget.exe pack IctBaden.pjsua2.nuspec -Version $packageVersion -OutputDirectory $packagePath -Properties PjsipVersion=$pjsipVersion
 
 Write-Host ""
 
 
 ######################################################################
-Write-Host "Publish Nuget Packet to loacl feed" -ForegroundColor Yellow
+Write-Host "Publish Nuget Packet to local feed" -ForegroundColor Yellow
 
 $packageFile = [System.IO.Path]::Combine($packagePath, "IctBaden.pjsua.$packageVersion.nupkg")
 .\nuget.exe add $packageFile -Source \\SCHRANK\Repos\nuget -Expand

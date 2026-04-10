@@ -94,7 +94,7 @@
      */
     #define PJSIP_MAX_TSX_COUNT 		31
     #define PJSIP_MAX_DIALOG_COUNT 		31
-    #define PJSUA_MAX_CALLS			4
+    #define PJSUA_MAX_CALLS				32
 
     /*
      * PJSUA settings
@@ -106,7 +106,7 @@
     #define PJSUA_DEFAULT_CODEC_QUALITY		4
 
     /* Set maximum number of objects to minimum to reduce memory usage */
-    #define PJSUA_MAX_ACC			4
+    #define PJSUA_MAX_ACC				4
     #define PJSUA_MAX_PLAYERS			4
     #define PJSUA_MAX_RECORDERS			4
     #define PJSUA_MAX_CONF_PORTS		(PJSUA_MAX_CALLS+2*PJSUA_MAX_PLAYERS)
@@ -221,10 +221,10 @@
     /* Set maximum number of dialog/transaction/calls to minimum */
     #define PJSIP_MAX_TSX_COUNT 		31
     #define PJSIP_MAX_DIALOG_COUNT 		31
-    #define PJSUA_MAX_CALLS			4
+    #define PJSUA_MAX_CALLS				32
 
     /* Other pjsua settings */
-    #define PJSUA_MAX_ACC			4
+    #define PJSUA_MAX_ACC				4
     #define PJSUA_MAX_PLAYERS			4
     #define PJSUA_MAX_RECORDERS			4
     #define PJSUA_MAX_CONF_PORTS		(PJSUA_MAX_CALLS+2*PJSUA_MAX_PLAYERS)
@@ -370,10 +370,10 @@
     /* Set maximum number of dialog/transaction/calls to minimum */
     #define PJSIP_MAX_TSX_COUNT 		31
     #define PJSIP_MAX_DIALOG_COUNT 		31
-    #define PJSUA_MAX_CALLS			4
+    #define PJSUA_MAX_CALLS				32
 
     /* Other pjsua settings */
-    #define PJSUA_MAX_ACC			4
+    #define PJSUA_MAX_ACC				4
     #define PJSUA_MAX_PLAYERS			4
     #define PJSUA_MAX_RECORDERS			4
     #define PJSUA_MAX_CONF_PORTS		(PJSUA_MAX_CALLS+2*PJSUA_MAX_PLAYERS)
@@ -430,13 +430,13 @@
     /* Set maximum number of dialog/transaction/calls to minimum */
     #define PJSIP_MAX_TSX_COUNT 		31
     #define PJSIP_MAX_DIALOG_COUNT 		31
-    #define PJSUA_MAX_CALLS			4
+    #define PJSUA_MAX_CALLS				32
 
     /* Separate worker thread for timer and ioqueue */
     // #define PJSUA_SEPARATE_WORKER_FOR_TIMER	1
 
     /* Other pjsua settings */
-    #define PJSUA_MAX_ACC			4
+    #define PJSUA_MAX_ACC				4
     #define PJSUA_MAX_PLAYERS			4
     #define PJSUA_MAX_RECORDERS			4
     #define PJSUA_MAX_CONF_PORTS		(PJSUA_MAX_CALLS+2*PJSUA_MAX_PLAYERS)
@@ -467,7 +467,7 @@
 
 #   undef PJ_OS_HAS_CHECK_STACK
 #   define PJ_OS_HAS_CHECK_STACK	0
-#   define PJ_LOG_MAX_LEVEL			1
+#   define PJ_LOG_MAX_LEVEL			5
 #   define PJ_HAS_ERROR_STRING		0
 #   undef PJ_IOQUEUE_MAX_HANDLES
 /* Putting max handles to lower than 32 will make pj_fd_set_t size smaller
@@ -503,4 +503,3 @@
 #   define PJSUA_MAX_CALLS		512
 
 #endif
-
