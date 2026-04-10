@@ -1,4 +1,6 @@
 
+* 10.0.0  - 10.04.2026 C#14, NET 10.0, PJSIP 2.16
+
 * 1.6.0   - 06.06.2025 Release w/o audio playback
 
 * 1.5.14  - 05.06.2025 Removed AudioMediaPlayback

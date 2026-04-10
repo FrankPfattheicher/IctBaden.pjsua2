@@ -5,7 +5,7 @@
 #  native pjsua.dll for Windows (x64)
 #  and native pjsua.so for Linux (x64)
 #
-# (C) 2021-2025 Frank Pfattheicher
+# (C) 2021-2026 Frank Pfattheicher
 #
 
 $pjproject = "pjproject"
@@ -305,7 +305,7 @@ If(Test-Path -Path $packetsPath) {
     }
 }
 
-$platformPath = [System.IO.Path]::Combine($packetsPath, "net8.0")
+$platformPath = [System.IO.Path]::Combine($packetsPath, "net10.0")
 New-Item -ItemType Directory -Path $platformPath
 
 
@@ -316,14 +316,14 @@ New-Item -ItemType Directory -Path $platformPath
 $platformPath = [System.IO.Path]::Combine($packetsPath, "linux-arm")
 New-Item -ItemType Directory -Path $platformPath
 
-$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net10.0")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.dll")
 $dst = [System.IO.Path]::Combine($packetsPath, "win-x64")
 Copy-Item $src $dst
 
-$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net8.0")
+$assetsPath = [System.IO.Path]::Combine($pjsua2netPath, "bin\Release\net10.0")
 $src = [System.IO.Path]::Combine($assetsPath, "pjsua2.net.dll")
-$dst = [System.IO.Path]::Combine($packetsPath, "net8.0")
+$dst = [System.IO.Path]::Combine($packetsPath, "net10.0")
 Copy-Item $src $dst
 
 Write-Host ""

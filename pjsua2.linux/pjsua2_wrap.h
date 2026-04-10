@@ -27,6 +27,21 @@ private:
     void swig_init_callbacks();
 };
 
+class SwigDirector_AudioMediaAiPort : public pj::AudioMediaAiPort, public Swig::Director {
+
+public:
+    SwigDirector_AudioMediaAiPort();
+    virtual ~SwigDirector_AudioMediaAiPort();
+    virtual void onEvent(pj::AiMediaEvent const &event);
+
+    typedef void (SWIGSTDCALL* SWIG_Callback0_t)(void *);
+    void swig_connect_director(SWIG_Callback0_t callbackonEvent);
+
+private:
+    SWIG_Callback0_t swig_callbackonEvent;
+    void swig_init_callbacks();
+};
+
 class SwigDirector_AudioMediaPlayer : public pj::AudioMediaPlayer, public Swig::Director {
 
 public:
@@ -125,6 +140,7 @@ public:
     virtual void onSendRequest(pj::OnSendRequestParam &prm);
     virtual void onTypingIndication(pj::OnTypingIndicationParam &prm);
     virtual void onMwiInfo(pj::OnMwiInfoParam &prm);
+    virtual void onAuthChallenge(pj::OnAuthChallengeParam &prm);
 
     typedef void (SWIGSTDCALL* SWIG_Callback0_t)(void *);
     typedef void (SWIGSTDCALL* SWIG_Callback1_t)(void *);
@@ -135,7 +151,8 @@ public:
     typedef void (SWIGSTDCALL* SWIG_Callback6_t)(void *);
     typedef void (SWIGSTDCALL* SWIG_Callback7_t)(void *);
     typedef void (SWIGSTDCALL* SWIG_Callback8_t)(void *);
-    void swig_connect_director(SWIG_Callback0_t callbackonIncomingCall, SWIG_Callback1_t callbackonRegStarted, SWIG_Callback2_t callbackonRegState, SWIG_Callback3_t callbackonIncomingSubscribe, SWIG_Callback4_t callbackonInstantMessage, SWIG_Callback5_t callbackonInstantMessageStatus, SWIG_Callback6_t callbackonSendRequest, SWIG_Callback7_t callbackonTypingIndication, SWIG_Callback8_t callbackonMwiInfo);
+    typedef void (SWIGSTDCALL* SWIG_Callback9_t)(void *);
+    void swig_connect_director(SWIG_Callback0_t callbackonIncomingCall, SWIG_Callback1_t callbackonRegStarted, SWIG_Callback2_t callbackonRegState, SWIG_Callback3_t callbackonIncomingSubscribe, SWIG_Callback4_t callbackonInstantMessage, SWIG_Callback5_t callbackonInstantMessageStatus, SWIG_Callback6_t callbackonSendRequest, SWIG_Callback7_t callbackonTypingIndication, SWIG_Callback8_t callbackonMwiInfo, SWIG_Callback9_t callbackonAuthChallenge);
 
 private:
     SWIG_Callback0_t swig_callbackonIncomingCall;
@@ -147,6 +164,7 @@ private:
     SWIG_Callback6_t swig_callbackonSendRequest;
     SWIG_Callback7_t swig_callbackonTypingIndication;
     SWIG_Callback8_t swig_callbackonMwiInfo;
+    SWIG_Callback9_t swig_callbackonAuthChallenge;
     void swig_init_callbacks();
 };
 

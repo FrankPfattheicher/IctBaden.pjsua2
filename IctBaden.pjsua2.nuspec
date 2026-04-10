@@ -13,10 +13,10 @@
         <description>C# Wrapper for Native PJSIP Implementation</description>
         <releaseNotes>Stable</releaseNotes>
 		<readme>docs/README.md</readme>
-        <copyright>Copyright ICT Baden GmbH 2021-2025</copyright>
+        <copyright>Copyright ICT Baden GmbH 2021-2026</copyright>
         <tags>.NET Core sip PJSIP PJSUA2 VoIP</tags>
         <dependencies>
-            <group targetFramework="net8.0" />
+            <group targetFramework="net10.0" />
         </dependencies>
         <references>
 			<reference file="pjsua2.net.dll" />
@@ -25,8 +25,8 @@
     <files>
         <file src="pjsip.png" target="images/" />
 		<file src="README.md" target="docs/" />
-        <file src="packets/net8.0/pjsua2.net.dll" target="ref" />
-        <file src="packets/net8.0/pjsua2.net.dll" target="lib/net8.0" />
+        <file src="packets/net10.0/pjsua2.net.dll" target="ref" />
+        <file src="packets/net10.0/pjsua2.net.dll" target="lib/net10.0" />
         <file src="packets/win-x64/pjsua2.dll" target="runtimes\win-x64\native" />
         <file src="packets/linux-x64/libpjsua2.so" target="runtimes\linux-x64\native" />
     </files>
