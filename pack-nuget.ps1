@@ -3,7 +3,7 @@
 #
 # Build script to pack nuget package on Windows
 #
-# (C) 2021-2025 Frank Pfattheicher
+# (C) 2021-2026 Frank Pfattheicher
 #
 
 ######################################################################
