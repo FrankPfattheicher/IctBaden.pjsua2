@@ -8409,6 +8409,22 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_new_SockOpt__SWIG_1(int jarg1, int jarg2, i
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_new_SockOpt__SWIG_2(void * jarg1) {
+  void * jresult ;
+  pj::SockOpt *arg1 = 0 ;
+  pj::SockOpt *result = 0 ;
+  
+  arg1 = (pj::SockOpt *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::SockOpt const & is null", 0);
+    return 0;
+  } 
+  result = (pj::SockOpt *)new pj::SockOpt((pj::SockOpt const &)*arg1);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_SockOpt_setOptValInt(void * jarg1, int jarg2) {
   pj::SockOpt *arg1 = (pj::SockOpt *) 0 ;
   int arg2 ;
@@ -8535,6 +8551,33 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_TlsConfig_CaListFile_get(void * jarg1
   
   arg1 = (pj::TlsConfig *)jarg1; 
   result = (pj::string *) & ((arg1)->CaListFile);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_TlsConfig_CaListPath_set(void * jarg1, const char * jarg2) {
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  pj::string *arg2 = 0 ;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  pj::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->CaListPath = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_TlsConfig_CaListPath_get(void * jarg1) {
+  const char * jresult ;
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  pj::string *result = 0 ;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  result = (pj::string *) & ((arg1)->CaListPath);
   jresult = SWIG_csharp_string_callback(result->c_str()); 
   return jresult;
 }
@@ -8901,6 +8944,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_TlsConfig_verifyServer_get(void * jar
   arg1 = (pj::TlsConfig *)jarg1; 
   result = (bool) ((arg1)->verifyServer);
   jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_TlsConfig_certNameMatchFlags_set(void * jarg1, unsigned int jarg2) {
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  unsigned int arg2 ;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  if (arg1) (arg1)->certNameMatchFlags = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_TlsConfig_certNameMatchFlags_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::TlsConfig *arg1 = (pj::TlsConfig *) 0 ;
+  unsigned int result;
+  
+  arg1 = (pj::TlsConfig *)jarg1; 
+  result = (unsigned int) ((arg1)->certNameMatchFlags);
+  jresult = (unsigned int)result; 
   return jresult;
 }
 
@@ -22020,6 +22085,14 @@ SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPort_onFrameReceivedSwigExplicitAud
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPort_detachCallbacks(void * jarg1) {
+  pj::AudioMediaPort *arg1 = (pj::AudioMediaPort *) 0 ;
+  
+  arg1 = (pj::AudioMediaPort *)jarg1; 
+  (arg1)->detachCallbacks();
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_AudioMediaPort_director_connect(void *objarg, SwigDirector_AudioMediaPort::SWIG_Callback0_t callback0, SwigDirector_AudioMediaPort::SWIG_Callback1_t callback1) {
   pj::AudioMediaPort *obj = (pj::AudioMediaPort *)objarg;
   SwigDirector_AudioMediaPort *director = static_cast<SwigDirector_AudioMediaPort *>(obj);
@@ -23579,6 +23652,25 @@ SWIGEXPORT void SWIGSTDCALL CSharp_AudDevManager_setNullDev(void * jarg1) {
   arg1 = (pj::AudDevManager *)jarg1; 
   try {
     (arg1)->setNullDev();
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AudDevManager_setNullDev2(void * jarg1, unsigned int jarg2) {
+  pj::AudDevManager *arg1 = (pj::AudDevManager *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AudDevManager *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  try {
+    (arg1)->setNullDev2(arg2);
   } catch(pj::Error &_e) {
     {
       SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
@@ -29833,6 +29925,50 @@ SWIGEXPORT int SWIGSTDCALL CSharp_AccountCallConfig_siprecUse_get(void * jarg1) 
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountCallConfig_siprecRequireLabel_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->siprecRequireLabel = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountCallConfig_siprecRequireLabel_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  result = (bool) ((arg1)->siprecRequireLabel);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountCallConfig_siprecRequireMetadata_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->siprecRequireMetadata = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountCallConfig_siprecRequireMetadata_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  result = (bool) ((arg1)->siprecRequireMetadata);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_AccountCallConfig_timerMinSESec_set(void * jarg1, unsigned int jarg2) {
   pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
   unsigned int arg2 ;
@@ -29873,6 +30009,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountCallConfig_timerSessExpiresSec
   arg1 = (pj::AccountCallConfig *)jarg1; 
   result = (unsigned int) ((arg1)->timerSessExpiresSec);
   jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountCallConfig_mediaAppManaged_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->mediaAppManaged = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountCallConfig_mediaAppManaged_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountCallConfig *arg1 = (pj::AccountCallConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AccountCallConfig *)jarg1; 
+  result = (bool) ((arg1)->mediaAppManaged);
+  jresult = result; 
   return jresult;
 }
 
@@ -30701,6 +30859,28 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_AccountNatConfig_turnPassword_get(voi
   arg1 = (pj::AccountNatConfig *)jarg1; 
   result = (pj::string *) & ((arg1)->turnPassword);
   jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountNatConfig_turnTlsConfig_set(void * jarg1, void * jarg2) {
+  pj::AccountNatConfig *arg1 = (pj::AccountNatConfig *) 0 ;
+  pj::TlsConfig *arg2 = (pj::TlsConfig *) 0 ;
+  
+  arg1 = (pj::AccountNatConfig *)jarg1; 
+  arg2 = (pj::TlsConfig *)jarg2; 
+  if (arg1) (arg1)->turnTlsConfig = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_AccountNatConfig_turnTlsConfig_get(void * jarg1) {
+  void * jresult ;
+  pj::AccountNatConfig *arg1 = (pj::AccountNatConfig *) 0 ;
+  pj::TlsConfig *result = 0 ;
+  
+  arg1 = (pj::AccountNatConfig *)jarg1; 
+  result = (pj::TlsConfig *)& ((arg1)->turnTlsConfig);
+  jresult = (void *)result; 
   return jresult;
 }
 
@@ -31695,6 +31875,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountMediaConfig_rtcpMuxEnabled_get
   
   arg1 = (pj::AccountMediaConfig *)jarg1; 
   result = (bool) ((arg1)->rtcpMuxEnabled);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_AccountMediaConfig_preserveConfSlot_set(void * jarg1, unsigned int jarg2) {
+  pj::AccountMediaConfig *arg1 = (pj::AccountMediaConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::AccountMediaConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->preserveConfSlot = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_AccountMediaConfig_preserveConfSlot_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::AccountMediaConfig *arg1 = (pj::AccountMediaConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::AccountMediaConfig *)jarg1; 
+  result = (bool) ((arg1)->preserveConfSlot);
   jresult = result; 
   return jresult;
 }
@@ -38633,6 +38835,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_OnDtmfDigitParam_duration_get(void * 
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_OnDtmfDigitParam_medIdx_set(void * jarg1, int jarg2) {
+  pj::OnDtmfDigitParam *arg1 = (pj::OnDtmfDigitParam *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::OnDtmfDigitParam *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->medIdx = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnDtmfDigitParam_medIdx_get(void * jarg1) {
+  int jresult ;
+  pj::OnDtmfDigitParam *arg1 = (pj::OnDtmfDigitParam *) 0 ;
+  int result;
+  
+  arg1 = (pj::OnDtmfDigitParam *)jarg1; 
+  result = (int) ((arg1)->medIdx);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_OnDtmfDigitParam() {
   void * jresult ;
   pj::OnDtmfDigitParam *result = 0 ;
@@ -38766,6 +38990,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_OnDtmfEventParam_flags_get(void * jar
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_OnDtmfEventParam_medIdx_set(void * jarg1, int jarg2) {
+  pj::OnDtmfEventParam *arg1 = (pj::OnDtmfEventParam *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::OnDtmfEventParam *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->medIdx = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnDtmfEventParam_medIdx_get(void * jarg1) {
+  int jresult ;
+  pj::OnDtmfEventParam *arg1 = (pj::OnDtmfEventParam *) 0 ;
+  int result;
+  
+  arg1 = (pj::OnDtmfEventParam *)jarg1; 
+  result = (int) ((arg1)->medIdx);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_OnDtmfEventParam() {
   void * jresult ;
   pj::OnDtmfEventParam *result = 0 ;
@@ -38851,6 +39097,28 @@ SWIGEXPORT const char * SWIGSTDCALL CSharp_OnCallRxTextParam_text_get(void * jar
   arg1 = (pj::OnCallRxTextParam *)jarg1; 
   result = (pj::string *) & ((arg1)->text);
   jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnCallRxTextParam_medIdx_set(void * jarg1, int jarg2) {
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->medIdx = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_OnCallRxTextParam_medIdx_get(void * jarg1) {
+  int jresult ;
+  pj::OnCallRxTextParam *arg1 = (pj::OnCallRxTextParam *) 0 ;
+  int result;
+  
+  arg1 = (pj::OnCallRxTextParam *)jarg1; 
+  result = (int) ((arg1)->medIdx);
+  jresult = result; 
   return jresult;
 }
 
@@ -39307,6 +39575,28 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_OnCallRxOfferParam_offer_get(void * jarg1) 
   
   arg1 = (pj::OnCallRxOfferParam *)jarg1; 
   result = (pj::SdpSession *)& ((arg1)->offer);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_OnCallRxOfferParam_answer_set(void * jarg1, void * jarg2) {
+  pj::OnCallRxOfferParam *arg1 = (pj::OnCallRxOfferParam *) 0 ;
+  pj::SdpSession *arg2 = (pj::SdpSession *) 0 ;
+  
+  arg1 = (pj::OnCallRxOfferParam *)jarg1; 
+  arg2 = (pj::SdpSession *)jarg2; 
+  if (arg1) (arg1)->answer = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_OnCallRxOfferParam_answer_get(void * jarg1) {
+  void * jresult ;
+  pj::OnCallRxOfferParam *arg1 = (pj::OnCallRxOfferParam *) 0 ;
+  pj::SdpSession *result = 0 ;
+  
+  arg1 = (pj::OnCallRxOfferParam *)jarg1; 
+  result = (pj::SdpSession *)& ((arg1)->answer);
   jresult = (void *)result; 
   return jresult;
 }
@@ -45637,6 +45927,50 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_UaConfig_accServerAffinityDefault_get
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_UaConfig_serverFailover_set(void * jarg1, unsigned int jarg2) {
+  pj::UaConfig *arg1 = (pj::UaConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::UaConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->serverFailover = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_UaConfig_serverFailover_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::UaConfig *arg1 = (pj::UaConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::UaConfig *)jarg1; 
+  result = (bool) ((arg1)->serverFailover);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_UaConfig_resolverFallback_set(void * jarg1, unsigned int jarg2) {
+  pj::UaConfig *arg1 = (pj::UaConfig *) 0 ;
+  bool arg2 ;
+  
+  arg1 = (pj::UaConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->resolverFallback = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_UaConfig_resolverFallback_get(void * jarg1) {
+  unsigned int jresult ;
+  pj::UaConfig *arg1 = (pj::UaConfig *) 0 ;
+  bool result;
+  
+  arg1 = (pj::UaConfig *)jarg1; 
+  result = (bool) ((arg1)->resolverFallback);
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_new_UaConfig() {
   void * jresult ;
   pj::UaConfig *result = 0 ;
@@ -46229,6 +46563,28 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_MediaConfig_confThreads_get(void * ja
   arg1 = (pj::MediaConfig *)jarg1; 
   result = (unsigned int) ((arg1)->confThreads);
   jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_MediaConfig_confThreadPrio_set(void * jarg1, int jarg2) {
+  pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
+  int arg2 ;
+  
+  arg1 = (pj::MediaConfig *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->confThreadPrio = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_MediaConfig_confThreadPrio_get(void * jarg1) {
+  int jresult ;
+  pj::MediaConfig *arg1 = (pj::MediaConfig *) 0 ;
+  int result;
+  
+  arg1 = (pj::MediaConfig *)jarg1; 
+  result = (int) ((arg1)->confThreadPrio);
+  jresult = result; 
   return jresult;
 }
 
@@ -47267,6 +47623,29 @@ SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_natUpdateStunServers(void * jarg1, v
   arg3 = jarg3 ? true : false; 
   try {
     (arg1)->natUpdateStunServers((pj::StringVector const &)*arg2,arg3);
+  } catch(pj::Error &_e) {
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
+        (std::string("C++ pj::Error:\n") + (&_e)->info(true).c_str()).c_str());
+      
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_Endpoint_updateNameservers(void * jarg1, void * jarg2) {
+  pj::Endpoint *arg1 = (pj::Endpoint *) 0 ;
+  pj::StringVector *arg2 = 0 ;
+  
+  arg1 = (pj::Endpoint *)jarg1; 
+  arg2 = (pj::StringVector *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "pj::StringVector const & is null", 0);
+    return ;
+  } 
+  try {
+    (arg1)->updateNameservers((pj::StringVector const &)*arg2);
   } catch(pj::Error &_e) {
     {
       SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, 
