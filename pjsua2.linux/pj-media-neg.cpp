@@ -138,79 +138,96 @@ static void fix_telephone_event_negotiation(pjsip_rx_data* rdata)
 	char line[MAX_LINE_COUNT][MAX_LINE_LENGTH];
 	strcpy(new_buffer, org_buffer);
 
-	//printf("******************** STARTING fix_telephone_event_negotiation ********************\r\n");
-
-	//printf("==================== org_buffer ====================\r\n");
-	//printf(org_buffer);
-
 	int sx = 0;
 	char* pch = strtok(new_buffer, "\n");
-	while (pch != NULL)
+	while (pch != NULL && sx < MAX_LINE_COUNT)
 	{
 		pj_bzero(line[sx], MAX_LINE_LENGTH);
-		strcpy(line[sx], pch);
-		//printf("line[%d]: %s\r\n", sx, line[sx]);
+		strncpy(line[sx], pch, MAX_LINE_LENGTH - 1);
 		sx++;
 		pch = strtok(NULL, "\n");
 	}
-	//printf(">>>>>>  sx=%d\r\n", sx);
 
-	int ix08 = 999;
-	int ix16 = 999;
-	int ix32 = 999;
-	int ix44 = 999;
-	int ix48 = 999;
+	// Collect present telephone-event lines only (position + clock rate).
+	static const struct { const char* needle; int freq; } rates[] = {
+		{ "telephone-event/8000", 8000 },
+		{ "telephone-event/16000", 16000 },
+		{ "telephone-event/32000", 32000 },
+		{ "telephone-event/44100", 44100 },
+		{ "telephone-event/48000", 48000 },
+	};
+	const int rate_count = (int)(sizeof(rates) / sizeof(rates[0]));
+
+	struct te_entry {
+		int pos;
+		int freq;
+		int line_idx;
+	};
+	te_entry entries[5];
+	int n = 0;
+
 	for (int dx = 0; dx < sx; dx++)
 	{
-		if (strstr(line[dx], "telephone-event/8000") != NULL) ix08 = dx;
-		if (strstr(line[dx], "telephone-event/16000") != NULL) ix16 = dx;
-		if (strstr(line[dx], "telephone-event/32000") != NULL) ix32 = dx;
-		if (strstr(line[dx], "telephone-event/44100") != NULL) ix44 = dx;
-		if (strstr(line[dx], "telephone-event/48000") != NULL) ix48 = dx;
+		for (int r = 0; r < rate_count; r++)
+		{
+			if (strstr(line[dx], rates[r].needle) != NULL)
+			{
+				if (n < rate_count)
+				{
+					entries[n].pos = dx;
+					entries[n].freq = rates[r].freq;
+					entries[n].line_idx = dx;
+					n++;
+				}
+				break;
+			}
+		}
 	}
-	//printf("\r\n####### original >>>>>>  ix08=%d, ix16=%d, ix32=%d, ix44=%d, ix48=%d\r\n\r\n", ix08, ix16, ix32, ix44, ix48);
-	int sx08 = ix08;
-	int sx16 = ix16;
-	int sx32 = ix32;
-	int sx44 = ix44;
-	int sx48 = ix48;
 
-#define SORT(a,b) if(b < a) { auto i = a; a = b; b = i; }
+	if (n <= 1)
+		return;
 
-	SORT(ix08, ix16)
-	SORT(ix08, ix32)
-	SORT(ix08, ix44)
-	SORT(ix08, ix48)
+	// Slot order = ascending line positions; content order = ascending frequency.
+	int positions[5];
+	int by_freq[5];
+	for (int i = 0; i < n; i++)
+	{
+		positions[i] = entries[i].pos;
+		by_freq[i] = i;
+	}
+	for (int i = 0; i < n - 1; i++)
+	{
+		for (int j = i + 1; j < n; j++)
+		{
+			if (positions[j] < positions[i])
+			{
+				int t = positions[i];
+				positions[i] = positions[j];
+				positions[j] = t;
+			}
+			if (entries[by_freq[j]].freq < entries[by_freq[i]].freq)
+			{
+				int t = by_freq[i];
+				by_freq[i] = by_freq[j];
+				by_freq[j] = t;
+			}
+		}
+	}
 
-	SORT(ix16, ix32)
-	SORT(ix16, ix44)
-	SORT(ix16, ix48)
-
-	SORT(ix32, ix44)
-	SORT(ix32, ix48)
-
-	SORT(ix44, ix48)
-
-	//printf("\r\n####### sorted >>>>>>  ix08=%d, ix16=%d, ix32=%d, ix44=%d, ix48=%d\r\n\r\n", ix08, ix16, ix32, ix44, ix48);
+	int remap[MAX_LINE_COUNT];
+	for (int i = 0; i < sx; i++)
+		remap[i] = i;
+	for (int i = 0; i < n; i++)
+		remap[positions[i]] = entries[by_freq[i]].line_idx;
 
 	pj_bzero(new_buffer, PJSIP_MAX_PKT_LEN);
 	for (int dx = 0; dx < sx; dx++)
 	{
-		if (dx == ix08) strcat(new_buffer, line[sx08]);
-		else if (dx == ix16) strcat(new_buffer, line[sx16]);
-		else if (dx == ix32) strcat(new_buffer, line[sx32]);
-		else if (dx == ix44) strcat(new_buffer, line[sx44]);
-		else if (dx == ix48) strcat(new_buffer, line[sx48]);
-		else strcat(new_buffer, line[dx]);
+		strcat(new_buffer, line[remap[dx]]);
 		strcat(new_buffer, "\n");
 	}
 
-	//printf("==================== new_buffer ====================\r\n");
-	//printf(new_buffer);
-	//printf("******************** END OF fix_telephone_event_negotiation ********************\r\n");
-
 	strcpy(org_buffer, new_buffer);
-	return;
 }
 
 
@@ -220,7 +237,7 @@ static pj_status_t media_neg_mod_on_rx(pjsip_rx_data* rdata)
 	PJ_LOG(4, (THIS_FILE, "media_neg_mod_on_rx"));
 
 	if (cseq != NULL && cseq->method.id == PJSIP_INVITE_METHOD) {
-		PJ_LOG(4, (THIS_FILE, "Incoming INVITE or 200 OK. If multiple telephone-event specifications present we have to remove all non 8kHz"));
+		PJ_LOG(4, (THIS_FILE, "Incoming INVITE or 200 OK. Sort telephone-event lines by ascending clock rate if multiple are present"));
 
 		fix_telephone_event_negotiation(rdata);
 	}

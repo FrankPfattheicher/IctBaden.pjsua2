@@ -1,4 +1,5 @@
 
+* 10.1.2  - 20.10.2026 Fix fix_telephone_event_negotiation
 * 10.1.1  - 14.10.2026 Update
 * 10.1.0  - 05.06.2026 PJSIP 2.17
 * 10.0.0  - 10.04.2026 C#14, NET 10.0, PJSIP 2.16
